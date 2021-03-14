@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<?import javafx.scene.control.Label?>
+<BorderPane maxHeight="600.0" maxWidth="800.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller2">
+
+    <top>
+       <MenuBar fx:id="menubar1">
+           <menus>
+               <Menu mnemonicParsing="false" onAction="#test" text="File">
+                   <items>
+                       <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                   </items>
+               </Menu>
+               <Menu mnemonicParsing="false" text="Edit">
+                   <items>
+                       <MenuItem mnemonicParsing="false" text="Delete" />
+                   </items>
+               </Menu>
+               <Menu mnemonicParsing="false" text="Help">
+                   <items>
+                       <MenuItem mnemonicParsing="false" text="About" />
+                   </items>
+               </Menu>
+           </menus>
+       </MenuBar>
+   </top>
+    <center>
+    </center>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" text="Button" />
+             <Button mnemonicParsing="false" text="Button" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0" />
+         </children>
+      </AnchorPane>
+       <Button fx:id="button1" layoutX="266.0" layoutY="185.0" mnemonicParsing="false" onAction="#action" onMouseClicked="#clicktest" prefHeight="100.0" prefWidth="100.0" text="Button" />
+
+   </center>
+   <left>
+      <ProgressIndicator fx:id="progressIndicator1" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <ProgressBar fx:id="progressBar1" prefWidth="200.0" progress="0.0" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <ChoiceBox prefWidth="150.0" BorderPane.alignment="CENTER" fx:id="devicesNames" />
+   </bottom>
+</BorderPane>
