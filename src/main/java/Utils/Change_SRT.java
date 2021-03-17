@@ -37,8 +37,9 @@ public class Change_SRT {
      * @create: 2021-02-25 14:02
      * @xunfeiFilePath： 讯飞结果保存文件
      * @srtFilePath： 处理结果srt文件
+     * @param type 1为单语 2 为双语
      **/
-    public static void XF_SRT(String xunfeiFilePath, String srtFilePath,List<sub_base> Data) throws Throwable{
+    public static void XF_SRT(String xunfeiFilePath, String srtFilePath,List<sub_base> Data,int type) throws Throwable{
         StringBuilder sb = new StringBuilder();
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
 
@@ -88,14 +89,15 @@ public class Change_SRT {
                 String startTime = sdf.format(bgg);
                 String endTime = sdf.format(edd);
 
-                String msg = Data.get(i).data;
+                String msg = type==1?Data.get(i).data:Data.get(i).data+"\n"+Data.get(i).data2;
+                    sb.append(i + 1).append("\n")
+                            .append(startTime)
+                            .append(" --> ")
+                            .append(endTime).append("\n")
+                            .append(msg)
+                            .append("\n").append("\n");
 
-                sb.append(i + 1).append("\n")
-                        .append(startTime)
-                        .append(" --> ")
-                        .append(endTime).append("\n")
-                        .append(msg)
-                        .append("\n").append("\n");
+
             }
 
             BufferedWriter out = new BufferedWriter(new FileWriter(srtFilePath));
@@ -111,7 +113,7 @@ public class Change_SRT {
      * @create: 2021-02-25 14:02
      * @xunfeiFilePath： 讯飞结果保存文件
      **/
-    public static List<sub_base> XF_ARR(String xunfeiFilePath) throws Throwable
+    public static List<sub_base> XF_ARR(String xunfeiFilePath,int type) throws Throwable
     {
         StringBuilder sb = new StringBuilder();
         FileInputStream fis = new FileInputStream(xunfeiFilePath);

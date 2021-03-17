@@ -5,54 +5,79 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static Utils.Change_SRT.XF_ARR;
+import static Utils.WebITS.MT;
 public class Change_ASS {
     public static void main(String[] args) {
-        Change_ASS.Requset_listToAss("/Volumes/icybiscuit/IdolProject/danmuku/GNZ/2018_01_20_06_51.danmuku.list", "2018-01-20-19:00:00");
-    }
-    //字幕数组转ass字幕文件
-    public static void Requset_listToAss(String filename, String VideoStartTime) {
-        File in = new File(filename);
-        File assFile = new File(filename + ".ass");
-        FileReader fileReader = null;
-        FileWriter fileWriter = null;
-        BufferedReader reader;
-        BufferedWriter writer;
-        Set<String> danmukulineSet = new LinkedHashSet<>();
+        List<sub_base> subBaseList=null;
+        try {
+             subBaseList=Change_SRT.XF_ARR("C:\\au_result\\au_result.txt",1);
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        Change_ASS.Requset_listToAss("E:\\桌面\\au_ass_result", subBaseList,1);
 
+
+
+        List<sub_base> data=new ArrayList<sub_base>();
+        try {
+            data=XF_ARR("C:\\\\au_result\\\\au_result.txt",1);
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        try {
+            data=MT(data,"en","cn",1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    /**
+     * 编辑字幕行数据
+     * @param subBaseList 字幕数组
+     * @param type 字幕类型 1为单语 2 为双语
+     * @param filename 选择输出字幕位置
+     * @return 返回编辑好的数据
+     */
+    //字幕数组转ass字幕文件
+    public static void Requset_listToAss(String filename, List<sub_base> subBaseList,int type) {
+
+        File assFile = new File(filename + ".ass");
+        FileWriter fileWriter = null;
         Change_ASS todo = new Change_ASS();
 
 
         //写ass文件
         try {
-            fileWriter = new FileWriter(assFile);
-            writer = new BufferedWriter(fileWriter);
-            writer.write(todo.header());
-            Iterator<String> danmukulist_iter = danmukulineSet.iterator();
-
+            BufferedWriter out = new BufferedWriter(new FileWriter(assFile));
+            out.write(todo.header());
+            Iterator<sub_base> danmukulist_iter = subBaseList.iterator();
             String writeLine = null;
-            int lineNUm = 0;
-            while (danmukulist_iter.hasNext()) {
-                writeLine = todo.PhraseDialogue(danmukulist_iter.next(), VideoStartTime, lineNUm++);
+            while (danmukulist_iter.hasNext())
+            {
+
+                writeLine = todo.PhraseDialogue(danmukulist_iter.next(),1);
                 if (writeLine != null) {
-                    writer.write(writeLine);
+                    //单独写行
+                    out.write(writeLine);
                 }
             }
-            writer.flush();
+            out.flush();
 
-            writer.close();
+            out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
+    //ass文件头部
     public String header() {
 
         SimpleDateFormat formater = new SimpleDateFormat("yyyy_MM_dd_hh_mm");
 
         final String scriptInfo = String.format("[Script Info]\n" +
-                "Title: GNZ48_%s_BilibiliDanmuku\n" +
-                "Original Script: 根据 https://live.bilibili.com/391199 的弹幕信息生成\n" +
+                "Title: GNZ48_%s_kkindom\n" +
+                "Original Script: 根据 视频音频自转换\n" +
                 "ScriptType: v4.00+\n" +
                 "Collisions: Normal\n" +
                 "PlayResX: 1280\n" +
@@ -61,14 +86,14 @@ public class Change_ASS {
 
         final String DanmukuStyle = String.format("[V4+ Styles]\n" +
                 "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n" +
-                "Style: Default,Microsoft YaHei,40,&H00FFFFFF,&H00FFFFFF,&H28533B3B,&H500E0A00,0,0,0,0,100.0,100.0,0.0,0.0,1,2.0,2.0,3,135,135,80,1\n" +
+                "Style: Default,Microsoft YaHei,40,&H00FFFFFF,&H00FFFFFF,&H28533B3B,&H500E0A00,0,0,0,0,100.0,100.0,0.0,0.0,1,2.0,2.0,2,135,135,80,1\n" +
                 "Style: Description,PingFang SC,48,&H0AB59BFF,&H000000FF,&H00424242,&H001C1C1C,-1,0,0,0,100.0,100.0,0.0,0.0,1,2.0,2.0,1,75,100,50,1");
 
         final String Events = String.format("[Events]\n" +
                 "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n" +
-                "Dialogue: 2,0:00:00.00,0:00:8.00,Description,,0,0,0,,{\\\\fad(200,200)\\\\b1}压制: IcyBiscuit{\\\\b}\n" +
-                "Dialogue: 2,0:00:00.00,0:00:8.00,Description,,0,0,0,,{\\\\fad(200,200)\\\\b1}视频源: 口袋48{\\\\b}\n" +
-                "Dialogue: 2,0:00:00.00,0:00:8.00,Description,,0,0,0,,{\\\\fad(200,200)\\\\b1}弹幕来源: 口袋48{\\\\b}");
+                "Dialogue: 2,0:00:00.00,0:00:8.00,Description,,0,0,0,,{\\\\fad(200,200)\\\\b1}压制: kkindom{\\\\b}\n" +
+                "Dialogue: 2,0:00:00.00,0:00:8.00,Description,,0,0,0,,{\\\\fad(200,200)\\\\b1}视频源: 自提供{\\\\b}\n" +
+                "Dialogue: 2,0:00:00.00,0:00:8.00,Description,,0,0,0,,{\\\\fad(200,200)\\\\b1}字幕来源: 讯飞接口{\\\\b}");
 
         StringBuilder header = new StringBuilder();
 
@@ -82,35 +107,34 @@ public class Change_ASS {
         return header.toString();
 
     }
-
-    public String PhraseDialogue(String danmuku, String OpenLiveTimeStart, int lineNum) {
+    /**
+     * 编辑字幕行数据
+     * @param danmuku 字幕文件
+     * @param type 字幕类型 1为单语 2 为双语
+     * @return 返回编辑好的数据
+     */
+    public String PhraseDialogue(sub_base danmuku,int type) {
 
         String start;
         String end;
         String text;
-        float pos_s;
-        float pos_e;
-        int pos_y;
+
+            //设置字幕时间戳相关参数
+            text = danmuku.data;
+
+            SimpleDateFormat outFormat = new SimpleDateFormat("H:mm:ss.ss");
+            outFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+            String[] res = new String[2];
+            start = outFormat.format(danmuku.start_t);
+            end = outFormat.format(danmuku.end_t);
 
 
-        String danmukuStartTime = danmuku.substring(0, 19);
-        String[] time = TimeCal.calTime(OpenLiveTimeStart, danmukuStartTime);
-        if (time != null) {
-            start = time[0];
-            end = time[1];
-            text = danmuku.substring(19);
-
-            pos_s = 1280 + 20 * text.length();
-            pos_e = -20 * text.length();
-            pos_y = (1 + lineNum % 9) * 45;
-
-            String line = String.format("Dialogue: 0,%s.00,%s.00,Default,,20,20,2,,{\\move(%.1f,%d,%.1f,%d)}%s\n",
-                    start, end, pos_s, pos_y, pos_e, pos_y, text);
+            String line = String.format("Dialogue: 0,%s.00,%s.00,Default,NTP,0,0,0,%s\n",
+                    start, end, text);
 
             return line;
-        }
 
-        return null;
+
 
     }
 

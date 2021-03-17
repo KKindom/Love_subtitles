@@ -26,7 +26,7 @@ public class TimeCal {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String[] test = TimeCal.calTime("2018-01-13 22:19:20", "2018-01-13 23:17:00");
+        String[] test = TimeCal.calTime("2018-01-13 22:19:20.23", "2018-01-13 23:17:00.56");
 
         System.out.println(Arrays.toString(test));
     }
@@ -35,9 +35,9 @@ public class TimeCal {
     public static String[] calTime(String start, String end) {
 
 
-        SimpleDateFormat inputFormat0 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat inputFormat0 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.ss");
 
-        SimpleDateFormat inputFormat = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat inputFormat = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss.ss");
         Date stratDate = null;
         Date endDate = null;
 
@@ -55,7 +55,7 @@ public class TimeCal {
             long EndTime = endDate.getTime() - stratDate.getTime() + 10000;
 
 
-            SimpleDateFormat outFormat = new SimpleDateFormat("H:mm:ss");
+            SimpleDateFormat outFormat = new SimpleDateFormat("H:mm:ss.ss");
             outFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
             String[] res = new String[2];
             res[0] = outFormat.format(StartTime);

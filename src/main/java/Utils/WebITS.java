@@ -1,3 +1,5 @@
+package Utils;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -55,43 +57,18 @@ public class WebITS {
 	 * @throws Exception 
 	 */
 	public static void main(String[] args) throws Exception {
-//		if (APPID.equals("") || API_KEY.equals("") || API_SECRET.equals("")) {
-//			System.out.println("Appid 或APIKey 或APISecret 为空！请打开demo代码，填写相关信息。");
-//			return;
-//		}
-//		String body = buildHttpBody();
-//		System.out.println("【ITSWebAPI body】\n" + body);
-//		Map<String, String> header = buildHttpHeader(body);
-//		Map<String, Object> resultMap = HttpUtil.doPost2(WebITS_URL, header, body);
-//
-//		if (resultMap != null) {
-//
-//
-//			String resultStr = resultMap.get("body").toString();
-//
-//			System.out.println("【ITS WebAPI 接口调用结果】\n" + resultStr);
-//			//以下仅用于调试
-//		    Gson json = new Gson();
-//	        ResponseData resultData = json.fromJson(resultStr, ResponseData.class);
-//			request_base base=json.fromJson(resultStr,request_base.class);
-//	        int code = resultData.getCode();
-//	        if (resultData.getCode() != 0) {
-//	    		System.out.println("请前往https://www.xfyun.cn/document/error-code?code=" + code + "查询解决办法");
-//	        }
-//		} else {
-//			System.out.println("调用失败！请根据错误信息检查代码，接口文档：https://www.xfyun.cn/doc/nlp/xftrans/API.html");
-//		}
 
 		List<sub_base> data=new ArrayList<sub_base>();
 		try {
-			data=XF_ARR("C:\\\\au_result\\\\au_result.txt");
+			data=XF_ARR("C:\\\\au_result\\\\au_result.txt",1);
 		} catch (Throwable throwable) {
 			throwable.printStackTrace();
 		}
-		data=MT(data,"en","cn");
+		data=MT(data,"en","cn",2);
 		try {
-			XF_SRT("","C:\\au_result\\字幕2.srt",data);
-		} catch (Throwable throwable) {
+			XF_SRT("","C:\\au_result\\字幕2.srt",data,2);
+		} catch (Throwable throwable)
+		{
 			throwable.printStackTrace();
 		}
 	}
@@ -102,9 +79,10 @@ public class WebITS {
 	 * @param data 需要翻译的数据
 	 * @param from 数据源语种
 	 * @param to 需要翻译的语种
+	 * @param type 选择单语言和双语言
 	 * @return 返回数据为翻译后的目标语言
 	 */
-	public static List<sub_base> MT(List<sub_base> data, String from, String to) throws Exception {
+	public static List<sub_base> MT(List<sub_base> data, String from, String to,int type) throws Exception {
 
 		//处理api接口账号信息
 		if (APPID.equals("") || API_KEY.equals("") || API_SECRET.equals("")) {
@@ -116,6 +94,7 @@ public class WebITS {
 		TO=to;
 		for (int i=0;i<data.size();i++) {
 			//覆盖文本
+			//TEXT=data.get(i).data;
 			TEXT=data.get(i).data;
 			String body = buildHttpBody();
 			System.out.println("【ITSWebAPI body】\n" + body);
@@ -129,7 +108,10 @@ public class WebITS {
 				Gson json = new Gson();
 				request_base base=json.fromJson(resultStr,request_base.class);
 				//覆写原有的文字替换为目标语音
-				data.get(i).data=base.dst();
+				if(type==1)
+					data.get(i).data=base.dst();
+				else
+					data.get(i).data2=base.dst();
 			} else {
 				System.out.println("调用失败！请根据错误信息检查代码，接口文档：https://www.xfyun.cn/doc/nlp/xftrans/API.html");
 			}
