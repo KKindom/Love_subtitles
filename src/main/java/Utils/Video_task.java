@@ -214,7 +214,6 @@ public class Video_task {
         return true;
     }
 
-
         @SneakyThrows
         public static void main(String[] args) throws Exception, org.bytedeco.javacv.FrameGrabber.Exception {
 //        long startTime=System.currentTimeMillis();   //获取开始时间

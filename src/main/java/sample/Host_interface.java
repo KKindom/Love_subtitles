@@ -28,10 +28,10 @@ public class Host_interface extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //Parent root = FXMLLoader.load(getClass().getResource("/Host_interface.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("/自适应布局.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 600, 600));
+        Parent root = FXMLLoader.load(getClass().getResource("/Host_interface.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/自适应布局.fxml"));
+        primaryStage.setTitle("i字幕");
+        primaryStage.setScene(new Scene(root, 800, 500));
         //加入css库
         primaryStage.getScene().getStylesheets().add("org/kordamp/bootstrapfx/bootstrapfx.css");
         primaryStage.show();

@@ -15,7 +15,7 @@ import java.io.OutputStream;
 public class FileUtil {
 	/**
 	 * 读取文件内容为二进制数组
-	 * 
+	 *
 	 * @param filePath
 	 * @return
 	 * @throws IOException
@@ -31,7 +31,7 @@ public class FileUtil {
 
 	/**
 	 * 流转二进制数组
-	 * 
+	 *
 	 * @param in
 	 * @return
 	 * @throws IOException
@@ -49,7 +49,7 @@ public class FileUtil {
 
 	/**
 	 * 保存文件
-	 * 
+	 *
 	 * @param filePath
 	 * @param fileName
 	 * @param content

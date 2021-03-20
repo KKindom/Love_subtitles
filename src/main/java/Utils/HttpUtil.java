@@ -1,6 +1,5 @@
 package Utils;
 
-import com.alibaba.fastjson.JSONArray;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -20,7 +19,7 @@ import java.util.Map;
 public class HttpUtil {
 	/**
 	 * 发送post请求，根据 Content-Type 返回不同的返回值
-	 * 
+	 *
 	 * @param url
 	 * @param header
 	 * @param body
@@ -68,8 +67,9 @@ public class HttpUtil {
 				while ((line = in.readLine()) != null) {
 					result += line;
 				}
-				resultMap.put("Content-Type", "application/json");
+				resultMap.put("Content-Type", "text/plain");
 				resultMap.put("body", result);
+
 				return resultMap;
 			}
 		} catch (Exception e) {
@@ -79,7 +79,7 @@ public class HttpUtil {
 
 	/**
 	 * 发送post请求
-	 * 
+	 *
 	 * @param url
 	 * @param header
 	 * @param body
@@ -125,7 +125,7 @@ public class HttpUtil {
 
 	/**
 	 * 流转二进制数组
-	 * 
+	 *
 	 * @param in
 	 * @return
 	 * @throws IOException

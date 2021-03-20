@@ -9,14 +9,6 @@ import static Utils.Change_SRT.XF_ARR;
 import static Utils.WebITS.MT;
 public class Change_ASS {
     public static void main(String[] args) {
-        List<sub_base> subBaseList=null;
-        try {
-             subBaseList=Change_SRT.XF_ARR("C:\\au_result\\au_result.txt",1);
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-        Change_ASS.Requset_listToAss("E:\\桌面\\au_ass_result", subBaseList,1);
-
 
 
         List<sub_base> data=new ArrayList<sub_base>();
@@ -26,20 +18,20 @@ public class Change_ASS {
             throwable.printStackTrace();
         }
         try {
-            data=MT(data,"en","cn",1);
+            data=MT(data,"en","ru",2);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Requset_listToAss("E:\\桌面\\测试双语字幕",data,2);
 
     }
     /**
-     * 编辑字幕行数据
+     * 字幕数组转ass字幕文件
      * @param subBaseList 字幕数组
      * @param type 字幕类型 1为单语 2 为双语
      * @param filename 选择输出字幕位置
      * @return 返回编辑好的数据
      */
-    //字幕数组转ass字幕文件
     public static void Requset_listToAss(String filename, List<sub_base> subBaseList,int type) {
 
         File assFile = new File(filename + ".ass");
@@ -56,7 +48,7 @@ public class Change_ASS {
             while (danmukulist_iter.hasNext())
             {
 
-                writeLine = todo.PhraseDialogue(danmukulist_iter.next(),1);
+                writeLine = todo.PhraseDialogue(danmukulist_iter.next(),type);
                 if (writeLine != null) {
                     //单独写行
                     out.write(writeLine);
@@ -117,21 +109,21 @@ public class Change_ASS {
 
         String start;
         String end;
-        String text;
+        String text,text2;
 
             //设置字幕时间戳相关参数
-            text = danmuku.data;
-
+            text = danmuku.data+"\\N";
+            text2=danmuku.data2;
             SimpleDateFormat outFormat = new SimpleDateFormat("H:mm:ss.ss");
             outFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-            String[] res = new String[2];
             start = outFormat.format(danmuku.start_t);
             end = outFormat.format(danmuku.end_t);
 
 
-            String line = String.format("Dialogue: 0,%s.00,%s.00,Default,NTP,0,0,0,%s\n",
-                    start, end, text);
-
+            String line = type==1?
+                    String.format("Dialogue: 0,%s.00,%s.00,Default,NTP,0,0,0,%s\n", start, end, text):
+                    String.format("Dialogue: 0,%s.00,%s.00,Default,NTP,0,0,0,,%s %s\n",
+                start, end, text,text2);
             return line;
 
 
