@@ -61,7 +61,8 @@ public class TestTask
             }
         });
         //添加任务消息监听
-        mytask.messageProperty().addListener(new ChangeListener<String>() {
+        mytask.messageProperty().addListener(new ChangeListener<String>()
+        {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 label_m.setText(newValue);
             }

@@ -26,68 +26,20 @@ import it.sauronsoftware.jave.MultimediaInfo;
 public class Host_controller
 {
 
-    @FXML
-    Button button1;
     //设置下拉列表
     @FXML
     JFXComboBox setting;
-    @FXML
-    MediaView video;
-    MediaPlayer mediaPlayer;
     @FXML
     private void initialize()
     {
 
         System.out.println("hello");
-        System.out.println(video.getFitHeight());
         setting.getItems().addAll(
                 "语音转写设置",
                 "机器翻译设置"
         );
     }
 
-
-    public void start_video(ActionEvent actionEvent)
-    {
-        String path="C:\\au_result\\1.mp4";
-
-        Media media = new Media(new File(path).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        video.setMediaPlayer(mediaPlayer);
-        System.out.println(media.getWidth());
-
-        get_vodeo();
-        mediaPlayer.setAutoPlay(true);
-    }
-
-    public void puse_video(ActionEvent actionEvent)
-    {
-        mediaPlayer.pause();
-    }
-
-    public void restart_video(ActionEvent actionEvent)
-    {
-        mediaPlayer.play();
-    }
-
-    void get_vodeo()
-    {
-        File source = new File("C:\\au_result\\1.mp4");
-
-        Encoder encoder = new Encoder();
-        MultimediaInfo m = null;
-        try {
-            m = encoder.getInfo(source);
-        } catch (EncoderException e) {
-            e.printStackTrace();
-        }
-        // 视频帧宽高
-        int hight=m.getVideo().getSize().getHeight();
-        int width=m.getVideo().getSize().getWidth();
-        Double real_h=560/(width/(double)hight);
-        real_h=(460-real_h)/2;
-        video.setY(real_h);
-    }
 }
 
 

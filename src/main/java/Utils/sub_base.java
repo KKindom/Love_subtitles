@@ -13,6 +13,7 @@ public class sub_base {
     public int start_t,end_t;
     public String data;
     public String data2;
+    public int time;
     public sub_base(int st,int et,String dt)
     {
         start_t=st;

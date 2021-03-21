@@ -59,8 +59,8 @@ public class Mytask extends Task<Number>
    protected Number call() throws Exception
    {
       this.updateTitle("拷贝任务");
-      FileInputStream fis=new FileInputStream("E:\\桌面\\专业\\东软\\untitled\\src\\main\\resources\\video\\123.mp4");
-      FileOutputStream fos=new FileOutputStream("E:\\桌面\\专业\\东软\\untitled\\src\\main\\resources\\video\\1.mp4");
+      FileInputStream fis=new FileInputStream("E:\\桌面\\专业\\东软\\untitled\\src\\main\\resources\\video\\1.mp4");
+      FileOutputStream fos=new FileOutputStream("E:\\桌面\\专业\\东软\\untitled\\src\\main\\resources\\video\\123.mp4");
       byte []bytes= new byte[10000];
       double max=fis.available();
       double sum=0,pro;

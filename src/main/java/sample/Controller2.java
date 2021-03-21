@@ -58,32 +58,7 @@ public class Controller2
     @FXML
     private  void  action()
     {
-//        button1.setText(i+"");
-//        i++;
-        //System.out.println(button1.getText());
 
-        //进度条
-//        new Thread(new Runnable() {
-//
-//            public void run() {
-//                for (Double i=0.0;i<=1;i+=0.01)
-//                {
-//                    t=i;
-//
-//                    Platform.runLater(new Runnable() {
-//                        public void run() {
-//                            progressBar1.setProgress(t);
-//                            System.out.println(t);
-//                        }
-//                    });
-//                    try {
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }).start();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
