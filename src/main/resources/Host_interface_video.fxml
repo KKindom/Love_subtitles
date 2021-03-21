@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.media.MediaView?>
+<?import javafx.geometry.Rectangle2D?>
+<?import com.jfoenix.controls.JFXButton?>
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sample.Host_controller_video" prefHeight="460.0" prefWidth="560.0">
+    <Pane layoutX="0.0" layoutY="0.0" prefHeight="460.0" prefWidth="560.0" style="-fx-background-color: #FFFF00;" >
+        <children>
+            <MediaView fx:id="video" fitHeight="460.0" fitWidth="560.0" nodeOrientation="INHERIT" >
+                <viewport>
+                    <Rectangle2D />
+                </viewport></MediaView>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutY="356.0" prefHeight="50.0" prefWidth="560.0" text="Labeladsadas1" textAlignment="CENTER" />
+            <JFXButton layoutX="148.0" layoutY="366.0" mnemonicParsing="false" onAction="#start_video" text="开始播放" />
+            <JFXButton layoutX="34.0" layoutY="366.0" mnemonicParsing="false" onAction="#restart_video" text="继续播放" />
+            <JFXButton layoutX="411.0" layoutY="366.0" mnemonicParsing="false" onAction="#puse_video" text="暂停播放" />
+
+        </children>
+    </Pane>
+</AnchorPane>

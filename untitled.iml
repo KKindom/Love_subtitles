@@ -250,5 +250,14 @@
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.9" level="project" />
     <orderEntry type="library" name="Maven: com.jfoenix:jfoenix:8.0.10" level="project" />
     <orderEntry type="library" name="Maven: org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: it.sauronsoftware:jave:1.0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/main/resources/lib/jave-1.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
