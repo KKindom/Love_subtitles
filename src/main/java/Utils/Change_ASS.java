@@ -11,18 +11,19 @@ public class Change_ASS {
     public static void main(String[] args) {
 
 
-        List<sub_base> data=new ArrayList<sub_base>();
-        try {
-            data=XF_ARR("C:\\\\au_result\\\\au_result.txt",1);
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-        try {
-            data=MT(data,"en","ru",2);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Requset_listToAss("E:\\桌面\\测试双语字幕",data,2);
+        ASSTo_ARR("E:\\桌面\\测试视频\\测试单语.ass",1);
+//        List<sub_base> data=new ArrayList<sub_base>();
+//        try {
+//            data=XF_ARR("C:\\\\au_result\\\\au_result.txt",1);
+//        } catch (Throwable throwable) {
+//            throwable.printStackTrace();
+//        }
+//        try {
+//            data=MT(data,"en","ru",2);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        Requset_listToAss("E:\\桌面\\测试双语字幕",data,2);
 
     }
     /**
@@ -129,6 +130,93 @@ public class Change_ASS {
 
 
     }
+    /**
+     * ass字幕文件转字幕数组
+     * @param assfile_path 字幕文件地址
+     * @param type 字幕类型 1为单语 2 为双语
+     * @return 返回编辑好的数据
+     */
+    public static List<sub_base> ASSTo_ARR(String assfile_path, int type)
+    {
+        List<sub_base> srtList = new ArrayList<sub_base>();
+        try {
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(
+                    assfile_path),"UTF-8"));
+            String readline = null;
+            sub_base subBase=null;
+            StringBuffer buffer = new StringBuffer();
+            StringBuffer buffer2 = new StringBuffer();
+            String header=null;
+            //获取头部
+            while((readline = br.readLine())!=null)
+            {
+                if (readline.indexOf("Dialogue: 0")<0)
+                    buffer.append(readline.toString()+"\\n");
+                else
+                    {
+                    header=buffer.toString();
+                    buffer.setLength(0);
+                    break;
+                }
+            }
+            //获取内容
+            while ((readline = br.readLine())!=null)
+            {
+                if (readline.indexOf("Dialogue: 0") >= 0)
+                {
+                    convert(readline);
+
+                }
 
 
+
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println("对不起没有字幕");
+        }
+        for (int i = 0; i < srtList.size(); i++) {
+            System.out.println(srtList.get(i).getStart_t() + "="
+                    + srtList.get(i).getEnd_t() + "\n"
+                    + srtList.get(i).getData());
+        }
+
+
+
+        File file=new File("E:\\桌面\\au_result");
+        if(!file.exists()){//如果文件夹不存在
+            file.mkdir();//创建文件夹
+        }
+        try{//异常处理
+            //如果Qiju_Li文件夹下没有Qiju_Li.txt就会创建该文件
+            BufferedWriter bw=new BufferedWriter(new FileWriter("E:\\桌面\\au_result\\au_result.txt"));
+            bw.write(srtList.toString());//写入切片后文件路径
+            bw.close();//一定要关闭文件
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+
+
+        return srtList;
+    }
+    //将行中的时间戳转换成毫秒
+    private static sub_base convert(String line)
+    {
+        if (line.indexOf("Dialogue: 0") >= 0)
+        {
+            String[] tmp = line.split(",");
+
+            String t0 = conv(tmp[1]);
+            String t1 = conv(tmp[2]);
+            return new sub_base(Integer.parseInt(t0),Integer.parseInt(t1),"");
+        }
+        return  null;
+    }
+    //处理单个时间转换成毫秒 0:00:00.00-->毫秒
+    private static String conv(String s)
+    {
+        return null;
+    }
 }
