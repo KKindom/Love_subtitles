@@ -28,7 +28,8 @@ public class Change_SRT {
     {
         //XF_SRT("C:\\au_result\\au_result.txt", "C:\\au_result\\字幕.srt",null);
         //XF_ARR("C:\\au_result\\au_result.txt");
-        List<sub_base> subBaseList= SRT_SUBBASE("E:\\桌面\\测试视频\\字幕2.srt");
+        List<sub_base> subBaseList= SRT_SUBBASE("E:\\桌面\\测试视频\\字幕英文.srt");
+        XF_SRT("","E:\\桌面\\双22语.srt",subBaseList,1);
     }
 
     /**
@@ -157,6 +158,7 @@ public class Change_SRT {
             String readline = null;
             sub_base subBase=null;
             StringBuffer buffer = new StringBuffer();
+            StringBuffer buffer2 = new StringBuffer();
             while ((readline = br.readLine())!=null)
             {
                 pos++;
@@ -169,15 +171,21 @@ public class Change_SRT {
                     case 3:
                         buffer.append(readline);
                         break;
+                    case 4:
+                        if(!readline.equals(""))
+                        {
+                            buffer2.append(readline);
+                        }
+                        break;
                     default:
-                        if(readline.equals("")){
+                        if(readline.equals(""))
+                        {
                             pos = 0;
                             subBase.setData(buffer.toString());
+                            subBase.setData2(buffer2.toString());
                             srtList.add(subBase);
                             buffer.setLength(0);
-                        } else
-                            {
-                            buffer.append("<br>"+readline);
+                            buffer2.setLength(0);
                         }
                         break;
                 }
