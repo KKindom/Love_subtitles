@@ -37,20 +37,36 @@ public class My_task_sub extends Service<Number> {
                 @Override
                 protected Number call() throws Exception
                 {
+                    int time=0,list_time=0;
                     System.out.println("运行自定义任务");
-                    final int[] index = {0};
                     for (int i=0;i<sub_list.size();i++)
                     {
                         //获取每个字幕持续时间
                         sub_list.get(i).time=(sub_list.get(i).end_t-sub_list.get(i).start_t);
-                        System.out.println(sub_list.get(i).time+" "+i);
+
+                        //System.out.println(sub_list.get(i).time+" "+i);
                     }
                     System.out.println("12345");
-                 Timer timer=new Timer();
-                 My_time my_time=new My_time(sub_list);
-                 timer.schedule(my_time,0,100);
+                    for (int i=0;i<sub_list.size();i++)
+                    {
 
-                    this.updateMessage(my_time.getNow_index()+"");
+                        list_time=sub_list.get(i).getTime();
+                        while(time<sub_list.get(i).getStart_t())
+                        {
+                            time+=10;
+                            Thread.sleep(10);
+                        }
+                        while(list_time>0)
+                        {
+                            time+=10;
+                            list_time-=10;
+                            Thread.sleep(10);
+                            this.updateMessage(i+"");
+                        }
+
+                    }
+
+
                     return null;
                 }
             };
