@@ -11,7 +11,7 @@ public class Change_ASS {
     public static void main(String[] args) {
 
 
-        ASSTo_ARR("E:\\桌面\\测试视频\\测试单语.ass",1);
+        ASSTo_ARR("E:\\桌面\\The.Hunt.2020.1080p.BluRay.H264.AAC-RARBG.ChsEngA.ass",1);
 //        List<sub_base> data=new ArrayList<sub_base>();
 //        try {
 //            data=XF_ARR("C:\\\\au_result\\\\au_result.txt",1);
@@ -139,6 +139,7 @@ public class Change_ASS {
     public static List<sub_base> ASSTo_ARR(String assfile_path, int type)
     {
         List<sub_base> srtList = new ArrayList<sub_base>();
+        String header=null;
         try {
 
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(
@@ -146,8 +147,6 @@ public class Change_ASS {
             String readline = null;
             sub_base subBase=null;
             StringBuffer buffer = new StringBuffer();
-            StringBuffer buffer2 = new StringBuffer();
-            String header=null;
             //获取头部
             while((readline = br.readLine())!=null)
             {
@@ -161,15 +160,13 @@ public class Change_ASS {
                 }
             }
             //获取内容
-            while ((readline = br.readLine())!=null)
+            while (readline.indexOf("Dialogue: 0") >= 0)
             {
-                if (readline.indexOf("Dialogue: 0") >= 0)
-                {
-                    convert(readline);
-
-                }
 
 
+                    subBase= convert(readline);
+                srtList.add(subBase);
+                    readline = br.readLine();
 
             }
             br.close();
@@ -190,7 +187,8 @@ public class Change_ASS {
         }
         try{//异常处理
             //如果Qiju_Li文件夹下没有Qiju_Li.txt就会创建该文件
-            BufferedWriter bw=new BufferedWriter(new FileWriter("E:\\桌面\\au_result\\au_result.txt"));
+            BufferedWriter bw=new BufferedWriter(new FileWriter("E:\\桌面\\au_result\\au_result_ass.txt"));
+            //bw.write(header);
             bw.write(srtList.toString());//写入切片后文件路径
             bw.close();//一定要关闭文件
         }catch(IOException e){
@@ -210,13 +208,67 @@ public class Change_ASS {
 
             String t0 = conv(tmp[1]);
             String t1 = conv(tmp[2]);
-            return new sub_base(Integer.parseInt(t0),Integer.parseInt(t1),"");
+            String []txt=tmp[9].split("\\\\N");
+            String result=null;
+            try {
+//                System.out.println(txt[1]);
+                result= txt[1].replaceAll("\\{.*\\}", "");
+//                System.out.println(result);
+//                System.out.println("成功！");
+            }
+           catch (Exception e)
+           {
+               System.out.println(e);
+           }
+            return new sub_base(Integer.parseInt(t0),Integer.parseInt(t1),txt[0],result);
         }
         return  null;
     }
     //处理单个时间转换成毫秒 0:00:00.00-->毫秒
-    private static String conv(String s)
-    {
-        return null;
+    private static String conv(String str) {
+        String[] tmp = str.split("\\.");
+        String times = tmp[0].trim();
+        String ms = tmp[1].trim()+"0";
+        if (ms.substring(0, 1).equals("0")) {
+            if (ms.substring(1, 2).equals("0")) {
+                if (ms.substring(2, 3).equals("0")) {
+                    ms = "0";
+                } else {
+                    ms = ms.substring(2);
+                }
+            } else {
+                ms = ms.substring(1);
+            }
+        }
+        int w = Integer.parseInt(ms);
+        String[] tm = times.split(":");
+        String hh = tm[0];
+        String mm = tm[1];
+        String ss = tm[2];
+        //处理小时
+        if (hh.substring(0, 1).equals("0")) {
+                hh = "0";
+        }
+        else {
+            hh = hh.substring(0);
+        }
+        if (mm.substring(0, 1).equals("0")) {
+            if (mm.substring(1, 2).equals("0")) {
+                mm = "0";
+            } else {
+                mm = mm.substring(1);
+            }
+        }
+        if (ss.substring(0, 1).equals("0")) {
+            if (ss.substring(1, 2).equals("0")) {
+                ss = "0";
+            } else {
+                ss = ss.substring(1);
+            }
+        }
+        int h = Integer.parseInt(hh) * 60 * 60 * 1000;
+        int m = Integer.parseInt(mm) * 60 * 1000;
+        int s = Integer.parseInt(ss) * 1000;
+        return String.valueOf(h + m + s + w);
     }
 }

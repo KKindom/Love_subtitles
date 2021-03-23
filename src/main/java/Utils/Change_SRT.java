@@ -221,7 +221,8 @@ public class Change_SRT {
 
     }
     //时间戳转化
-    private static sub_base convert(String line) {
+    private static sub_base convert(String line)
+    {
         if (line.indexOf("-->") > 0)
         {
             String[] tmp = line.split("-->");
