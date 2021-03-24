@@ -28,7 +28,7 @@ import static Utils.Change_SRT.SRT_SUBBASE;
 
 /**
  * @program: untitled
- * @description: 主界面视频播放控制器
+ * @description: 主界面外挂视频播放控制器
  * @author: kkindom
  * @create: 2021-02-28 18:49
  **/

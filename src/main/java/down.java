@@ -49,6 +49,8 @@ public class down
     {
 
         WebClient webClient=new WebClient();
+        //设置10秒超时
+        webClient.getOptions().setTimeout(10*1000);
         HtmlPage page=null;
         page = webClient.getPage(url);
 
