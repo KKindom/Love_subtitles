@@ -19,7 +19,7 @@ public class sub_base {
         start_t=st;
         end_t=et;
         data=dt;
-        data2=null;
+        data2="";
     }
     public sub_base(int st,int et,String dt,String dt2)
     {

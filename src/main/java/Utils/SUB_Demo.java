@@ -30,16 +30,34 @@ public class SUB_Demo
 
 
     public static void main(String[] args)  {
-        //拿到字幕数组
-        List<sub_base> arr=null;
+        //预加载资源
         try {
-            arr= SRT_SUBBASE("C:\\au_result\\字幕2.srt");
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
+            System.out.println("start:");
+            FFmpegFrameGrabber.tryLoad();
+            FFmpegFrameRecorder.tryLoad();
+            System.out.println("end:");
+        }
+        catch (Exception e)
+        {
+
+        }
+
+
+
+        //拿到字幕数组
+        List<sub_base> arr=new ArrayList<>();
+//        try {
+//            arr= SRT_SUBBASE("C:\\au_result\\字幕2.srt");
+//        } catch (Throwable throwable) {
+//            throwable.printStackTrace();
+//        }
+        for(int i=0;i<10;i++)
+        {
+            arr.add(new sub_base(i*1000,(i+1)*1000,"测试弹幕"+i));
         }
         System.out.println(arr);
         try {
-            Draw_Sub(arr);
+            Draw_Sub(arr,"E:\\桌面\\kkindom.mp4","E:\\桌面\\预览视频.mp4",25);
         } catch (FrameGrabber.Exception e) {
             e.printStackTrace();
         } catch (FrameRecorder.Exception e) {
@@ -117,15 +135,21 @@ public class SUB_Demo
 //        grabber.stop();
 //        recorder.stop();
     }
+    /**
+     * 视频预览处理
+     * @param inputfile 输入视频
+     * @param outputfile 输出视频
+     * @param arr 字幕数组
+     * @return 返回编辑好的数据
+     */
 
-
-    public static void Draw_Sub(List<sub_base> arr)throws FrameGrabber.Exception, FrameRecorder.Exception
+    public static void Draw_Sub(List<sub_base> arr,String inputfile,String outputfile,int size)throws FrameGrabber.Exception, FrameRecorder.Exception
     {
 
         // 设置源视频、加字幕后的视频文件路径
-        FFmpegFrameGrabber grabber = FFmpegFrameGrabber.createDefault("E:\\桌面\\1.mp4");
+        FFmpegFrameGrabber grabber = FFmpegFrameGrabber.createDefault(inputfile);
         grabber.start();
-        FFmpegFrameRecorder recorder = new FFmpegFrameRecorder("E:\\桌面\\2.mp4",
+        FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(outputfile,
                 grabber.getImageWidth(),grabber.getImageHeight(), grabber.getAudioChannels());
 
         // 视频相关配置，取原视频配置
@@ -167,7 +191,7 @@ public class SUB_Demo
                 if(i>=st&&i<=end)
                 {
                     // 对图片进行文本合入
-                    bufferedImage = addSubtitle(bufferedImage, arr.get(j).data);
+                    bufferedImage = addSubtitle(bufferedImage, arr.get(j).data,arr.get(j).data2,size);
 
                 }
                 // 视频帧赋值，写入输出流
@@ -194,14 +218,16 @@ public class SUB_Demo
     /**
      * 图片添加文本
      *
-     * @param bufImg
-     * @param subTitleContent
+     * @param bufImg 某一帧图片
+     * @param subTitleContent1 第一字幕
+     * @param subTitleContent2 第二字幕
+     * @param size              文本大小
      * @return
      */
-    private static BufferedImage addSubtitle(BufferedImage bufImg, String subTitleContent) {
+    private static BufferedImage addSubtitle(BufferedImage bufImg, String subTitleContent1,String subTitleContent2,int size) {
 
         // 添加字幕时的时间
-        Font font = new Font("微软雅黑", Font.BOLD, 32);
+        Font font = new Font("微软雅黑", Font.BOLD, size);
         FontDesignMetrics metrics = FontDesignMetrics.getMetrics(font);
         Graphics2D graphics = bufImg.createGraphics();
         //graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
@@ -218,14 +244,14 @@ public class SUB_Demo
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // 计算文字长度，计算居中的x点坐标
-        int textWidth = metrics.stringWidth(subTitleContent);
+        int textWidth = metrics.stringWidth(subTitleContent1);
         int widthX = (bufImg.getWidth() - textWidth) / 2;
-        graphics.setColor(Color.red);
+        graphics.setColor(Color.white);
         graphics.setFont(font);
         //graphics.setPaint(new Color(103, 101, 120));
 
-        graphics.drawString(subTitleContent, widthX, bufImg.getHeight() - 100);
-
+        graphics.drawString(subTitleContent1, widthX, bufImg.getHeight() - 50);
+        graphics.drawString(subTitleContent2, widthX, bufImg.getHeight() - size-5);
         graphics.dispose();
         return bufImg;
     }

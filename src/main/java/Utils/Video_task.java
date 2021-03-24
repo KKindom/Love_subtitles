@@ -41,7 +41,8 @@ public class Video_task {
 
         recorder.setFormat("segment");
 
-        if (segmentTime == null) {
+        if (segmentTime == null)
+        {
             segmentTime = 300;//默认300秒生成一个文件
         }
 
@@ -86,6 +87,63 @@ public class Video_task {
         recorder.close();//close包含stop和release方法。录制文件必须保证最后执行stop()方法，才能保证文件头写入完整，否则文件损坏。
         grabber.close();//close包含stop和release方法
     }
+
+
+
+    /**
+     * 获取前10秒的视频
+     *
+     * @param input       视频文件（mp4,flv,avi等等）
+     * @param output      输出视频位置
+
+     */
+    @SneakyThrows
+    public static void Video_pre(String input, String output)
+    {
+        //提取流
+        FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(input);
+
+        grabber.start();
+        int  width = grabber.getImageWidth();
+        int height = grabber.getImageHeight();
+        //配置录制器参数
+        FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(output, width, height, 0);
+        double rate=grabber.getFrameRate();
+        recorder.setFrameRate(rate);//设置帧率
+        rate=rate*10;
+        recorder.setVideoBitrate(grabber.getVideoBitrate());//码率,10kb/s
+
+        recorder.setVideoCodec(avcodec.AV_CODEC_ID_H264);//这种方式也可以
+
+        recorder.start();
+
+
+        Frame frame = null;
+
+        // 只抓取图像画面
+        for (; (frame = grabber.grabImage()) != null; ) {
+            try {
+
+                //录制/推流
+                if(rate>0) {
+                    recorder.record(frame);
+                    rate--;
+                }
+                else
+                {
+                    break;
+                }
+
+            } catch (org.bytedeco.javacv.FrameRecorder.Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        recorder.close();//close包含stop和release方法。录制文件必须保证最后执行stop()方法，才能保证文件头写入完整，否则文件损坏。
+        grabber.close();//close包含stop和release方法
+
+    }
+
 
         /**
          * 视频转音频
@@ -215,7 +273,8 @@ public class Video_task {
     }
 
         @SneakyThrows
-        public static void main(String[] args) throws Exception, org.bytedeco.javacv.FrameGrabber.Exception {
+        public static void main(String[] args) throws Exception, org.bytedeco.javacv.FrameGrabber.Exception
+        {
 //        long startTime=System.currentTimeMillis();   //获取开始时间
 //
         //Preparation_before_treatment("E:\\桌面\\tt.mp4");
@@ -227,6 +286,7 @@ public class Video_task {
 //
 //        long endTime=System.currentTimeMillis(); //获取结束时间
 //        System.out.println("程序运行时间： "+(endTime-startTime)+"ms");
-        Video_Au("E:\\桌面\\1.mp4", "E:\\桌面\\kkindom.mp3");
+       // Video_Au("E:\\桌面\\1.mp4", "E:\\桌面\\kkindom.mp3");
+            Video_pre("D:\\untitled\\src\\main\\resources\\video\\1.mp4","E:\\桌面\\kkindom.mp4");
     }
 }
