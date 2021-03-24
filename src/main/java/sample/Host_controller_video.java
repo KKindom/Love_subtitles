@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+import Utils.AppModel;
 import Utils.My_task_sub;
 import Utils.sub_base;
 import com.jfoenix.controls.JFXComboBox;
@@ -34,13 +35,17 @@ import static Utils.Change_SRT.SRT_SUBBASE;
 public class Host_controller_video
 {
 
+    //controller之间传递消息
+    // 必须static 类型
+    public  static AppModel model = new AppModel();
+
     List<sub_base> sub_baseList=null;
 
     @FXML
     MediaView video;
     MediaPlayer mediaPlayer;
     @FXML
-    Label sub_txt;
+    Label sub_txt,file_in;
     //字幕任务
 
     My_task_sub my_task_sub=new My_task_sub();
@@ -48,7 +53,7 @@ public class Host_controller_video
     @FXML
     private void initialize()
     {
-
+        model.textProperty().addListener((obs, oldText, newText) -> file_in.setText(newText));
         System.out.println("hello");
         System.out.println(video.getFitHeight());
     }

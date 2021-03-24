@@ -6,16 +6,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.Executors;
 
+import Utils.AppModel;
 import com.jfoenix.controls.JFXComboBox;
 import it.sauronsoftware.jave.EncoderException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
-import it.sauronsoftware.jave.Encoder;
-import it.sauronsoftware.jave.MultimediaInfo;
+import javafx.fxml.FXMLLoader;
+
+import com.jfoenix.controls.JFXButton;
 
 /**
  * @program: untitled
@@ -30,6 +29,8 @@ public class Host_controller
     @FXML
     JFXComboBox setting;
     @FXML
+    JFXButton t_button;
+    @FXML
     private void initialize()
     {
 
@@ -40,6 +41,15 @@ public class Host_controller
         );
     }
 
+
+    public void TEST(ActionEvent actionEvent)
+    {
+        // 获取结果界面控制器
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Host_interface_video.fxml"));
+        Host_controller_video control = (Host_controller_video) loader.getController();
+        // 设置结果界面内容
+        control.model.setText(t_button.getText());
+    }
 }
 
 

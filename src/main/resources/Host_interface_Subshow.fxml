@@ -16,13 +16,12 @@
                     <Rectangle2D />
                 </viewport></MediaView>
             <Label fx:id="sub_txt" alignment="CENTER" contentDisplay="CENTER" layoutY="356.0" prefHeight="50.0" prefWidth="560.0" text="Labeladsadas1" textAlignment="CENTER" textFill="WHITE">
-            <font>
-               <Font size="23.0" />
-            </font></Label>
+                <font>
+                    <Font size="23.0" />
+                </font></Label>
             <JFXButton layoutX="148.0" layoutY="366.0" mnemonicParsing="false" onAction="#start_video" text="开始播放" />
             <JFXButton layoutX="34.0" layoutY="366.0" mnemonicParsing="false" onAction="#restart_video" text="继续播放" />
             <JFXButton layoutX="411.0" layoutY="366.0" mnemonicParsing="false" onAction="#puse_video" text="暂停播放" />
-         <Label layoutX="280.0" layoutY="100.0" text="Label" fx:id="file_in"/>
 
         </children>
     </Pane>

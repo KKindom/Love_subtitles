@@ -2,15 +2,12 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import javafx.geometry.Rectangle2D?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.media.MediaView?>
 
 <AnchorPane fx:id="host_c" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_controller">
-   <children >
-      <Pane prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: #D8BFD8;" >
+   <children>
+      <Pane prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: #D8BFD8;">
          <children>
             <Pane fx:id="R_1" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #F8F8FF;">
                <children>
@@ -23,7 +20,7 @@
                      <children>
                         <JFXButton layoutX="25.0" layoutY="199.0" mnemonicParsing="false" prefWidth="130.0" text="搜索字幕" />
                         <JFXButton layoutX="25.0" layoutY="40.0" mnemonicParsing="false" prefWidth="130.0" text="合成字幕视频" />
-                        <JFXButton layoutX="25.0" layoutY="295.0" mnemonicParsing="false" prefWidth="130.0" text="字幕文件转译" />
+                        <JFXButton fx:id="t_button" layoutX="25.0" layoutY="295.0" mnemonicParsing="false" onAction="#TEST" prefWidth="130.0" text="字幕文件转译" />
                         <JFXButton layoutX="25.0" layoutY="115.0" mnemonicParsing="false" prefWidth="130.0" text="生成字幕" />
                      </children></Pane>
                </children></Pane>
@@ -45,10 +42,10 @@
 
 <!--            </children>-->
 <!--         </Pane>-->
-            <fx:include source="Host_interface_video.fxml"/>
+            <fx:include source="Host_interface_video.fxml" />
             <Pane layoutX="20.0" layoutY="20.0" prefHeight="460.0" prefWidth="560.0" style="-fx-background-color: #FFFF00; " visible="false">
                <children>
-                  <fx:include source="Host_interface_video.fxml"/>
+                  <fx:include source="Host_interface_video.fxml" visible="false" />
                </children>
             </Pane>
          </children>
