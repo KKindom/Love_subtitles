@@ -61,6 +61,7 @@ public class Host_controller_video
 
     public void start_video(ActionEvent actionEvent)
     {
+
         String path="C:\\au_result\\1.mp4";
         sub_baseList= SRT_SUBBASE("E:\\桌面\\测试视频\\字幕中文.srt");
         my_task_sub.setSub_list(sub_baseList);
@@ -79,7 +80,7 @@ public class Host_controller_video
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 sub_txt.setText(sub_baseList.get(Integer.parseInt(newValue)).data);
-                System.out.println("ttt");
+                //System.out.println("ttt");
             }
 
         });
@@ -88,11 +89,14 @@ public class Host_controller_video
 
     public void puse_video(ActionEvent actionEvent)
     {
+        my_task_sub.setPause_type(true);
         mediaPlayer.pause();
+
     }
 
     public void restart_video(ActionEvent actionEvent)
     {
+        my_task_sub.setPause_type(false);
         mediaPlayer.play();
     }
     //调整视频以及字幕位置

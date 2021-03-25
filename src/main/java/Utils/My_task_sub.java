@@ -21,6 +21,7 @@ import java.util.TimerTask;
 public class My_task_sub extends Service<Number> {
     //获取字幕数组地址
     List<sub_base> sub_list=null;
+    Boolean pause_type=false;
     //赋值
    public My_task_sub(List<sub_base> list)
     {
@@ -49,6 +50,13 @@ public class My_task_sub extends Service<Number> {
                     System.out.println("12345");
                     for (int i=0;i<sub_list.size();i++)
                     {
+                        if(pause_type==true)
+                        {
+                            wait();
+                        }
+                        else {
+                            running();
+                        }
 
                         list_time=sub_list.get(i).getTime();
                         while(time<sub_list.get(i).getStart_t())
@@ -118,29 +126,5 @@ public class My_task_sub extends Service<Number> {
         System.out.println("failed "+ Platform.isFxApplicationThread());
     }
 }
-@Data
-class My_time extends TimerTask
-{
-    int now_index=0;
-    List<sub_base> subBaseList=null;
-    public My_time(List<sub_base> a)
-    {
-        subBaseList=a;
-    }
-    @Override
-    public void run()
-    {
 
-        for (int i=0;i<subBaseList.size();i++)
-        {
-            while (subBaseList.get(i).time>0)
-            {
-                subBaseList.get(i).time -= 100;
-                now_index =i;
-                //System.out.println("hello");
-            }
-
-        }
-    }
-}
 

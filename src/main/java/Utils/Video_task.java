@@ -288,5 +288,5 @@ public class Video_task {
 //        System.out.println("程序运行时间： "+(endTime-startTime)+"ms");
        // Video_Au("E:\\桌面\\1.mp4", "E:\\桌面\\kkindom.mp3");
             Video_pre("D:\\untitled\\src\\main\\resources\\video\\1.mp4","E:\\桌面\\kkindom.mp4");
-    }
+        }
 }
