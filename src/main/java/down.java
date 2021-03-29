@@ -156,7 +156,7 @@ public class down
         System.out.println(page.asXml());
         System.out.println("进行这步");
         //使用备用下载链接
-        link = (HtmlElement) page.getByXPath("/html/body/main/div/div/div/table/tbody/tr/td[1]/div/ul/li[5]/a").get(0);
+        link = (HtmlElement) page.getByXPath("/html/body/main/div/div/div/table/tbody/tr/td[1]/div/ul/li[1]/a").get(0);
 
         Page page1 = link.click();
         System.out.println(page.asXml());
