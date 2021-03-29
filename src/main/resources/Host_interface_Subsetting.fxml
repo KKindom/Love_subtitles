@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.control.ToggleGroup?>
+<AnchorPane prefHeight="460.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_controller_subsetting">
+    <Pane layoutX="20.0" layoutY="20.0" prefHeight="460.0" prefWidth="560.0" style="-fx-border-width: 2px; -fx-border-color: #000000;">
+      <children>
+         <Text layoutX="103.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请输入你需要搜索的电影名称:" />
+         <Text layoutX="103.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择下载方式：" />
+         <Text layoutX="103.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择存盘位置：" />
+         
+          <VBox layoutX="355.0" layoutY="133.0" spacing="10">
+              <children>
+                  <JFXRadioButton fx:id="radio_1" style="-jfx-selected-color: #5264AE; -jfx-unselected-color: #212121; -fx-text-fill: #5264AE;" text="默认推荐">
+                      <toggleGroup>
+                          <ToggleGroup fx:id="toggleGroup"/>
+                      </toggleGroup>
+                  </JFXRadioButton>
+                  <JFXRadioButton fx:id="radio_2" selected="true" style="-jfx-selected-color: #f44336; -jfx-unselected-color: #b71c1c; -fx-text-fill: #f44336;" text="下载量最大" toggleGroup="$toggleGroup" />
+              </children>
+          </VBox>
+         <JFXButton layoutX="344.0" layoutY="214.0" mnemonicParsing="false" text="选择存盘位置" />
+         <JFXTextField layoutX="300.0" layoutY="57.0" />
+
+          <HBox alignment="CENTER_LEFT" layoutX="100.0" layoutY="300.0" spacing="20">
+              <Label>字幕下载进度条</Label>
+              <JFXProgressBar styleClass="custom-jfx-progress-bar-stroke" visible="true" />
+          </HBox>
+          <JFXButton buttonType="RAISED" layoutX="200.0" layoutY="350.0" onAction="#start_downsub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #3CB371;" text="开始下载" />
+          <JFXButton buttonType="RAISED" layoutX="350.0" layoutY="350.0" onAction="#cancel_downsub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #FF8C00;" text="停止下载" />
+      </children>
+
+    </Pane>
+</AnchorPane>

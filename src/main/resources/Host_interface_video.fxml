@@ -19,9 +19,9 @@
             <font>
                <Font size="23.0" />
             </font></Label>
-            <JFXButton layoutX="148.0" layoutY="366.0" mnemonicParsing="false" onAction="#start_video" text="开始播放" />
+            <JFXButton layoutX="418.0" layoutY="366.0" mnemonicParsing="false" onAction="#start_video" text="开始播放" />
             <JFXButton layoutX="34.0" layoutY="366.0" mnemonicParsing="false" onAction="#restart_video" text="重新播放" />
-         <Label layoutX="280.0" layoutY="100.0" text="Label" fx:id="file_in" visible="false"/>
+         <Label fx:id="file_in" layoutX="280.0" layoutY="100.0" text="Label" visible="false" />
 
         </children>
     </Pane>
