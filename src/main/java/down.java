@@ -35,7 +35,7 @@ public class down
 
     public static void main(String[] args)
     {
-      String result=  downfile("http://www.zimuku.la/","复仇者联盟3",2);
+      String result=  downfile("http://zmk.pw/","复仇者联盟3",2);
         //System.out.println(result);
     }
     /**
@@ -154,10 +154,13 @@ public class down
         link = (HtmlElement) page.getElementById("down1");
         page = link.click();
         System.out.println(page.asXml());
+        System.out.println("进行这步");
         //使用备用下载链接
         link = (HtmlElement) page.getByXPath("/html/body/main/div/div/div/table/tbody/tr/td[1]/div/ul/li[5]/a").get(0);
-        //
+
         Page page1 = link.click();
+        System.out.println(page.asXml());
+        System.out.println("进行最后一步");
         if (page1.getWebResponse().getContentAsStream() == null) {
             System.out.println("测试");
             page1 = link.click();

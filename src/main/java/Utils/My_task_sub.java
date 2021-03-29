@@ -21,7 +21,6 @@ import java.util.TimerTask;
 public class My_task_sub extends Service<Number> {
     //获取字幕数组地址
     List<sub_base> sub_list=null;
-    Boolean pause_type=false;
     //赋值
    public My_task_sub(List<sub_base> list)
     {
@@ -44,35 +43,24 @@ public class My_task_sub extends Service<Number> {
                     {
                         //获取每个字幕持续时间
                         sub_list.get(i).time=(sub_list.get(i).end_t-sub_list.get(i).start_t);
-
-                        //System.out.println(sub_list.get(i).time+" "+i);
                     }
-                    System.out.println("12345");
-                    for (int i=0;i<sub_list.size();i++)
-                    {
-                        if(pause_type==true)
-                        {
-                            wait();
-                        }
-                        else {
-                            running();
+
+                        for (int i = 0; i < sub_list.size(); i++) {
+                            list_time = sub_list.get(i).getTime();
+                            while (time < sub_list.get(i).getStart_t())
+                            {
+                                time += 10;
+                                Thread.sleep(10);
+                            }
+                            while (list_time > 0) {
+                                time += 10;
+                                list_time -= 10;
+                                Thread.sleep(10);
+                                this.updateMessage(i + "");
+                            }
+
                         }
 
-                        list_time=sub_list.get(i).getTime();
-                        while(time<sub_list.get(i).getStart_t())
-                        {
-                            time+=10;
-                            Thread.sleep(10);
-                        }
-                        while(list_time>0)
-                        {
-                            time+=10;
-                            list_time-=10;
-                            Thread.sleep(10);
-                            this.updateMessage(i+"");
-                        }
-
-                    }
 
 
                     return null;

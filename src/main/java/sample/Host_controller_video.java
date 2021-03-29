@@ -53,6 +53,7 @@ public class Host_controller_video
     @FXML
     private void initialize()
     {
+        sub_txt.setText("");
         model.textProperty().addListener((obs, oldText, newText) -> file_in.setText(newText));
         System.out.println("hello");
         System.out.println(video.getFitHeight());
@@ -63,7 +64,7 @@ public class Host_controller_video
     {
 
         String path="C:\\au_result\\1.mp4";
-        sub_baseList= SRT_SUBBASE("E:\\桌面\\测试视频\\字幕中文.srt");
+        sub_baseList= SRT_SUBBASE("E:\\桌面\\测试视频\\字幕英文.srt");
         my_task_sub.setSub_list(sub_baseList);
         Media media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
@@ -72,9 +73,30 @@ public class Host_controller_video
         //调整视频以及字幕位置
         get_vodeo();
 
-        mediaPlayer.setAutoPlay(true);
-
         //字幕任务启动以及监听
+        my_task_sub.start();
+        mediaPlayer.setAutoPlay(true);
+        my_task_sub.messageProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                sub_txt.setText(sub_baseList.get(Integer.parseInt(newValue)).data);
+                //System.out.println("ttt");
+            }
+
+        });
+        //启动视频
+
+
+    }
+
+
+
+    public void restart_video(ActionEvent actionEvent)
+    {
+        sub_txt.setText("");
+        my_task_sub.cancel();
+        my_task_sub=new My_task_sub();
+        my_task_sub.setSub_list(sub_baseList);
         my_task_sub.start();
         my_task_sub.messageProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -84,19 +106,7 @@ public class Host_controller_video
             }
 
         });
-    }
-
-
-    public void puse_video(ActionEvent actionEvent)
-    {
-        my_task_sub.setPause_type(true);
-        mediaPlayer.pause();
-
-    }
-
-    public void restart_video(ActionEvent actionEvent)
-    {
-        my_task_sub.setPause_type(false);
+        mediaPlayer.stop();
         mediaPlayer.play();
     }
     //调整视频以及字幕位置
