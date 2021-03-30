@@ -53,7 +53,7 @@ public class SUB_Demo
 //        }
         for(int i=0;i<10;i++)
         {
-            arr.add(new sub_base(i*1000,(i+1)*1000,"测试弹幕"+i));
+            arr.add(new sub_base(i*1000,(i+1)*1000,"测试弹幕"+i,"测试弹幕"+i));
         }
         System.out.println(arr);
         try {
@@ -251,7 +251,7 @@ public class SUB_Demo
         //graphics.setPaint(new Color(103, 101, 120));
 
         graphics.drawString(subTitleContent1, widthX, bufImg.getHeight() - 50);
-        graphics.drawString(subTitleContent2, widthX, bufImg.getHeight() - size-5);
+        graphics.drawString(subTitleContent2, widthX, bufImg.getHeight() - size);
         graphics.dispose();
         return bufImg;
     }

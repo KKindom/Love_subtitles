@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="460.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_controller_makesub">
+    <Pane layoutX="20.0" layoutY="20.0" prefHeight="460.0" prefWidth="560.0" style="-fx-border-width: 2px; -fx-border-color: #000000;">
+        <children>
+            <Text layoutX="87.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择你需要字幕的视频/音频:" />
+            <Text layoutX="87.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择原视频/音频语言:" />
+            <Text layoutX="87.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择需要字幕语言" />
+            <Text layoutX="87.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择需要字幕格式" />
+            <JFXButton fx:id="file_in" layoutX="322.0" layoutY="76.0" prefWidth="150.0" style="  -fx-border-width: 1px;-fx-border-color: green" text="ASS/SRT文件" />
+
+            <JFXComboBox fx:id="sub_orgin" layoutX="322.0" layoutY="121.0" prefWidth="150.0" />
+            <JFXComboBox fx:id="sub_first" layoutX="322.0" layoutY="174.0" prefWidth="150.0" />
+            <JFXComboBox fx:id="sub_second" layoutX="322.0" layoutY="223.0" prefWidth="150.0" />
+            <HBox alignment="CENTER_LEFT" layoutX="100.0" layoutY="300.0" spacing="80">
+                <Label>字幕转译进度条</Label>
+                <JFXProgressBar secondaryProgress="30.0" styleClass="custom-jfx-progress-bar-stroke" visible="true" />
+            </HBox>
+            <JFXButton buttonType="RAISED" layoutX="200.0" layoutY="350.0" onAction="#start_makesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #3CB371;" text="开始生成" />
+            <JFXButton buttonType="RAISED" layoutX="350.0" layoutY="350.0" onAction="#cancel_makesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #FF8C00;" text="停止生成" />
+         <JFXRadioButton layoutX="108.0" layoutY="266.0" mnemonicParsing="false" text="开启源语言" />
+        </children>
+
+    </Pane>
+</AnchorPane>

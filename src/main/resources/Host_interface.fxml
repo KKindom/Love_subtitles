@@ -21,7 +21,7 @@
                         <JFXButton layoutX="25.0" layoutY="199.0" mnemonicParsing="false" onAction="#down_sub" prefWidth="130.0" text="搜索字幕" />
                         <JFXButton layoutX="25.0" layoutY="40.0" mnemonicParsing="false" prefWidth="130.0" text="合成字幕视频" />
                         <JFXButton fx:id="t_button" layoutX="25.0" layoutY="295.0" mnemonicParsing="false" onAction="#TEST" prefWidth="130.0" text="字幕文件转译" />
-                        <JFXButton layoutX="25.0" layoutY="115.0" mnemonicParsing="false" prefWidth="130.0" text="生成字幕" />
+                        <JFXButton layoutX="25.0" layoutY="115.0" mnemonicParsing="false" onAction="#makesub" prefWidth="130.0" text="生成字幕" />
                      </children></Pane>
                </children></Pane>
             <Pane fx:id="R_3" layoutY="460.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #00FFFF;">
@@ -36,10 +36,16 @@
             <fx:include source="Host_interface_Setting.fxml" visible="true" />
             </Pane>
              <Pane fx:id="h_video" visible="false">
-            <fx:include source="Host_interface_video.fxml" visible="true" />
+            <fx:include source="Host_interface_Video.fxml" visible="true" />
              </Pane>
-             <Pane fx:id="h_sub" visible="true">
+             <Pane fx:id="h_sub" visible="false">
                  <fx:include source="Host_interface_Subsetting.fxml" visible="true" />
+             </Pane>
+             <Pane fx:id="h_subchange" visible="true">
+                 <fx:include source="Host_interface_Subchange.fxml" visible="true" />
+             </Pane>
+             <Pane fx:id="h_makesub" visible="false">
+                 <fx:include source="Host_interface_makesub.fxml" visible="true" />
              </Pane>
          </children>
       </Pane>

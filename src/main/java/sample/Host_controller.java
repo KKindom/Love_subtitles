@@ -36,15 +36,9 @@ public class Host_controller
     JFXButton setting;
     @FXML
     JFXButton t_button;
-    //设置相关信息 显示控制
+    //相关显示控制
     @FXML
-    Pane h_setting;
-    //预览视频 显示控制
-    @FXML
-    Pane   h_video;
-    //下载字幕 显示控制
-    @FXML
-    Pane h_sub;
+    Pane h_setting,h_video,h_sub,h_subchange,h_makesub;
     @FXML
     private void initialize()
     {
@@ -53,14 +47,21 @@ public class Host_controller
 
     }
 
-
+    //点击字幕文件转译 监听
     public void TEST(ActionEvent actionEvent)
     {
         // 获取结果界面控制器
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Host_interface_video.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Host_interface_Video.fxml"));
         Host_controller_video control = (Host_controller_video) loader.getController();
         // 设置结果界面内容
         control.model.setText(t_button.getText());
+
+        h_subchange.setVisible(true);
+        h_video.setVisible(false);
+        h_sub.setVisible(false);
+        h_setting.setVisible(false);
+        h_makesub.setVisible(false);
+        System.out.println("字幕文件转译按钮");
     }
 
     //点击设置 按钮监听
@@ -70,16 +71,31 @@ public class Host_controller
         h_setting.setVisible(true);
         h_video.setVisible(false);
         h_sub.setVisible(false);
+        h_subchange.setVisible(false);
+        h_makesub.setVisible(false);
         System.out.println("设置按钮");
     }
-
+    //点击下载字幕文件监听
     public void down_sub(ActionEvent actionEvent)
     {
 
         h_setting.setVisible(false);
         h_video.setVisible(false);
+        h_subchange.setVisible(false);
         h_sub.setVisible(true);
+        h_makesub.setVisible(false);
         System.out.println("搜索字幕按钮");
+    }
+
+    public void makesub(ActionEvent actionEvent)
+    {
+
+        h_setting.setVisible(false);
+        h_video.setVisible(false);
+        h_subchange.setVisible(false);
+        h_sub.setVisible(false);
+        h_makesub.setVisible(true);
+        System.out.println("生成字幕按钮");
     }
 }
 
