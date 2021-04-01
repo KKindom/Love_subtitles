@@ -43,7 +43,8 @@ public class TestTask
         {
 
         }
-        else{
+        else
+            {
             mytask.cancel();
         }
 

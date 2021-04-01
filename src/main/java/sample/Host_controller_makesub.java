@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
  **/
 public class Host_controller_makesub
 {
+
     //开始生成字幕
     public void start_makesub(ActionEvent actionEvent)
     {

@@ -111,6 +111,15 @@ public class Host_controller
         h_makesub.setVisible(false);
         h_subvideo.setVisible(true);
     }
+
+    public void test(ActionEvent actionEvent)
+    {   h_subchange.setVisible(false);
+        h_video.setVisible(true);
+        h_sub.setVisible(false);
+        h_setting.setVisible(false);
+        h_makesub.setVisible(false);
+        h_subvideo.setVisible(false);
+    }
 }
 
 

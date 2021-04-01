@@ -11,7 +11,7 @@
          <children>
             <Pane fx:id="R_1" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #F8F8FF;">
                <children>
-                  <JFXButton layoutX="117.0" layoutY="15.0" mnemonicParsing="false" text="联系我" />
+                  <JFXButton layoutX="117.0" layoutY="15.0" mnemonicParsing="false" text="联系我"   fx:id="video" onAction="#test"/>
                   <JFXButton fx:id="setting" layoutX="10.0" layoutY="15.0" onAction="#c_setting" prefWidth="100.0" text="设置" />
                </children></Pane>
             <Pane fx:id="R_2" layoutY="60.0" prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #00BFFF;">
