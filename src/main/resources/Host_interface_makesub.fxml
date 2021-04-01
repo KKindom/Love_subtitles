@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="460.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_controller_makesub">
+<AnchorPane prefHeight="460.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_controller_makesub">
     <Pane layoutX="20.0" layoutY="20.0" prefHeight="460.0" prefWidth="560.0" style="-fx-border-width: 2px; -fx-border-color: #000000;">
         <children>
             <Text layoutX="87.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择你需要字幕的视频/音频:" />
@@ -26,8 +26,10 @@
                 <Label>字幕转译进度条</Label>
                 <JFXProgressBar secondaryProgress="30.0" styleClass="custom-jfx-progress-bar-stroke" visible="true" />
             </HBox>
-            <JFXButton buttonType="RAISED" layoutX="200.0" layoutY="350.0" onAction="#start_makesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #3CB371;" text="开始生成" />
+
             <JFXButton buttonType="RAISED" layoutX="350.0" layoutY="350.0" onAction="#cancel_makesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #FF8C00;" text="停止生成" />
+            <JFXButton buttonType="RAISED" layoutX="220.0" layoutY="350.0" onAction="#start_makesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #3CB371;" text="开始生成" />
+            <JFXButton buttonType="RAISED" layoutX="100.0" layoutY="350.0" onAction="#cancel_makesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #AA8C00;" text="预览效果" />
          <JFXRadioButton layoutX="108.0" layoutY="266.0" mnemonicParsing="false" text="开启源语言" />
         </children>
 

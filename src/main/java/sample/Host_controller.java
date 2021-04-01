@@ -38,7 +38,7 @@ public class Host_controller
     JFXButton t_button;
     //相关显示控制
     @FXML
-    Pane h_setting,h_video,h_sub,h_subchange,h_makesub;
+    Pane h_setting,h_video,h_sub,h_subchange,h_makesub,h_subvideo;
     @FXML
     private void initialize()
     {
@@ -61,6 +61,7 @@ public class Host_controller
         h_sub.setVisible(false);
         h_setting.setVisible(false);
         h_makesub.setVisible(false);
+        h_subvideo.setVisible(false);
         System.out.println("字幕文件转译按钮");
     }
 
@@ -73,6 +74,7 @@ public class Host_controller
         h_sub.setVisible(false);
         h_subchange.setVisible(false);
         h_makesub.setVisible(false);
+        h_subvideo.setVisible(false);
         System.out.println("设置按钮");
     }
     //点击下载字幕文件监听
@@ -84,9 +86,10 @@ public class Host_controller
         h_subchange.setVisible(false);
         h_sub.setVisible(true);
         h_makesub.setVisible(false);
+        h_subvideo.setVisible(false);
         System.out.println("搜索字幕按钮");
     }
-
+    //点击生成字幕监听
     public void makesub(ActionEvent actionEvent)
     {
 
@@ -95,7 +98,18 @@ public class Host_controller
         h_subchange.setVisible(false);
         h_sub.setVisible(false);
         h_makesub.setVisible(true);
+        h_subvideo.setVisible(false);
         System.out.println("生成字幕按钮");
+    }
+    //点击生成字幕视频监听
+    public void makesubvideo(ActionEvent actionEvent)
+    {
+        h_subchange.setVisible(false);
+        h_video.setVisible(false);
+        h_sub.setVisible(false);
+        h_setting.setVisible(false);
+        h_makesub.setVisible(false);
+        h_subvideo.setVisible(true);
     }
 }
 
