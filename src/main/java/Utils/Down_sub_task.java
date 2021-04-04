@@ -14,6 +14,7 @@ import lombok.Data;
 import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
@@ -26,16 +27,11 @@ import java.util.List;
  **/
 @Data
 public class Down_sub_task extends Service<Number> {
-    String url,data;
+    String url,data,savepath="";
     int type;
+    boolean task_result=false;
     public Down_sub_task()
     {
-    }
-    Down_sub_task(String u,String d,int t)
-    {
-        url=u;
-        data=d;
-        type=t;
     }
     @Override
     protected Task<Number> createTask()
@@ -50,9 +46,7 @@ public class Down_sub_task extends Service<Number> {
                 webClient.getOptions().setTimeout(10*1000);
                 HtmlPage page=null;
                 page = webClient.getPage(url);
-
                 this.updateProgress(0.2,1);
-
                 //获取字幕网搜索框 并设置搜索内容
                 HtmlElement usernameEle =(HtmlElement) page.getByXPath("/html/body/div[1]/div/div[1]/div/form/div/input").get(0);
                 //聚焦搜索按钮
@@ -60,27 +54,28 @@ public class Down_sub_task extends Service<Number> {
                 usernameEle.type(data);
                 //点击首页上的搜索按钮
                 page = ((DomElement) page.getByXPath("/html/body/div[1]/div/div[1]/div/form/div/span/button").get(0)).click();
-                System.out.println(page.asXml());
+                //System.out.println(page.asXml());
                 this.updateProgress(0.4,1);
                 //判断是否有结果
                 HtmlElement result =(HtmlElement) page.getByXPath("/html/body/div[2]/div/div/div[2]/div[2]").get(0);
-                List<?> result_list=page.getByXPath("/html/body/div[2]/div/div/div[2]/div[2]/div");
-                System.out.println(result_list.size());
+                List<?> result_list=page.getByXPath("/html/body/div[2]/div/div/div[2]/div[1]/div[2]/div/table/tbody/tr");
+                //System.out.println(result_list.size());
                 //无结果
                 if(result_list.size()==0)
                 {
-                    return null;
+                    System.out.println("查无结果！");
+                    task_result=false;
                 }
                 //有结果
                 else
                 {
+                    System.out.println("有结果");
                     //默认下载第一个字幕
-
                     if(type==1) {
-//                //获取链接
+                        //获取链接
                         HtmlElement link = (HtmlElement) page.getByXPath(" /html/body/div[2]/div/div/div[2]/div[2]/div[2]/div/table/tbody/tr[1]/td[1]/a").get(0);
                         this.updateProgress(0.6,1);
-                        chose_link(page,link,data);
+                        task_result= chose_link(page,link,data);
                         this.updateProgress(1,1);
                     }
                     //下载推荐项
@@ -99,12 +94,8 @@ public class Down_sub_task extends Service<Number> {
                             //获取链接
                             HtmlElement link = (HtmlElement) page.getByXPath(" /html/body/div[2]/div/div/div[2]/div[2]/div[2]/div/table/tbody/tr["+index+"]/td[1]/a").get(0);
                             this.updateProgress(0.6,1);
-
-                            chose_link(page,link,data);
-
+                            task_result= chose_link(page,link,data);
                             this.updateProgress(1,1);
-
-
                         }
                         //分析所有字幕中下载量最大的
                         else
@@ -115,20 +106,22 @@ public class Down_sub_task extends Service<Number> {
                             List<HtmlElement> More_linklist=page.getByXPath("//*[@id=\"subtb\"]/tbody/tr/td[4]");
                             //获取下载量最大的链接下标
                             int index= Best_link_index(More_linklist,2);
-                            System.out.println(index);
+                            //System.out.println(index);
                             //获取下载量最大的链接
                             //获取链接
                             HtmlElement link = (HtmlElement) page.getByXPath("//*[@id=\"subtb\"]/tbody/tr["+index+"]/td[1]/a ").get(0);
 
                             this.updateProgress(0.6,1);
-                            chose_link(page,link,data);
+                            task_result= chose_link(page,link,data);
                             this.updateProgress(1,1);
-                            System.out.println("尝试");
+                            //System.out.println("尝试");
                         }
                     }
 
                 }
 
+                String meg=task_result==true?"成功下载":"下载失败";
+                this.updateMessage(meg);
                 return null;
             }
             };
@@ -182,11 +175,27 @@ public class Down_sub_task extends Service<Number> {
 
 
     //保存文件
-    public static Boolean saveFile(Page pages, String data, String houzhui) throws Exception
+    public  Boolean saveFile(Page pages, String data, String houzhui) throws Exception
     {
 
         InputStream is = pages.getWebResponse().getContentAsStream();
-        FileOutputStream output = new FileOutputStream("E:\\桌面\\"+data+"."+houzhui);
+        FileOutputStream output=null;
+        if(savepath.equals(""))
+        {
+            File file =new File("C:\\桌面");
+            //如果文件夹不存在则创建
+            if  (!file.exists()  && !file.isDirectory())
+            {
+                file .mkdirs();
+            }
+            output = new FileOutputStream("C:\\桌面\\"+data+"."+houzhui);
+        }
+        else
+        {
+            output = new FileOutputStream(savepath+"\\"+data+"."+houzhui);
+            System.out.println(savepath+data+"."+houzhui);
+        }
+
         IOUtils.copy(is, output);
         output.close();
         return true;
@@ -194,7 +203,7 @@ public class Down_sub_task extends Service<Number> {
 
     //进入详情下载页面
     @SneakyThrows
-    public static Boolean chose_link(HtmlPage page, HtmlElement link,String data)
+    public  Boolean chose_link(HtmlPage page, HtmlElement link,String data)
     {
         //点击进入链接
         page = link.click();

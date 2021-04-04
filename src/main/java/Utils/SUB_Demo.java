@@ -41,9 +41,6 @@ public class SUB_Demo
         {
 
         }
-
-
-
         //拿到字幕数组
         List<sub_base> arr=new ArrayList<>();
 //        try {

@@ -31,8 +31,6 @@ import static org.opencv.imgcodecs.Imgcodecs.imread;
  **/
 public class down
 {
-
-
     public static void main(String[] args)
     {
       String result=  downfile("http://zmk.pw/","复仇者联盟3",2);
@@ -119,7 +117,6 @@ public class down
                     System.out.println("尝试");
                 }
             }
-
         }
 
         return "下载成功！";
