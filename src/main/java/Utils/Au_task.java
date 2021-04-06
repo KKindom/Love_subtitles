@@ -123,9 +123,6 @@ public class Au_task {
         recorder.close();//close包含stop和release方法。录制文件必须保证最后执行stop()方法，才能保证文件头写入完整，否则文件损坏。
         grabber.close();//close包含stop和release方法
     }
-
-
-
     public static boolean start(FrameGrabber grabber) {
         try {
             grabber.start();
@@ -147,7 +144,6 @@ public class Au_task {
         }
         return false;
     }
-
     public static boolean start(FrameRecorder recorder) {
         try {
             recorder.start();
@@ -169,7 +165,6 @@ public class Au_task {
         }
         return false;
     }
-
     public static boolean stop(FrameGrabber grabber) {
         try {
             grabber.flush();
@@ -185,7 +180,6 @@ public class Au_task {
             }
         }
     }
-
     public static boolean stop(FrameRecorder recorder) {
         try {
             recorder.stop();
@@ -202,13 +196,6 @@ public class Au_task {
         }
 
     }
-
-
-
-
-
-
-
     public static void main(String[] args){
 
 

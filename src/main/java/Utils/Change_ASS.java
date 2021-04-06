@@ -141,7 +141,6 @@ public class Change_ASS {
         List<sub_base> srtList = new ArrayList<sub_base>();
         String header=null;
         try {
-
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(
                     assfile_path),"UTF-8"));
             String readline = null;
@@ -162,12 +161,10 @@ public class Change_ASS {
             //获取内容
             while (readline.indexOf("Dialogue: 0") >= 0)
             {
-
-
                     subBase= convert(readline);
-                srtList.add(subBase);
-                    readline = br.readLine();
-
+                    srtList.add(subBase);
+                    if((readline = br.readLine())==null)
+                    break;
             }
             br.close();
         } catch (IOException e) {
@@ -181,19 +178,19 @@ public class Change_ASS {
 
 
 
-        File file=new File("E:\\桌面\\au_result");
-        if(!file.exists()){//如果文件夹不存在
-            file.mkdir();//创建文件夹
-        }
-        try{//异常处理
-            //如果Qiju_Li文件夹下没有Qiju_Li.txt就会创建该文件
-            BufferedWriter bw=new BufferedWriter(new FileWriter("E:\\桌面\\au_result\\au_result_ass.txt"));
-            //bw.write(header);
-            bw.write(srtList.toString());//写入切片后文件路径
-            bw.close();//一定要关闭文件
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+//        File file=new File("E:\\桌面\\au_result");
+//        if(!file.exists()){//如果文件夹不存在
+//            file.mkdir();//创建文件夹
+//        }
+//        try{//异常处理
+//            //如果Qiju_Li文件夹下没有Qiju_Li.txt就会创建该文件
+//            BufferedWriter bw=new BufferedWriter(new FileWriter("E:\\桌面\\au_result\\au_result_ass.txt"));
+//            //bw.write(header);
+//            bw.write(srtList.toString());//写入切片后文件路径
+//            bw.close();//一定要关闭文件
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
 
 
 
