@@ -18,16 +18,16 @@ import java.util.TimerTask;
  * @create: 2021-03-21 19:38
  **/
 @Data
-public class My_task_sub extends Service<Number> {
+public class Pre_video_task extends Service<Number> {
     //获取字幕数组地址
     List<sub_base> sub_list=null;
     //赋值
-   public My_task_sub(List<sub_base> list)
+   public Pre_video_task(List<sub_base> list)
     {
         sub_list=list;
     }
     //赋值
-    public My_task_sub()
+    public Pre_video_task()
     {
         sub_list=null;
     }

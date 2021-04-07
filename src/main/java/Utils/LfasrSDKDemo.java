@@ -1,3 +1,5 @@
+package Utils;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.iflytek.msp.lfasr.LfasrClient;
@@ -40,7 +42,7 @@ public class LfasrSDKDemo {
         //standard();
 
         // 示例-2：使用扩展业务参数
-        businessExtraParams();
+        businessExtraParams(AUDIO_FILE_PATH,"");
 
         // 示例-3：使用网络代理
         //netProxy();
@@ -100,7 +102,7 @@ public class LfasrSDKDemo {
      *
      * @throws InterruptedException e
      */
-    private static void businessExtraParams() throws InterruptedException {
+    public static void businessExtraParams(String filepath,String Pre_path) throws InterruptedException {
         //1、创建客户端实例
         LfasrClient lfasrClient = LfasrClient.getInstance(APP_ID, SECRET_KEY);
 
@@ -125,7 +127,7 @@ public class LfasrSDKDemo {
         //param.put("pd","finance");
 
         Message task = lfasrClient.upload(
-                AUDIO_FILE_PATH
+                filepath
                 , param);
         String taskId = task.getData();
         System.out.println("转写任务 taskId：" + taskId);
@@ -143,13 +145,13 @@ public class LfasrSDKDemo {
         Message result = lfasrClient.getResult(taskId);
         System.out.println("转写结果: \n" + result.getData());
 
-        File file=new File("C:\\au_result");
+        File file=new File(Pre_path);
         if(!file.exists()){//如果文件夹不存在
             file.mkdir();//创建文件夹
         }
         try{//异常处理
-            //如果Qiju_Li文件夹下没有Qiju_Li.txt就会创建该文件
-            BufferedWriter bw=new BufferedWriter(new FileWriter("C:\\au_result\\au_result.txt"));
+            //
+            BufferedWriter bw=new BufferedWriter(new FileWriter(Pre_path+"\\result.txt"));
             bw.write(result.getData());//写入切片后文件路径
             bw.close();//一定要关闭文件
         }catch(IOException e){

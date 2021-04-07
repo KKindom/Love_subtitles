@@ -17,20 +17,20 @@
             <Text layoutX="87.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择原视频/音频语言:" />
             <Text layoutX="87.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择需要字幕语言" />
             <Text layoutX="87.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择需要字幕格式" />
-            <JFXButton fx:id="file_in" layoutX="322.0" layoutY="76.0" prefWidth="150.0" style="  -fx-border-width: 1px;-fx-border-color: green" text="ASS/SRT文件" />
+            <JFXButton fx:id="file_in" layoutX="322.0" layoutY="76.0" prefWidth="150.0" style="  -fx-border-width: 1px;-fx-border-color: green" text="音频/视频文件" onAction="#chose_path"/>
 
             <JFXComboBox fx:id="sub_orgin" layoutX="322.0" layoutY="121.0" prefWidth="150.0" />
-            <JFXComboBox fx:id="sub_first" layoutX="322.0" layoutY="174.0" prefWidth="150.0" />
-            <JFXComboBox fx:id="sub_second" layoutX="322.0" layoutY="223.0" prefWidth="150.0" />
+            <JFXComboBox fx:id="sub_need" layoutX="322.0" layoutY="174.0" prefWidth="150.0" />
+            <JFXComboBox fx:id="sub_type" layoutX="322.0" layoutY="223.0" prefWidth="150.0" />
             <HBox alignment="CENTER_LEFT" layoutX="100.0" layoutY="300.0" spacing="80">
-                <Label>字幕转译进度条</Label>
-                <JFXProgressBar secondaryProgress="30.0" styleClass="custom-jfx-progress-bar-stroke" visible="true" />
+                <Label>字幕生成进度条</Label>
+                <JFXProgressBar secondaryProgress="30.0" styleClass="custom-jfx-progress-bar-stroke" visible="true"  fx:id="pbr"/>
             </HBox>
 
-            <JFXButton buttonType="RAISED" layoutX="350.0" layoutY="350.0" onAction="#cancel_makesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #FF8C00;" text="停止生成" />
-            <JFXButton buttonType="RAISED" layoutX="220.0" layoutY="350.0" onAction="#start_makesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #3CB371;" text="开始生成" />
-            <JFXButton buttonType="RAISED" layoutX="100.0" layoutY="350.0" onAction="#cancel_makesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #AA8C00;" text="预览效果" />
-         <JFXRadioButton layoutX="108.0" layoutY="266.0" mnemonicParsing="false" text="开启源语言" />
+            <JFXButton buttonType="RAISED" layoutX="350.0" layoutY="350.0" onAction="#cancel_makesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #FF8C00;" fx:id="stop_b" text="停止生成" />
+            <JFXButton buttonType="RAISED" layoutX="220.0" layoutY="350.0" onAction="#start_makesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #3CB371;" fx:id="start_b" text="开始生成" />
+            <JFXButton buttonType="RAISED" layoutX="100.0" layoutY="350.0" onAction="#cancel_makesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #AA8C00;" fx:id="pre_b" text="预览效果" />
+         <JFXRadioButton layoutX="108.0" layoutY="266.0" mnemonicParsing="false" text="开启源语言"  fx:id="sub_dou"/>
         </children>
 
     </Pane>

@@ -137,6 +137,7 @@ public class SUB_Demo
      * @param inputfile 输入视频
      * @param outputfile 输出视频
      * @param arr 字幕数组
+     * @param size 字幕大小
      * @return 返回编辑好的数据
      */
 

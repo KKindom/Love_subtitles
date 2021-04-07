@@ -1,16 +1,11 @@
 package sample;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
-import java.util.concurrent.Executors;
 
 import Utils.AppModel;
-import Utils.My_task_sub;
+import Utils.Pre_video_task;
 import Utils.sub_base;
-import com.jfoenix.controls.JFXComboBox;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import it.sauronsoftware.jave.EncoderException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -48,7 +43,7 @@ public class Host_controller_video
     Label sub_txt,file_in;
     //字幕任务
 
-    My_task_sub my_task_sub=new My_task_sub();
+    Pre_video_task my_task_sub=new Pre_video_task();
 
     @FXML
     private void initialize()
@@ -95,7 +90,7 @@ public class Host_controller_video
     {
         sub_txt.setText("");
         my_task_sub.cancel();
-        my_task_sub=new My_task_sub();
+        my_task_sub=new Pre_video_task();
         my_task_sub.setSub_list(sub_baseList);
         my_task_sub.start();
         my_task_sub.messageProperty().addListener(new ChangeListener<String>() {
