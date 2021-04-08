@@ -50,11 +50,7 @@ public class Host_controller
     //点击字幕文件转译 监听
     public void TEST(ActionEvent actionEvent)
     {
-        // 获取结果界面控制器
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Host_interface_Video.fxml"));
-        Host_controller_video control = (Host_controller_video) loader.getController();
-        // 设置结果界面内容
-        control.model.setText(t_button.getText());
+
 
         h_subchange.setVisible(true);
         h_video.setVisible(false);

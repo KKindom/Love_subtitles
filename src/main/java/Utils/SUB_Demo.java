@@ -54,7 +54,7 @@ public class SUB_Demo
         }
         System.out.println(arr);
         try {
-            Draw_Sub(arr,"E:\\桌面\\kkindom.mp4","E:\\桌面\\预览视频.mp4",25);
+            Draw_Sub(arr,"E:\\桌面\\kkindom.mp4","E:\\桌面\\预览视频.mp4",25,"微软雅黑");
         } catch (FrameGrabber.Exception e) {
             e.printStackTrace();
         } catch (FrameRecorder.Exception e) {
@@ -138,10 +138,11 @@ public class SUB_Demo
      * @param outputfile 输出视频
      * @param arr 字幕数组
      * @param size 字幕大小
+     * @param font_type 字体类型
      * @return 返回编辑好的数据
      */
 
-    public static void Draw_Sub(List<sub_base> arr,String inputfile,String outputfile,int size)throws FrameGrabber.Exception, FrameRecorder.Exception
+    public static void Draw_Sub(List<sub_base> arr,String inputfile,String outputfile,int size,String font_type)throws FrameGrabber.Exception, FrameRecorder.Exception
     {
 
         // 设置源视频、加字幕后的视频文件路径
@@ -189,7 +190,7 @@ public class SUB_Demo
                 if(i>=st&&i<=end)
                 {
                     // 对图片进行文本合入
-                    bufferedImage = addSubtitle(bufferedImage, arr.get(j).data,arr.get(j).data2,size);
+                    bufferedImage = addSubtitle(bufferedImage, arr.get(j).data,arr.get(j).data2,size,font_type);
 
                 }
                 // 视频帧赋值，写入输出流
@@ -222,10 +223,10 @@ public class SUB_Demo
      * @param size              文本大小
      * @return
      */
-    private static BufferedImage addSubtitle(BufferedImage bufImg, String subTitleContent1,String subTitleContent2,int size) {
+    private static BufferedImage addSubtitle(BufferedImage bufImg, String subTitleContent1,String subTitleContent2,int size,String font_type) {
 
         // 添加字幕时的时间
-        Font font = new Font("微软雅黑", Font.BOLD, size);
+        Font font = new Font(font_type, Font.BOLD, size);
         FontDesignMetrics metrics = FontDesignMetrics.getMetrics(font);
         Graphics2D graphics = bufImg.createGraphics();
         //graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);

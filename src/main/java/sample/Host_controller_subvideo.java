@@ -10,6 +10,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -25,10 +27,10 @@ import java.util.Map;
  **/
 public class Host_controller_subvideo
 {
-    //输入文件位置，保存文件前缀，源语言，需要语言，字幕字体 字体大小
-    String in_file_pat="",pre_save_path="",orgin="auto",first="cn",sub_font_type="宋体",sub_font_size="10px";
+    //输入文件位置，保存文件前缀，源语言，需要语言，字幕字体 字体大小 文件后缀
+    String in_file_pat="",pre_save_path="",orgin="auto",first="cn",sub_font_type="宋体",file_suffix;
     //字幕文号，视频质量
-    int video_qu=0;
+    int video_qu=0,sub_font_size=20;
     boolean flag=false;
     Map<Integer,String> sub_type_list=new HashMap<Integer,String>();
     Sub_video_task sub_video_task=new Sub_video_task();
@@ -38,23 +40,26 @@ public class Host_controller_subvideo
     JFXComboBox sub_first1,sub_first2,video_q,sub_orgin,sub_first;
     @FXML
     JFXProgressBar pbr;
+    //控制显示预览视频
+    @FXML
+    Pane pre_video,video_content;
     @FXML
     private void initialize() {
+
         pbr.setProgress(0);
         //初始化下拉框
-        sub_orgin.getItems().addAll("默认(原字幕)", "中文", "英文", "日文", "韩文");
-        sub_first.getItems().addAll("默认(原字幕)", "中文", "英文", "日文", "韩文");
+        sub_orgin.getItems().addAll("默认(原字幕)", "中文", "英文");
+        sub_first.getItems().addAll("默认(原字幕)","中文","英文","日文","韩文","俄语","法语","德语","藏语","西班牙语","葡萄牙语");
         sub_first1.getItems().addAll("宋体", "行书", "楷书", "微软雅黑", "仿宋");
-        sub_first2.getItems().addAll("一般", "10px", "15px", "20px", "25px");
+        sub_first2.getItems().addAll("10px", "15px", "20px", "25px", "30px");
         video_q.getItems().addAll("原画质", "高清", "标清");
         sub_orgin.getSelectionModel().selectFirst();
         sub_first.getSelectionModel().selectFirst();
         sub_first1.getSelectionModel().selectFirst();
         sub_first2.getSelectionModel().selectFirst();
         video_q.getSelectionModel().selectFirst();
-        String sub[]={"auto","cn","en","ja","ko"};
-        String sub_f[]={"宋体", "行书", "楷书", "微软雅黑", "仿宋"};
-        String sub_s[]={"10px", "10px", "15px", "20px", "25px"};
+        String sub[]={"auto","cn","en","ja","ko","ru","fr","de","ti","es","pt"};
+        String sub_f[]={"宋体", "Arial", "楷书", "微软雅黑", "仿宋"};
         //绑定监听
         sub_orgin.getSelectionModel().selectedIndexProperty().addListener((ov,oldv,newv)->
         {
@@ -79,7 +84,7 @@ public class Host_controller_subvideo
         });
         sub_first2.getSelectionModel().selectedIndexProperty().addListener((ov,oldv,newv)->
         {
-            sub_font_size=sub_s[Integer.parseInt(newv.toString())];
+            sub_font_size=Integer.parseInt(newv.toString())*5+10;
             System.out.println(newv.toString());
             System.out.println("选择字幕大小："+sub_font_size);
 
@@ -96,14 +101,28 @@ public class Host_controller_subvideo
         {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 //下载提示
-                if(newValue.equals("成功下载"))
+                if(newValue.equals("video_done"))
                 {
                     new DialogBuilder(file_in).setTitle("温馨提醒").setMessage("下载成功！\n 文件保存路径为："+pre_save_path).setNegativeBtn("了解","#ff3333").create();
+                    pbr.setProgress(0);
+                }
+                else if (newValue.equals("prevideo_done"))
+                {
+                    // 获取结果界面控制器
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("Host_interface_Video.fxml"));
+                    Host_controller_video control = (Host_controller_video) loader.getController();
+                    // 设置结果界面内容
+                    control.model.setpath_video(pre_save_path+"pre."+file_suffix);
+                    control.model.setpath_sub("");
+                    pre_video.setVisible(true);
+                    video_content.setVisible(false);
+                     pbr.setProgress(0);
                 }
                 else
                 {
                     pbr.setProgress(0);
                     new DialogBuilder(file_in).setTitle("温馨提醒").setMessage("下载失败！请尝试其他方式:仅生成字幕").setNegativeBtn("了解", "#ff3333").create();
+
                 }
             }
         });
@@ -131,6 +150,7 @@ public class Host_controller_subvideo
             sub_video_task.setPre_save_path(pre_save_path);
             sub_video_task.setSub_font_size(sub_font_size);
             sub_video_task.setSub_font_type(sub_font_type);
+            sub_video_task.setFile_suffix(file_suffix);
             sub_video_task.start();
         }
         else {
@@ -148,6 +168,7 @@ public class Host_controller_subvideo
         sub_video_task.setPre_save_path(pre_save_path);
         sub_video_task.setSub_font_size(sub_font_size);
         sub_video_task.setSub_font_type(sub_font_type);
+        sub_video_task.setFile_suffix(file_suffix);
         sub_video_task.start();
     }
     //停止生成字幕视频
@@ -192,12 +213,12 @@ public class Host_controller_subvideo
         System.out.println(Filename_Extension);
         if(Filename_Extension.equalsIgnoreCase("mp4")|Filename_Extension.equalsIgnoreCase("avi")|Filename_Extension.equalsIgnoreCase("rmvb"))
         {
-
+            file_suffix=Filename_Extension;
             return true;
         }
         else
         {
-
+            file_suffix="";
         }
         return false;
     }

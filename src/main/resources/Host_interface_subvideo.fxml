@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="460.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_controller_subvideo">
-    <Pane layoutX="20.0" layoutY="20.0" prefHeight="460.0" prefWidth="560.0" style="-fx-border-width: 2px; -fx-border-color: #000000;">
+    <Pane layoutX="20.0" layoutY="20.0" prefHeight="460.0" prefWidth="560.0" style="-fx-border-width: 2px; -fx-border-color: #000000;" fx:id="video_content">
         <children>
             <Text layoutX="80.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择你的视频文件:" />
             <Text layoutX="80.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择原视频语言：" />
@@ -32,6 +32,8 @@
          <JFXComboBox fx:id="sub_first2" layoutX="414.0" layoutY="187.0" prefHeight="23.0" prefWidth="72.0" />
          <JFXComboBox fx:id="video_q" layoutX="361.0" layoutY="233.0" prefHeight="23.0" prefWidth="72.0" />
         </children>
-
+    </Pane>
+    <Pane fx:id="pre_video" visible="false">
+        <fx:include source="Host_interface_Video.fxml" visible="true"/>
     </Pane>
 </AnchorPane>

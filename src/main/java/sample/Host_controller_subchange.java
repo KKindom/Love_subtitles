@@ -60,15 +60,15 @@ public class Host_controller_subchange
         System.out.println("hello");
         //下拉组添加选项
         sub_orgin.getItems().addAll("不知道","中文","英文");
-        sub_first.getItems().addAll("默认(原字幕)","中文","英文","日文","韩文");
-        sub_second.getItems().addAll("默认(原字幕)","中文","英文","日文","韩文");
+        sub_first.getItems().addAll("默认(原字幕)","中文","英文","日文","韩文","俄语","法语","德语","藏语","西班牙语","葡萄牙语");
+        sub_second.getItems().addAll("默认(原字幕)","中文","英文","日文","韩文","俄语","法语","德语","藏语","西班牙语","葡萄牙语");
         sub_orgin.getSelectionModel().selectFirst();
         sub_first.getSelectionModel().selectFirst();
         sub_second.getSelectionModel().selectFirst();
         orgin="auto";
         second="auto";
         first="auto";
-        String sub_list[]={"auto","cn","en","ja","ko"};
+        String sub_list[]={"auto","cn","en","ja","ko","ru","fr","de","ti","es","pt"};
         //初始化
         for(int i=0;i<sub_list.length;i++)
         {

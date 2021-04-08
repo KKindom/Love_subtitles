@@ -92,6 +92,9 @@ public class Sub_change_task extends Service<Number>
                         this.updateProgress(0.2,1);
                         //开始转译
                         subBaseList = MT(subBaseList, orgin, first, 2);
+                        //若开启双语转译
+                        if(!orgin.equals(second))
+                            subBaseList = MT(subBaseList, orgin, second, 1);
                         this.updateProgress(0.5,1);
                         //生成srt文件
                         try {
@@ -110,6 +113,9 @@ public class Sub_change_task extends Service<Number>
                         this.updateProgress(0.2,1);
                         //开始转译
                         subBaseList = MT(subBaseList, orgin, first, 2);
+                        //若开启双语转译
+                        if(!orgin.equals(second))
+                            subBaseList = MT(subBaseList, orgin, second, 1);
                         this.updateProgress(0.5,1);
                         Requset_listToAss(save_prepath+"生成.ass", subBaseList,2);
                         this.updateProgress(1,1);

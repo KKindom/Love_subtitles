@@ -35,7 +35,9 @@ public class Host_controller_video
     public  static AppModel model = new AppModel();
 
     List<sub_base> sub_baseList=null;
-
+    //传来的播放文件以及播放类型 1为视频预览 2为字幕预览
+    String pre_video_path,video_type,pre_sub_path;
+    int type;
     @FXML
     MediaView video;
     MediaPlayer mediaPlayer;
@@ -49,43 +51,70 @@ public class Host_controller_video
     private void initialize()
     {
         sub_txt.setText("");
-        model.textProperty().addListener((obs, oldText, newText) -> file_in.setText(newText));
+        //跨controller监听传递信息
+        model.path_videoProperty().addListener((obs, oldText, newText) -> pre_video_path=newText);
+        //model.path_subProperty().addListener((obs, oldText, newText) -> pre_sub_path=newText);
+        model.path_subProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                pre_sub_path=newValue;
+                if(pre_sub_path.equals(""))
+                {
+                    video(pre_video_path,1);
+                }
+                else
+                {
+                    video(pre_video_path,2);
+                }
+            }
+        });
         System.out.println("hello");
         System.out.println(video.getFitHeight());
     }
 
-
+    //播放视频
     public void start_video(ActionEvent actionEvent)
     {
 
-        String path="C:\\au_result\\1.mp4";
-        sub_baseList= SRT_SUBBASE("E:\\桌面\\测试视频\\字幕英文.srt");
-        my_task_sub.setSub_list(sub_baseList);
+        video(pre_video_path,type);
+    }
+    /**
+     * 播放视频函数
+     * @param type 播放类型 1为预览视频 2为预览字幕视频
+     * @param file_path 选择播放视频的路径
+     * @return 返回编辑好的数据
+     */
+    public void video(String file_path,int type)
+    {
+
+        String path=file_path;
         Media media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         video.setMediaPlayer(mediaPlayer);
         System.out.println(media.getWidth());
         //调整视频以及字幕位置
         get_vodeo();
+        if(type==2)
+        {
+            //初始化字幕列表
+            sub_baseList = SRT_SUBBASE(file_path);
+            my_task_sub.setSub_list(sub_baseList);
+            //字幕任务启动以及监听
+            my_task_sub.messageProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    sub_txt.setText(sub_baseList.get(Integer.parseInt(newValue)).data);
+                    //System.out.println("ttt");
+                }
 
-        //字幕任务启动以及监听
-        my_task_sub.start();
-        mediaPlayer.setAutoPlay(true);
-        my_task_sub.messageProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                sub_txt.setText(sub_baseList.get(Integer.parseInt(newValue)).data);
-                //System.out.println("ttt");
-            }
-
-        });
+            });
+            my_task_sub.start();
+        }
         //启动视频
-
-
+        mediaPlayer.setAutoPlay(true);
     }
 
-
-
+    //重新启动播放视频
     public void restart_video(ActionEvent actionEvent)
     {
         sub_txt.setText("");
@@ -107,7 +136,7 @@ public class Host_controller_video
     //调整视频以及字幕位置
     void get_vodeo()
     {
-        File source = new File("C:\\au_result\\1.mp4");
+        File source = new File(pre_video_path);
 
         Encoder encoder = new Encoder();
         MultimediaInfo m = null;

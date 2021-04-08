@@ -45,8 +45,8 @@ public class Host_controller_makesub
     @FXML
     private void initialize()
     {
-        sub_orgin.getItems().addAll("默认(原字幕)","中文","英文","日文","韩文");
-        sub_need.getItems().addAll("默认(原字幕)","中文","英文","日文","韩文");
+        sub_orgin.getItems().addAll("默认(原字幕)","中文","英文");
+        sub_need.getItems().addAll("默认(原字幕)","中文","英文","日文","韩文","俄语","法语","德语","藏语","西班牙语","葡萄牙语");
         sub_type.getItems().addAll("默认(SRT)","ASS");
         sub_orgin.getSelectionModel().selectFirst();
         sub_need.getSelectionModel().selectFirst();
@@ -54,7 +54,7 @@ public class Host_controller_makesub
         orgin="auto";
         sub_type_n=1;
         first="auto";
-        String sub_list[]={"auto","cn","en","ja","ko"};
+        String  sub_list[]={"auto","cn","en","ja","ko","ru","fr","de","ti","es","pt"};
         //初始化
         for(int i=0;i<sub_list.length;i++)
         {
@@ -100,6 +100,9 @@ public class Host_controller_makesub
     //开始生成字幕
     public void start_makesub(ActionEvent actionEvent)
     {
+        //添加下载须知
+        new DialogBuilder(file_in).setPositiveBtn("我在考虑", "#ff3333").setTitle("温馨提醒").setMessage("当使用合成字幕功能时，该功能需要联网且保证网络通畅，且受到讯飞服务器影响，若失败请检查网络或查看讯飞账号是否有余额！").create();
+        //是否返回
         sub_main=sub_dou.isSelected()?true:false;
         sub_make_task.setSub_main(sub_main);
         sub_make_task.setFile_type(file_type);

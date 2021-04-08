@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.bytedeco.javacv.FFmpegFrameGrabber;
+import org.bytedeco.javacv.FFmpegFrameRecorder;
 import org.bytedeco.javacv.FrameRecorder;
 
 import javafx.stage.FileChooser;
@@ -35,6 +37,17 @@ public class Host_interface extends Application {
         //加入css库
         primaryStage.getScene().getStylesheets().add("org/kordamp/bootstrapfx/bootstrapfx.css");
         primaryStage.show();
+
+        try {
+            System.out.println("start:");
+            FFmpegFrameGrabber.tryLoad();
+            FFmpegFrameRecorder.tryLoad();
+            System.out.println("end:");
+        }
+        catch (Exception e)
+        {
+
+        }
         //设置鼠标监听
 //        Button b1= (Button) root.lookup("#button2");
 //        b1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {

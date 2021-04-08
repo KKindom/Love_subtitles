@@ -26,9 +26,9 @@ import static Utils.WebITS.MT;
 @Data
 public class Sub_video_task extends Service<Number> {
     //输入文件位置，保存文件前缀，源语言，需要语言，字幕字体 字体大小
-    String in_file_pat="",pre_save_path="",orgin="auto",first="cn",sub_font_type="宋体",sub_font_size="10px",au_path;
+    String in_file_pat="",pre_save_path="",orgin="auto",first="cn",sub_font_type="宋体",au_path,file_suffix;
     //视频质量,线程选择默认视频1 预览2
-    int video_qu=0,task=1;
+    int video_qu=0,task=1,sub_font_size=20;
     List<sub_base> sub_list=new ArrayList<>();
     @Override
     protected Task<Number> createTask()
@@ -55,9 +55,9 @@ public class Sub_video_task extends Service<Number> {
                         if (!orgin.equals(first))
                             sub_list = MT(sub_list, orgin, first, 2);
                         //画视频字幕文件
-                        Draw_Sub(sub_list, in_file_pat, pre_save_path + "new.mp4", 25);
+                        Draw_Sub(sub_list, in_file_pat, pre_save_path + "."+file_suffix, sub_font_size,sub_font_type);
                         this.updateProgress(1, 1);
-                        this.updateMessage("true");
+                        this.updateMessage("video_done");
                     } catch (Throwable throwable) {
                         this.updateMessage("false");
                         throwable.printStackTrace();
@@ -71,11 +71,11 @@ public class Sub_video_task extends Service<Number> {
                         sub_list.add(new sub_base(i*1000,(i+1)*1000,"测试字幕1","测试字幕2"));
                     }
                     this.updateProgress(0.2, 1);
-                    Video_pre(in_file_pat,pre_save_path+"pre.mp4");
+                    Video_pre(in_file_pat,pre_save_path+"p."+file_suffix);
                     this.updateProgress(0.6, 1);
-                    Draw_Sub(sub_list, pre_save_path+"pre.mp4", pre_save_path+"pre2.mp4", 25);
+                    Draw_Sub(sub_list, pre_save_path+"p."+file_suffix, pre_save_path+"pre."+file_suffix, sub_font_size,sub_font_type);
                     this.updateProgress(1, 1);
-                    this.updateMessage("true");
+                    this.updateMessage("prevideo_done");
                 }
                 //画视频文件
                 return null;
