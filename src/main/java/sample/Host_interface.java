@@ -37,17 +37,21 @@ public class Host_interface extends Application {
         //加入css库
         primaryStage.getScene().getStylesheets().add("org/kordamp/bootstrapfx/bootstrapfx.css");
         primaryStage.show();
+        Thread t = new Thread(new Runnable(){
+            public void run(){
+                // run方法具体重写
+                try {
+                    System.out.println("start:");
+                    FFmpegFrameGrabber.tryLoad();
+                    FFmpegFrameRecorder.tryLoad();
+                    System.out.println("end:");
+                }
+                catch (Exception e)
+                {
 
-        try {
-            System.out.println("start:");
-            FFmpegFrameGrabber.tryLoad();
-            FFmpegFrameRecorder.tryLoad();
-            System.out.println("end:");
-        }
-        catch (Exception e)
-        {
-
-        }
+                }
+            }});
+        t.start();
         //设置鼠标监听
 //        Button b1= (Button) root.lookup("#button2");
 //        b1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {

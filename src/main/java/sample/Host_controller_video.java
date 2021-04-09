@@ -12,7 +12,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -39,10 +41,12 @@ public class Host_controller_video
     String pre_video_path,video_type,pre_sub_path;
     int type;
     @FXML
-    MediaView video;
+     MediaView video;
     MediaPlayer mediaPlayer;
     @FXML
     Label sub_txt,file_in;
+    @FXML
+    Pane video_content;
     //字幕任务
 
     Pre_video_task my_task_sub=new Pre_video_task();
@@ -53,7 +57,7 @@ public class Host_controller_video
         sub_txt.setText("");
         //跨controller监听传递信息
         model.path_videoProperty().addListener((obs, oldText, newText) -> pre_video_path=newText);
-        //model.path_subProperty().addListener((obs, oldText, newText) -> pre_sub_path=newText);
+
         model.path_subProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -66,10 +70,12 @@ public class Host_controller_video
                 {
                     video(pre_video_path,2);
                 }
+                System.out.println("消息接送成功！");
             }
         });
-        System.out.println("hello");
+        System.out.println("初始化视频预览界面");
         System.out.println(video.getFitHeight());
+
     }
 
     //播放视频
@@ -86,7 +92,7 @@ public class Host_controller_video
      */
     public void video(String file_path,int type)
     {
-
+        System.out.println("start_video");
         String path=file_path;
         Media media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
@@ -97,7 +103,7 @@ public class Host_controller_video
         if(type==2)
         {
             //初始化字幕列表
-            sub_baseList = SRT_SUBBASE(file_path);
+            sub_baseList = SRT_SUBBASE(model.getPath_sub().get());
             my_task_sub.setSub_list(sub_baseList);
             //字幕任务启动以及监听
             my_task_sub.messageProperty().addListener(new ChangeListener<String>() {
@@ -109,6 +115,7 @@ public class Host_controller_video
 
             });
             my_task_sub.start();
+            System.out.println("测试启动线程");
         }
         //启动视频
         mediaPlayer.setAutoPlay(true);
@@ -153,6 +160,30 @@ public class Host_controller_video
         System.out.println(hight*0.8+real_h);
         real_h=(460-real_h)/2;
         video.setY(real_h);
+    }
+    //返回按钮
+    public void back(ActionEvent actionEvent)
+    {
+        // 获取结果界面控制器
+        int back_type=model.getBack_type().intValue();
+        //返回字幕视频标志
+        if(back_type==1)
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Host_interface_subvideo.fxml"));
+            Host_controller_subvideo control = (Host_controller_subvideo) loader.getController();
+            control.sub_video_msg.setback(true);
+        }
+        //返回预览字幕标志
+        else if(back_type==2)
+        {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Host_interface_makesub.fxml"));
+            Host_controller_makesub control = (Host_controller_makesub) loader.getController();
+            control.sub_make_msg.setback(true);
+        }
+        mediaPlayer.stop();
+        if(my_task_sub.isRunning())
+            my_task_sub.cancel();
+        System.out.println("取消状态！");
     }
 }
 

@@ -5,13 +5,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="host_c" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_controller">
+<AnchorPane fx:id="host_c" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_controller">
    <children>
       <Pane prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: #D8BFD8;">
          <children>
             <Pane fx:id="R_1" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #F8F8FF;">
                <children>
-                  <JFXButton layoutX="117.0" layoutY="15.0" mnemonicParsing="false" text="联系我"   fx:id="video" onAction="#test"/>
+                  <JFXButton fx:id="video" layoutX="117.0" layoutY="15.0" mnemonicParsing="false" onAction="#test" text="联系我" />
                   <JFXButton fx:id="setting" layoutX="10.0" layoutY="15.0" onAction="#c_setting" prefWidth="100.0" text="设置" />
                </children></Pane>
             <Pane fx:id="R_2" layoutY="60.0" prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #00BFFF;">
@@ -19,13 +19,13 @@
                   <Pane layoutX="10.0" layoutY="10.0" prefHeight="380.0" prefWidth="180.0" style="-fx-background-color: #FDF5E6; -fx-background-radius: 2;">
                      <children>
                         <JFXButton layoutX="25.0" layoutY="199.0" mnemonicParsing="false" onAction="#down_sub" prefWidth="130.0" text="搜索字幕" />
-                        <JFXButton layoutX="25.0" layoutY="40.0" mnemonicParsing="false" prefWidth="130.0" text="合成字幕视频" onAction="#makesubvideo"/>
+                        <JFXButton layoutX="25.0" layoutY="40.0" mnemonicParsing="false" onAction="#makesubvideo" prefWidth="130.0" text="合成字幕视频" />
                         <JFXButton fx:id="t_button" layoutX="25.0" layoutY="295.0" mnemonicParsing="false" onAction="#TEST" prefWidth="130.0" text="字幕文件转译" />
                         <JFXButton layoutX="25.0" layoutY="115.0" mnemonicParsing="false" onAction="#makesub" prefWidth="130.0" text="生成字幕" />
 
                      </children></Pane>
                </children></Pane>
-            <Pane fx:id="R_3" layoutY="460.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #00FFFF;">
+            <Pane fx:id="R_3" layoutY="460.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #00FFFF;" >
                <children>
                   <Label layoutX="58.0" layoutY="10.0" text="version:1.0" textAlignment="CENTER" />
                </children></Pane>
@@ -49,7 +49,7 @@
                  <fx:include source="Host_interface_makesub.fxml" visible="true" />
              </Pane>
              <Pane fx:id="h_subvideo" visible="false">
-                 <fx:include source="Host_interface_subvideo.fxml" visible="true"/>
+                 <fx:include source="Host_interface_subvideo.fxml" visible="true" />
              </Pane>
          </children>
       </Pane>

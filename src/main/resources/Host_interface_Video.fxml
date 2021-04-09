@@ -8,7 +8,7 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="460.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_controller_video">
+<AnchorPane prefHeight="460.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_controller_video">
     <Pane layoutX="20.0" layoutY="20.0" prefHeight="460.0" prefWidth="560.0" style="-fx-background-color: #000000;">
         <children>
             <MediaView fx:id="video" fitHeight="460.0" fitWidth="560.0" nodeOrientation="INHERIT">
@@ -22,6 +22,7 @@
             <JFXButton layoutX="418.0" layoutY="366.0" mnemonicParsing="false" onAction="#start_video" text="开始播放" textFill="WHITE" />
             <JFXButton layoutX="34.0" layoutY="366.0" mnemonicParsing="false" onAction="#restart_video" text="重新播放" textFill="WHITE" />
          <Label fx:id="file_in" layoutX="280.0" layoutY="100.0" text="Label" visible="false" />
+         <JFXButton layoutX="253.0" layoutY="406.0" mnemonicParsing="false" onAction="#back" text="返回" textFill="WHITE" />
 
         </children>
     </Pane>

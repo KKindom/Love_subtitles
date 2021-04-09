@@ -1,5 +1,6 @@
 package sample;
 
+import Utils.AppModel;
 import Utils.DialogBuilder;
 import Utils.Sub_video_task;
 import com.jfoenix.controls.JFXAlert;
@@ -27,6 +28,10 @@ import java.util.Map;
  **/
 public class Host_controller_subvideo
 {
+    //controller之间传递消息
+    // 必须static 类型
+    public  static AppModel sub_video_msg = new AppModel();
+
     //输入文件位置，保存文件前缀，源语言，需要语言，字幕字体 字体大小 文件后缀
     String in_file_pat="",pre_save_path="",orgin="auto",first="cn",sub_font_type="宋体",file_suffix;
     //字幕文号，视频质量
@@ -114,6 +119,7 @@ public class Host_controller_subvideo
                     // 设置结果界面内容
                     control.model.setpath_video(pre_save_path+"pre."+file_suffix);
                     control.model.setpath_sub("");
+                    control.model.setback_type(1);
                     pre_video.setVisible(true);
                     video_content.setVisible(false);
                      pbr.setProgress(0);
@@ -126,6 +132,22 @@ public class Host_controller_subvideo
                 }
             }
         });
+
+        //消息监听
+        //返回监听配合关闭相关界面
+        sub_video_msg.backProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                //若点击返回按钮
+                if(newValue)
+                {
+                    pre_video.setVisible(false);
+                    video_content.setVisible(true);
+                }
+
+            }
+        });
+
     }
     //开始生成字幕视频
     public void start_downsubvideo(ActionEvent actionEvent)

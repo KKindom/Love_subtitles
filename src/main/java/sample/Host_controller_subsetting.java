@@ -1,5 +1,6 @@
 package sample;
 
+import Utils.AppModel;
 import Utils.DialogBuilder;
 import Utils.Down_sub_task;
 import Utils.Mytask;
@@ -11,7 +12,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -35,6 +38,7 @@ public class Host_controller_subsetting
     JFXTextField v_name;
     @FXML
     JFXButton savefilepath;
+
     //下载线程
     Down_sub_task down_sub_task=new Down_sub_task();
     //填充数据
@@ -82,6 +86,8 @@ public class Host_controller_subsetting
                 }
             }
         });
+
+
     }
     //开始下载字幕按钮监听
     public void start_downsub(ActionEvent actionEvent)
@@ -125,5 +131,7 @@ public class Host_controller_subsetting
         down_sub_task.setSavepath(savesubpath);
         System.out.print(file.getPath());
     }
+
+
 }
 

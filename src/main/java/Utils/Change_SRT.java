@@ -28,7 +28,8 @@ public class Change_SRT {
     {
         //XF_SRT("C:\\au_result\\au_result.txt", "C:\\au_result\\字幕.srt",null);
         //XF_ARR("C:\\au_result\\au_result.txt");
-        List<sub_base> subBaseList= SRT_SUBBASE("E:\\桌面\\测试视频\\字幕英文.srt");
+        List<sub_base> subBaseList= SRT_SUBBASE("E:\\桌面\\测试视频\\测试字幕.srt");
+        System.out.println("完成！");
         XF_SRT("","E:\\桌面\\双22语.srt",subBaseList,1);
     }
 

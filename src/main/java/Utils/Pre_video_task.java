@@ -94,6 +94,8 @@ public class Pre_video_task extends Service<Number> {
     protected void running() {
         super.running();
         System.out.println("running "+Platform.isFxApplicationThread());
+        System.out.println("已经启动预览视频线程！");
+        System.out.println(Thread.currentThread().getId());
     }
 
     @Override

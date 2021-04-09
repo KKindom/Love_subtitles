@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="460.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_controller_subsetting">
-    <Pane layoutX="20.0" layoutY="20.0" prefHeight="460.0" prefWidth="560.0" style="-fx-border-width: 2px; -fx-border-color: #000000;">
+    <Pane layoutX="20.0" layoutY="20.0" prefHeight="460.0" prefWidth="560.0" style="-fx-border-width: 2px; -fx-border-color: #000000;" >
         <children>
             <Text layoutX="80.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请输入你需要搜索的电影名称：" />
             <Text layoutX="80.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择下载方式：" />
@@ -37,8 +37,8 @@
             </HBox>
             <JFXButton buttonType="RAISED" layoutX="250.0" layoutY="350.0" onAction="#start_downsub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #3CB371;" text="开始下载" />
             <JFXButton buttonType="RAISED" layoutX="400.0" layoutY="350.0" onAction="#cancel_downsub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #FF8C00;" text="停止下载" />
-         <JFXTextField fx:id="v_name" alignment="CENTER" layoutX="326.0" layoutY="87.0" />
+            <JFXTextField fx:id="v_name" alignment="CENTER" layoutX="326.0" layoutY="87.0" />
         </children>
-
     </Pane>
+
 </AnchorPane>

@@ -1,5 +1,6 @@
 package sample;
 
+import Utils.AppModel;
 import Utils.DialogBuilder;
 import Utils.Sub_change_task;
 import Utils.Sub_make_task;
@@ -11,6 +12,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -26,6 +29,10 @@ import java.util.Map;
  **/
 public class Host_controller_makesub
 {
+    //controller之间传递消息
+    // 必须static 类型
+    public  static AppModel sub_make_msg = new AppModel();
+
     String in_savesubpath,save_prepath,orgin,first;
     //输入文件类型 选择字幕类型
     int sub_type_n,file_type;
@@ -41,6 +48,9 @@ public class Host_controller_makesub
     JFXRadioButton sub_dou;
     @FXML
     JFXProgressBar pbr;
+    //控制显示预览视频
+    @FXML
+    Pane pre_video,video_content;
     //初始化操作
     @FXML
     private void initialize()
@@ -93,6 +103,21 @@ public class Host_controller_makesub
                     pbr.setProgress(0);
                     new DialogBuilder(start_b).setTitle("温馨提醒").setMessage("生成字幕失败！请联系我：").setHyperLink("http://zmk.pw/").setNegativeBtn("了解", "#ff3333").create();
                 }
+            }
+        });
+
+        //消息监听
+        //返回监听配合关闭相关界面
+        sub_make_msg.backProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                //若点击返回按钮
+                if(newValue)
+                {
+                    pre_video.setVisible(false);
+                    video_content.setVisible(true);
+                }
+
             }
         });
         }
@@ -167,4 +192,19 @@ public class Host_controller_makesub
         file_type=0;
         return 0;
     }
+    public void pre_downsub(ActionEvent actionEvent)
+    {
+        // 获取结果界面控制器
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Host_interface_Video.fxml"));
+        Host_controller_video control = (Host_controller_video) loader.getController();
+        // 设置结果界面内容
+        control.model.setpath_video(in_savesubpath);
+        control.model.setpath_sub("E:\\桌面\\测试视频\\测试字幕.srt");
+        control.model.setback_type(2);
+        System.out.println("消息发送成功！");
+        pre_video.setVisible(true);
+        video_content.setVisible(false);
+        pbr.setProgress(0);
+    }
+
 }
