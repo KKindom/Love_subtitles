@@ -15,17 +15,19 @@ public class AppModel
     //传输播放文件路径
     private StringProperty path_video;
     //传输播放字幕路径
-    private StringProperty path_sub;
+    private   StringProperty path_sub;
     //返回标志
     private BooleanProperty bakc;
     //返回类型
     private IntegerProperty back_type;
+    public static  boolean inint=true;
     public AppModel()
     {
         this.path_video = new SimpleStringProperty();
         this.path_sub=new SimpleStringProperty();
         this.bakc=new SimpleBooleanProperty();
         this.back_type=new SimpleIntegerProperty();
+        System.out.println("初始化成功！");
     }
 
     public StringProperty path_videoProperty() {
@@ -38,7 +40,9 @@ public class AppModel
     public StringProperty path_subProperty() {
         return path_sub;
     }
-    public final void setpath_sub(String text) {
+    public final void setpath_sub(String text)
+    {
+        System.out.println("12345");
         path_subProperty().set(text);
     }
 
@@ -53,5 +57,10 @@ public class AppModel
     }
     public final void setback_type(int text) {
         back_typeProperty().set(text);
+    }
+
+    public void setinint(boolean x)
+    {
+        inint=x;
     }
 }

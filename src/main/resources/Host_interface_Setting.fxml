@@ -7,34 +7,36 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="460.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_Interface_Setting">
+<AnchorPane prefHeight="460.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_Interface_Setting">
 <Pane layoutX="20.0" layoutY="20.0" prefHeight="460.0" prefWidth="560.0" style="-fx-border-width: 2px; -fx-border-color: #000000;">
       <children>
-         <Pane layoutX="0.0" layoutY="30.0" prefHeight="230.0" prefWidth="560.0">
+         <Pane layoutX="0.0" layoutY="30.0" prefHeight="150.0" prefWidth="560.0">
             <children>
                <Label contentDisplay="CENTER" layoutX="250.0" text="机器翻译账号" />
                <Text layoutX="90.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请输入APPID:" />
-                <Text layoutX="90.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请输入SecretKey:" />
-               <JFXTextField layoutX="210.0" layoutY="30.0" />
-               <JFXTextField layoutX="210.0" layoutY="94.0" />
-               <JFXButton layoutX="115.0" layoutY="160.0" mnemonicParsing="false" text="恢复默认" />
-               <JFXButton layoutX="226.0" layoutY="160.0" mnemonicParsing="false" text="确定" />
-               <JFXButton layoutX="359.0" layoutY="160.0" mnemonicParsing="false" text="取消" />
+                <Text layoutX="90.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请输入SecretKey:" />
+               <JFXTextField fx:id="set_1_1" layoutX="210.0" layoutY="30.0" prefHeight="23.0" prefWidth="281.0" />
+               <JFXTextField fx:id="set_1_2" layoutX="210.0" layoutY="60.0" prefHeight="23.0" prefWidth="281.0" />
+               <JFXButton layoutX="115.0" layoutY="110.0" mnemonicParsing="false" onAction="#default1" text="恢复默认" />
+               <JFXButton layoutX="226.0" layoutY="110.0" mnemonicParsing="false" onAction="#save1" text="确定" />
+
                 
             </children>
          </Pane>
-         <Pane layoutX="0.0" layoutY="250.0" prefHeight="230.0" prefWidth="560.0">
+         <Pane layoutX="0.0" layoutY="200.0" prefHeight="230.0" prefWidth="560.0">
             <children>
                 
                 <Label contentDisplay="CENTER" layoutX="250.0" text="语音转写账号" />
 
                 <Text layoutX="90.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请输入APPID:" />
-                <Text layoutX="90.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请输入SecretKey:" />
-                <JFXTextField layoutX="210.0" layoutY="30.0" />
-                <JFXTextField layoutX="210.0" layoutY="94.0" />
-                <JFXButton layoutX="115.0" layoutY="160.0" mnemonicParsing="false" text="恢复默认" />
-                <JFXButton layoutX="226.0" layoutY="160.0" mnemonicParsing="false" text="确定" />
-                <JFXButton layoutX="359.0" layoutY="160.0" mnemonicParsing="false" text="取消" />
+                <Text layoutX="90.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请输入API_SECRET:" />
+                <Text layoutX="90.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请输入API_KEY:" />
+                <JFXTextField fx:id="set_2_1" layoutX="210.0" layoutY="60.0" prefHeight="23.0" prefWidth="281.0" />
+                <JFXTextField fx:id="set_2_2" layoutX="210.0" layoutY="30.0" prefHeight="23.0" prefWidth="281.0" />
+                <JFXTextField fx:id="set_2_3" layoutX="210.0" layoutY="94.0" prefHeight="23.0" prefWidth="281.0" />
+                <JFXButton layoutX="115.0" layoutY="160.0" mnemonicParsing="false" onAction="#default2" text="恢复默认" />
+                <JFXButton layoutX="226.0" layoutY="160.0" mnemonicParsing="false" onAction="#save2" text="确定" />
+
 
             </children>
          </Pane>

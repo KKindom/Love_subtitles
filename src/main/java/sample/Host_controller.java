@@ -38,7 +38,7 @@ public class Host_controller
     JFXButton t_button;
     //相关显示控制
     @FXML
-    Pane h_setting,h_video,h_sub,h_subchange,h_makesub,h_subvideo;
+    Pane h_setting,h_sub,h_subchange,h_makesub,h_subvideo;
     @FXML
     private void initialize()
     {
@@ -53,7 +53,6 @@ public class Host_controller
 
 
         h_subchange.setVisible(true);
-        h_video.setVisible(false);
         h_sub.setVisible(false);
         h_setting.setVisible(false);
         h_makesub.setVisible(false);
@@ -66,7 +65,6 @@ public class Host_controller
     {
 
         h_setting.setVisible(true);
-        h_video.setVisible(false);
         h_sub.setVisible(false);
         h_subchange.setVisible(false);
         h_makesub.setVisible(false);
@@ -78,7 +76,6 @@ public class Host_controller
     {
 
         h_setting.setVisible(false);
-        h_video.setVisible(false);
         h_subchange.setVisible(false);
         h_sub.setVisible(true);
         h_makesub.setVisible(false);
@@ -90,7 +87,6 @@ public class Host_controller
     {
 
         h_setting.setVisible(false);
-        h_video.setVisible(false);
         h_subchange.setVisible(false);
         h_sub.setVisible(false);
         h_makesub.setVisible(true);
@@ -101,7 +97,6 @@ public class Host_controller
     public void makesubvideo(ActionEvent actionEvent)
     {
         h_subchange.setVisible(false);
-        h_video.setVisible(false);
         h_sub.setVisible(false);
         h_setting.setVisible(false);
         h_makesub.setVisible(false);
@@ -110,7 +105,6 @@ public class Host_controller
 
     public void test(ActionEvent actionEvent)
     {   h_subchange.setVisible(false);
-        h_video.setVisible(true);
         h_sub.setVisible(false);
         h_setting.setVisible(false);
         h_makesub.setVisible(false);

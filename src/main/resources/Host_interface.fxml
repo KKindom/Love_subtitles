@@ -36,9 +36,6 @@
             <Pane fx:id="h_setting" visible="false">
             <fx:include source="Host_interface_Setting.fxml" visible="true" />
             </Pane>
-             <Pane fx:id="h_video" visible="false">
-            <fx:include source="Host_interface_Video.fxml" visible="true" />
-             </Pane>
              <Pane fx:id="h_sub" visible="false">
                  <fx:include source="Host_interface_Subsetting.fxml" visible="true" />
              </Pane>

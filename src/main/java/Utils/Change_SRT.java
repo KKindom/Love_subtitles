@@ -31,6 +31,8 @@ public class Change_SRT {
         List<sub_base> subBaseList= SRT_SUBBASE("E:\\桌面\\测试视频\\测试字幕.srt");
         System.out.println("完成！");
         XF_SRT("","E:\\桌面\\双22语.srt",subBaseList,1);
+
+
     }
 
     /**

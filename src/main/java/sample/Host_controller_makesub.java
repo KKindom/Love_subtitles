@@ -8,6 +8,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXRadioButton;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -201,7 +203,7 @@ public class Host_controller_makesub
         control.model.setpath_video(in_savesubpath);
         control.model.setpath_sub("E:\\桌面\\测试视频\\测试字幕.srt");
         control.model.setback_type(2);
-        System.out.println("消息发送成功！");
+        System.out.println("makesub消息发送成功！");
         pre_video.setVisible(true);
         video_content.setVisible(false);
         pbr.setProgress(0);

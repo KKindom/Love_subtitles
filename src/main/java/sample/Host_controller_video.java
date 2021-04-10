@@ -35,7 +35,7 @@ public class Host_controller_video
     //controller之间传递消息
     // 必须static 类型
     public  static AppModel model = new AppModel();
-
+    public static int k=0;
     List<sub_base> sub_baseList=null;
     //传来的播放文件以及播放类型 1为视频预览 2为字幕预览
     String pre_video_path,video_type,pre_sub_path;
@@ -55,24 +55,30 @@ public class Host_controller_video
     private void initialize()
     {
         sub_txt.setText("");
-        //跨controller监听传递信息
-        model.path_videoProperty().addListener((obs, oldText, newText) -> pre_video_path=newText);
-
-        model.path_subProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                pre_sub_path=newValue;
-                if(pre_sub_path.equals(""))
-                {
-                    video(pre_video_path,1);
+        if(model.inint)
+        {
+            //跨controller监听传递信息
+            model.path_videoProperty().addListener((obs, oldText, newText) -> pre_video_path = newText);
+            model.path_subProperty().addListener((o -> doSomething()));
+            model.path_subProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    System.out.println("path_subProperty:" + newValue);
+                    pre_sub_path = newValue;
+                        if (pre_sub_path.equals(""))
+                        {
+                            System.out.println("预览视频类型1无字幕");
+                            video(pre_video_path, 1);
+                        } else {
+                            System.out.println("预览视频类型2有字幕");
+                            video(pre_video_path, 2);
+                        }
+                        System.out.println("消息接送成功！");
                 }
-                else
-                {
-                    video(pre_video_path,2);
-                }
-                System.out.println("消息接送成功！");
-            }
-        });
+            });
+            model.setinint(false);
+            System.out.println("\n绑定唯一监听成功！\n");
+        }
         System.out.println("初始化视频预览界面");
         System.out.println(video.getFitHeight());
 
@@ -139,6 +145,7 @@ public class Host_controller_video
         });
         mediaPlayer.stop();
         mediaPlayer.play();
+        System.out.println("点击重新播放按钮");
     }
     //调整视频以及字幕位置
     void get_vodeo()
@@ -180,11 +187,15 @@ public class Host_controller_video
             Host_controller_makesub control = (Host_controller_makesub) loader.getController();
             control.sub_make_msg.setback(true);
         }
-        mediaPlayer.stop();
         if(my_task_sub.isRunning())
             my_task_sub.cancel();
+        mediaPlayer.stop();
         System.out.println("取消状态！");
     }
+    void doSomething()
+    {
+        System.out.println("法伤变化");
+    };
 }
 
 

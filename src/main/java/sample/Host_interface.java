@@ -41,10 +41,10 @@ public class Host_interface extends Application {
             public void run(){
                 // run方法具体重写
                 try {
-                    System.out.println("start:");
+                    System.out.println("start:加载视频处理资源");
                     FFmpegFrameGrabber.tryLoad();
                     FFmpegFrameRecorder.tryLoad();
-                    System.out.println("end:");
+                    System.out.println("end:视频处理资源加载完毕");
                 }
                 catch (Exception e)
                 {
@@ -52,35 +52,12 @@ public class Host_interface extends Application {
                 }
             }});
         t.start();
-        //设置鼠标监听
-//        Button b1= (Button) root.lookup("#button2");
-//        b1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-//            public void handle(MouseEvent event) {
-//                System.out.println("112233");
-//                chooser(primaryStage);
-//            }
-//        });
-
-
     }
 
     public static void main(String[] args) throws FrameRecorder.Exception
     {
 
         launch(args);
-
-    }
-
-    // FileChooser实现
-    public void chooser(Stage prStage){
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("选择需要的打开的视频文件/字幕文件");
-        // 初始打开的位置
-        fileChooser.setInitialDirectory(new File("."));
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("All Files", "*.*"));
-        File result =fileChooser.showOpenDialog(prStage);
-        // 输入所选择文件的路径
-        System.out.print(result.getAbsolutePath());
 
     }
 
