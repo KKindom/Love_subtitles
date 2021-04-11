@@ -44,7 +44,7 @@ public class Host_Interface_Setting
             data2=myfile.getSet(2,0);
             set_2_1.setText(data2[0]);
             set_2_2.setText(data2[1]);
-            set_2_3.setText(data2[1]);
+            set_2_3.setText(data2[2]);
 
     }
 

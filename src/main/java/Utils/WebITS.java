@@ -14,6 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import Utils.HttpUtil;
+import lombok.Data;
 
 import static Utils.Change_SRT.XF_ARR;
 import static Utils.Change_SRT.XF_SRT;
@@ -34,26 +35,37 @@ import static Utils.Change_SRT.XF_SRT;
  * ***上传自定义翻译文件（打开上传或更新窗口，可下载示例文件）
  * @author iflytek
  */
-
+@Data
 public class WebITS {
 	// OTS webapi 接口地址
-	private static final String WebOTS_URL = "https://ntrans.xfyun.cn/v2/ots";
+	public static  String WebOTS_URL = "https://ntrans.xfyun.cn/v2/ots";
 	// 应用ID（到控制台获取）
-	private static final String APPID = "6037361c";
+	public static  String APPID = "6037361c";
 	// 接口APISercet（到控制台机器翻译服务页面获取）
-	private static final String API_SECRET = "910a44eed39146657abb5d834ba22a4a";
+	public static  String API_SECRET = "910a44eed39146657abb5d834ba22a4a";
 	// 接口APIKey（到控制台机器翻译服务页面获取）
-	private static final String API_KEY = "d3ab512f0fb25448608af0a2d6ba7ff1";
+	public static  String API_KEY = "d3ab512f0fb25448608af0a2d6ba7ff1";
 
 
 	// 语种列表参数值请参照接口文档：https://doc.xfyun.cn/rest_api/机器翻译.html
 	// 源语种
-	private static  String FROM = "cn";
+	public static  String FROM = "cn";
 	// 目标语种
-	private static  String TO = "en";
+	public static  String TO = "en";
 	// 翻译文本
-	private static  String TEXT = "中华人民共和国于1949年成立";
+	public static  String TEXT = "中华人民共和国于1949年成立";
 
+
+	public void set_all(my_Webits a)
+	{
+		APPID=a.APP_ID;
+		API_SECRET=a.API_SECRET;
+		API_KEY=a.API_KEY;
+	}
+	public WebITS()
+	{
+		System.out.println("cs");
+	}
 	/**
 	 * OTS WebAPI 调用示例程序
 	 *

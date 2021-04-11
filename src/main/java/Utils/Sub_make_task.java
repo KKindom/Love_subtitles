@@ -10,6 +10,7 @@ import lombok.SneakyThrows;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.FrameRecorder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static Utils.Change_ASS.Requset_listToAss;
@@ -34,6 +35,17 @@ public class Sub_make_task  extends Service<Number> {
     boolean sub_main;
     //获取字幕数组地址
     List<sub_base> sub_list=null;
+    //接口信息
+    public static Api_Key api_key=new Api_Key();
+    LfasrSDKDemo lfasrSDKDemo=new LfasrSDKDemo();
+    WebITS my_webITS=new WebITS();
+    //初始化
+    public Sub_make_task()
+    {
+        lfasrSDKDemo.set_all(api_key.my_lfasr);
+        my_webITS.set_all(api_key.my_webits);
+    }
+
     @Override
     protected Task<Number> createTask() {
         Task<Number> mytask = new Task<Number>() {
@@ -41,26 +53,29 @@ public class Sub_make_task  extends Service<Number> {
             protected Number call() throws Exception {
                try {
                    //如果是视频文件
-                   if (file_type == 1) {
+                   if (file_type == 1)
+                   {
                        //视频转音频
                        this.updateProgress(0.1, 1);
                        Video_Au(in_savesubpath, save_prepath + ".mp3");
                        this.updateProgress(0.3, 1);
                        au_path = save_prepath + ".mp3";
                    }
-                   //如果是音频文件
-                   else {
+                   else
+                   {
+                       //如果是音频文件
                        au_path = in_savesubpath;
+                   }
                        //音频转讯飞结果
                        this.updateProgress(0.4, 1);
-                       //businessExtraParams(au_path, save_prepath);
+                       lfasrSDKDemo.businessExtraParams(au_path, save_prepath);
                        this.updateProgress(0.6, 1);
                        //讯飞结果转arr数组
                        sub_list = XF_ARR(save_prepath + "\\result.txt", 1);
                        this.updateProgress(0.7, 1);
                        //如果转译需要翻译
                        if (!orgin.equals(first))
-                           sub_list = MT(sub_list, orgin, first, 2);
+                           sub_list = my_webITS.MT(sub_list, orgin, first, 2);
                        this.updateProgress(0.75, 1);
                        //arr数组转字幕文件
                        //若为srt字幕文件
@@ -86,7 +101,7 @@ public class Sub_make_task  extends Service<Number> {
                            }
                            this.updateMessage("true");
                        }
-                   }
+
                }
                //异常处理
                 catch (Throwable throwable) {

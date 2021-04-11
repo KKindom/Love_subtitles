@@ -29,7 +29,18 @@ public class Sub_video_task extends Service<Number> {
     String in_file_pat="",pre_save_path="",orgin="auto",first="cn",sub_font_type="宋体",au_path,file_suffix;
     //视频质量,线程选择默认视频1 预览2
     int video_qu=0,task=1,sub_font_size=20;
+    //接口信息
+    public static Api_Key api_key=new Api_Key();
     List<sub_base> sub_list=new ArrayList<>();
+
+    LfasrSDKDemo lfasrSDKDemo=new LfasrSDKDemo();
+    WebITS my_webITS=new WebITS();
+    //初始化
+    public Sub_video_task()
+    {
+        lfasrSDKDemo.set_all(api_key.my_lfasr);
+        my_webITS.set_all(api_key.my_webits);
+    }
     @Override
     protected Task<Number> createTask()
     {
@@ -47,13 +58,13 @@ public class Sub_video_task extends Service<Number> {
                         //音频转写
                         //音频转讯飞结果
                         this.updateProgress(0.4, 1);
-                        //businessExtraParams(pre_save_path + ".mp3", pre_save_path);
+                        //lfasrSDKDemo.businessExtraParams(pre_save_path + ".mp3", pre_save_path);
                         this.updateProgress(0.6, 1);
                         //讯飞结果转arr数组
                         sub_list = XF_ARR(pre_save_path + "\\result.txt", 1);
                         //判断是否需要转译
                         if (!orgin.equals(first))
-                            sub_list = MT(sub_list, orgin, first, 2);
+                            sub_list = my_webITS.MT(sub_list, orgin, first, 2);
                         //画视频字幕文件
                         Draw_Sub(sub_list, in_file_pat, pre_save_path + "."+file_suffix, sub_font_size,sub_font_type);
                         this.updateProgress(1, 1);

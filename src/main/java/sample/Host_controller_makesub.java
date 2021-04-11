@@ -41,6 +41,8 @@ public class Host_controller_makesub
     boolean sub_main=false;
     Map<Integer,String> sub_type_list=new HashMap<Integer,String>();
     Sub_make_task sub_make_task=new Sub_make_task();
+    //反悔按钮
+    Boolean flag=false;
     //绑定组件
     @FXML
     JFXComboBox sub_orgin,sub_need,sub_type;
@@ -65,7 +67,7 @@ public class Host_controller_makesub
         sub_type.getSelectionModel().selectFirst();
         orgin="auto";
         sub_type_n=1;
-        first="auto";
+        first="cn";
         String  sub_list[]={"auto","cn","en","ja","ko","ru","fr","de","ti","es","pt"};
         //初始化
         for(int i=0;i<sub_list.length;i++)
@@ -127,18 +129,31 @@ public class Host_controller_makesub
     //开始生成字幕
     public void start_makesub(ActionEvent actionEvent)
     {
-        //添加下载须知
-        new DialogBuilder(file_in).setPositiveBtn("我在考虑", "#ff3333").setTitle("温馨提醒").setMessage("当使用合成字幕功能时，该功能需要联网且保证网络通畅，且受到讯飞服务器影响，若失败请检查网络或查看讯飞账号是否有余额！").create();
+        //添加反悔按钮   下载须知
+        new DialogBuilder(file_in).setPositiveBtn("我在考虑", new DialogBuilder.OnClickListener() {
+            @Override
+            public void onClick() {
+                flag=true;
+            }
+        }, "#ff3333").setNegativeBtn("我意已决","#ff4444").setTitle("温馨提醒").setMessage("当使用合成字幕功能时，该功能需要联网且保证网络通畅，且受到讯飞服务器影响，若失败请检查网络或查看讯飞账号是否有余额！").create();
         //是否返回
-        sub_main=sub_dou.isSelected()?true:false;
-        sub_make_task.setSub_main(sub_main);
-        sub_make_task.setFile_type(file_type);
-        sub_make_task.setFirst(first);
-        sub_make_task.setOrgin(orgin);
-        sub_make_task.setIn_savesubpath(in_savesubpath);
-        sub_make_task.setSave_prepath(save_prepath);
-        sub_make_task.setSub_type_n(sub_type_n);
-        sub_make_task.start();
+        if(!flag)
+        {
+            sub_main = sub_dou.isSelected() ? true : false;
+            sub_make_task.setSub_main(sub_main);
+            sub_make_task.setFile_type(file_type);
+            sub_make_task.setFirst(first);
+            sub_make_task.setOrgin(orgin);
+            sub_make_task.setIn_savesubpath(in_savesubpath);
+            sub_make_task.setSave_prepath(save_prepath);
+            sub_make_task.setSub_type_n(sub_type_n);
+            sub_make_task.start();
+            flag=false;
+        }
+        else
+        {
+            return;
+        }
 
     }
     //停止生成字幕

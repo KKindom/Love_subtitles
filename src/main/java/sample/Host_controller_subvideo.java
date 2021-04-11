@@ -1,5 +1,6 @@
 package sample;
 
+import Utils.Api_Key;
 import Utils.AppModel;
 import Utils.DialogBuilder;
 import Utils.Sub_video_task;
@@ -37,8 +38,8 @@ public class Host_controller_subvideo
     //字幕文号，视频质量
     int video_qu=0,sub_font_size=20;
     boolean flag=false;
-    Map<Integer,String> sub_type_list=new HashMap<Integer,String>();
     Sub_video_task sub_video_task=new Sub_video_task();
+
     @FXML
     JFXButton file_in;
     @FXML
@@ -147,6 +148,7 @@ public class Host_controller_subvideo
 
             }
         });
+        //设置接口信息
 
     }
     //开始生成字幕视频
@@ -174,6 +176,7 @@ public class Host_controller_subvideo
             sub_video_task.setSub_font_type(sub_font_type);
             sub_video_task.setFile_suffix(file_suffix);
             sub_video_task.start();
+            flag=false;
         }
         else {
             return;

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.iflytek.msp.lfasr.LfasrClient;
 import com.iflytek.msp.lfasr.model.Message;
+import lombok.Data;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -20,9 +21,10 @@ import java.util.concurrent.TimeUnit;
  *
  * @author : hejie
  */
+@Data
 public class LfasrSDKDemo {
-    private static final String APP_ID = "6037361c";
-    private static final String SECRET_KEY = "c715236ba3bd1cdf36383aa5382b7776";
+    public static  String APP_ID = "6037361c";
+    public static  String SECRET_KEY = "c715236ba3bd1cdf36383aa5382b7776";
 
 
     //音频文件路径
@@ -31,6 +33,13 @@ public class LfasrSDKDemo {
     //3、通过classpath：
     private static final String AUDIO_FILE_PATH = "E:\\桌面\\kkindom.mp3";
 
+
+
+    public void set_all(lfasr a)
+    {
+        APP_ID=a.APP_ID;
+        SECRET_KEY=a.SECRET_KEY;
+    }
     /**
      * 注意：同时只能执行一个 示例
      *
@@ -160,7 +169,7 @@ public class LfasrSDKDemo {
 
 
         //退出程序，关闭线程资源，仅在测试main方法时使用。
-        System.exit(0);
+        //System.exit(0);
     }
 
     /**

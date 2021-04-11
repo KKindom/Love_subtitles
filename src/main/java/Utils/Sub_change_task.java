@@ -7,6 +7,7 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,6 @@ import static Utils.Change_ASS.ASSTo_ARR;
 import static Utils.Change_ASS.Requset_listToAss;
 import static Utils.Change_SRT.SRT_SUBBASE;
 import static Utils.Change_SRT.XF_SRT;
-import static Utils.WebITS.MT;
 
 /**
  * @program: untitled
@@ -33,6 +33,15 @@ public class Sub_change_task extends Service<Number>
     int sub_type=0,change_type=0;
     //对应选择语言
     String orgin,first,second;
+
+    //接口信息
+    public static Api_Key api_key=new Api_Key();
+    public     WebITS my_webITS=new WebITS();
+    //初始化
+    public Sub_change_task()
+    {
+        my_webITS.set_all(api_key.my_webits);
+    }
     @Override
     protected Task<Number> createTask() {
         Task<Number> mytask = new Task<Number>() {
@@ -50,7 +59,7 @@ public class Sub_change_task extends Service<Number>
                         subBaseList = SRT_SUBBASE(in_savesubpath);
                         this.updateProgress(0.2,1);
                         //开始转译
-                        subBaseList = MT(subBaseList, orgin, first, 1);
+                        subBaseList = my_webITS.MT(subBaseList, orgin, first, 1);
                         this.updateProgress(0.5,1);
                         //生成srt文件
                         try {
@@ -68,7 +77,7 @@ public class Sub_change_task extends Service<Number>
                         subBaseList=ASSTo_ARR(in_savesubpath, 1);
                         this.updateProgress(0.2,1);
                         //开始转译
-                        subBaseList = MT(subBaseList, orgin, first, 1);
+                        subBaseList =my_webITS.MT(subBaseList, orgin, first, 1);
                         this.updateProgress(0.5,1);
                         Requset_listToAss(save_prepath+"生成.ass", subBaseList,1);
                         this.updateProgress(1,1);
@@ -91,10 +100,10 @@ public class Sub_change_task extends Service<Number>
                         subBaseList = SRT_SUBBASE(in_savesubpath);
                         this.updateProgress(0.2,1);
                         //开始转译
-                        subBaseList = MT(subBaseList, orgin, first, 2);
+                        subBaseList = my_webITS.MT(subBaseList, orgin, first, 2);
                         //若开启双语转译
                         if(!orgin.equals(second))
-                            subBaseList = MT(subBaseList, orgin, second, 1);
+                            subBaseList = my_webITS.MT(subBaseList, orgin, second, 1);
                         this.updateProgress(0.5,1);
                         //生成srt文件
                         try {
@@ -112,10 +121,10 @@ public class Sub_change_task extends Service<Number>
                         subBaseList=ASSTo_ARR(in_savesubpath, 2);
                         this.updateProgress(0.2,1);
                         //开始转译
-                        subBaseList = MT(subBaseList, orgin, first, 2);
+                        subBaseList =my_webITS.MT(subBaseList, orgin, first, 2);
                         //若开启双语转译
                         if(!orgin.equals(second))
-                            subBaseList = MT(subBaseList, orgin, second, 1);
+                            subBaseList = my_webITS.MT(subBaseList, orgin, second, 1);
                         this.updateProgress(0.5,1);
                         Requset_listToAss(save_prepath+"生成.ass", subBaseList,2);
                         this.updateProgress(1,1);
