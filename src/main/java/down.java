@@ -1,25 +1,21 @@
-import Utils.sub_base;
+
+import cn.hutool.core.io.FileTypeUtil;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.IoUtil;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.UnexpectedPage;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.DomText;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.highgui.HighGui;
-import org.opencv.imgcodecs.Imgcodecs;
 
 import java.io.*;
-import java.net.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 
-import static Utils.Change_SRT.*;
 import static org.opencv.imgcodecs.Imgcodecs.imread;
 
 
@@ -33,8 +29,9 @@ public class down
 {
     public static void main(String[] args)
     {
-      String result=  downfile("http://zmk.pw/","猎鹰与冬兵 第一季 第5集",2);
+      String result=  downfile("http://zmk.pw/","小人物 Nobody",2);
         //System.out.println(result);
+
     }
     /**
      @downfile*  用于下载字幕文件
@@ -105,15 +102,16 @@ public class down
                     //拿到最匹配的首选项的字幕列表
                     HtmlElement More_link = (HtmlElement) page.getByXPath("/html/body/div[2]/div/div/div[2]/div[2]/div[2]/div/table/tbody/tr[6]/td/a").get(0);
                     page= More_link.click();
-                    List<HtmlElement> More_linklist=page.getByXPath("//*[@id=\"subtb\"]/tbody/tr/td[4]");
+                    List<HtmlElement> num_index=page.getByXPath("/html/body/div[2]/div/div[2]/div/table/tbody/tr[1]/td");
+                    int num=num_index.size()-1;
+                    List<HtmlElement> More_linklist=page.getByXPath("//*[@id=\"subtb\"]/tbody/tr/td["+num+"]");
                     //获取下载量最大的链接下标
                    int index= Best_link_index(More_linklist,2);
                         System.out.println(index);
                         //获取下载量最大的链接
                         //获取链接
-                        HtmlElement link = (HtmlElement) page.getByXPath("//*[@id=\"subtb\"]/tbody/tr["+index+"]/td[1]/a ").get(0);
+                        HtmlElement link = (HtmlElement) page.getByXPath("//*[@id=\"subtb\"]/tbody/tr["+index+"]/td[2]/a ").get(0);
                         chose_link(page,link,data);
-
                     System.out.println("尝试");
                 }
             }
@@ -127,8 +125,12 @@ public class down
     {
 
         InputStream is = pages.getWebResponse().getContentAsStream();
-        FileOutputStream output = new FileOutputStream("E:\\桌面\\"+data+"."+houzhui);
+        String type= FileTypeUtil.getType(is);
+        if (type==null)
+            type=houzhui;
+        FileOutputStream output = new FileOutputStream("E:\\桌面\\"+data+"."+type);
         IOUtils.copy(is, output);
+
         output.close();
         return true;
     }
@@ -140,7 +142,6 @@ public class down
         //点击进入链接
         page = link.click();
         System.out.println(page.asXml());
-
         //获取文件后缀
         HtmlElement houzhui=(HtmlElement)page.getByXPath("/html/body/div[2]/div/div[1]/div/div[1]/h1").get(0);
         //注意逗号要转义字符
