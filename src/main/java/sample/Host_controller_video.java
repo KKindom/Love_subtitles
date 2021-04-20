@@ -42,7 +42,7 @@ public class Host_controller_video
     int type;
     @FXML
      MediaView video;
-    MediaPlayer mediaPlayer;
+   static MediaPlayer mediaPlayer=null;
     @FXML
     Label sub_txt,file_in;
     @FXML
@@ -57,6 +57,7 @@ public class Host_controller_video
         sub_txt.setText("");
         if(model.inint)
         {
+            System.out.println(Thread.currentThread());
             //跨controller监听传递信息
             model.path_videoProperty().addListener((obs, oldText, newText) -> pre_video_path = newText);
             model.path_subProperty().addListener((o -> doSomething()));
@@ -69,7 +70,8 @@ public class Host_controller_video
                         {
                             System.out.println("预览视频类型1无字幕");
                             video(pre_video_path, 1);
-                        } else {
+                        } else
+                        {
                             System.out.println("预览视频类型2有字幕");
                             video(pre_video_path, 2);
                         }
@@ -100,12 +102,16 @@ public class Host_controller_video
     {
         System.out.println("start_video");
         String path=file_path;
-        Media media = new Media(new File(path).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        video.setMediaPlayer(mediaPlayer);
+        System.out.println("播放视频路径为："+path);
+        Media media = new Media(new File(pre_video_path).toURI().toString());
+        mediaPlayer =new MediaPlayer(media) ;
+        //video.setMediaPlayer();
+        this.video.setMediaPlayer(mediaPlayer);
+        System.out.println(video.getMediaPlayer());
         System.out.println(media.getWidth());
         //调整视频以及字幕位置
         get_vodeo();
+
         if(type==2)
         {
             //初始化字幕列表
@@ -125,6 +131,9 @@ public class Host_controller_video
         }
         //启动视频
         mediaPlayer.setAutoPlay(true);
+        System.out.println(mediaPlayer.getStatus());
+        System.out.println(video.isVisible());
+        System.out.println("启动播放器");
     }
 
     //重新启动播放视频
@@ -134,7 +143,6 @@ public class Host_controller_video
         my_task_sub.cancel();
         my_task_sub=new Pre_video_task();
         my_task_sub.setSub_list(sub_baseList);
-        my_task_sub.start();
         my_task_sub.messageProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -143,6 +151,7 @@ public class Host_controller_video
             }
 
         });
+        my_task_sub.start();
         mediaPlayer.stop();
         mediaPlayer.play();
         System.out.println("点击重新播放按钮");
@@ -167,6 +176,7 @@ public class Host_controller_video
         System.out.println(hight*0.8+real_h);
         real_h=(460-real_h)/2;
         video.setY(real_h);
+        System.out.println("视频位置：x："+video.getX()+"y:"+video.getY());
     }
     //返回按钮
     public void back(ActionEvent actionEvent)
@@ -190,12 +200,14 @@ public class Host_controller_video
         if(my_task_sub.isRunning())
             my_task_sub.cancel();
         mediaPlayer.stop();
+        System.out.println("关闭的"+mediaPlayer);
+        System.out.println("关闭的"+video);
         System.out.println("取消状态！");
     }
     void doSomething()
     {
         System.out.println("法伤变化");
-    };
+    }
 }
 
 

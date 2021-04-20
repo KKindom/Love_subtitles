@@ -178,18 +178,13 @@ public class Change_SRT {
                         if(!readline.equals(""))
                         {
                             buffer2.append(readline);
-                        }
-                        break;
-                    default:
-                        if(readline.equals(""))
-                        {
-                            pos = 0;
-                            subBase.setData(buffer.toString());
                             subBase.setData2(buffer2.toString());
-                            srtList.add(subBase);
-                            buffer.setLength(0);
                             buffer2.setLength(0);
                         }
+                        pos = 0;
+                        subBase.setData(buffer.toString());
+                        srtList.add(subBase);
+                        buffer.setLength(0);
                         break;
                 }
             }

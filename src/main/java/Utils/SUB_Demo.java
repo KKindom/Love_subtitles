@@ -48,7 +48,7 @@ public class SUB_Demo
 //        } catch (Throwable throwable) {
 //            throwable.printStackTrace();
 //        }
-        for(int i=0;i<10;i++)
+        for(int i=0;i<1000;i++)
         {
             arr.add(new sub_base(i*1000,(i+1)*1000,"测试弹幕"+i,"测试弹幕"+i));
         }
@@ -141,6 +141,15 @@ public class SUB_Demo
      * @param font_type 字体类型
      * @return 返回编辑好的数据
      */
+    /**
+     * 视频预览处理
+     * @param inputfile 输入视频
+     * @param outputfile 输出视频
+     * @param arr 字幕数组
+     * @param size 字幕大小
+     * @param font_type 字体类型
+     * @return 返回编辑好的数据
+     */
 
     public static void Draw_Sub(List<sub_base> arr,String inputfile,String outputfile,int size,String font_type)throws FrameGrabber.Exception, FrameRecorder.Exception
     {
@@ -213,7 +222,6 @@ public class SUB_Demo
         grabber.stop();
         recorder.stop();
     }
-
     /**
      * 图片添加文本
      *

@@ -11,10 +11,9 @@
 <AnchorPane prefHeight="460.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_controller_video">
     <Pane layoutX="20.0" layoutY="20.0" prefHeight="460.0" prefWidth="560.0" style="-fx-background-color: #000000;">
         <children>
-            <MediaView fx:id="video" fitHeight="460.0" fitWidth="560.0" nodeOrientation="INHERIT">
-                <viewport>
-                    <Rectangle2D />
-                </viewport></MediaView>
+            <MediaView fx:id="video" fitHeight="460.0" fitWidth="560.0" nodeOrientation="INHERIT" layoutX="0" visible="true">
+
+            </MediaView>
             <Label fx:id="sub_txt" alignment="CENTER" contentDisplay="CENTER" layoutY="356.0" prefHeight="50.0" prefWidth="560.0" text="测试弹幕" textAlignment="CENTER" textFill="WHITE">
             <font>
                <Font size="23.0" />

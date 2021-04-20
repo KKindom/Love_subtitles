@@ -8,12 +8,18 @@ import com.jfoenix.controls.JFXAlert;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXProgressBar;
+import it.sauronsoftware.jave.Encoder;
+import it.sauronsoftware.jave.EncoderException;
+import it.sauronsoftware.jave.MultimediaInfo;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -50,8 +56,11 @@ public class Host_controller_subvideo
     @FXML
     Pane pre_video,video_content;
     @FXML
+    MediaView video;
+    MediaPlayer mediaPlayer;
+    @FXML
     private void initialize() {
-
+        System.out.println("开始初始化生成字幕视频fxml");
         pbr.setProgress(0);
         //初始化下拉框
         sub_orgin.getItems().addAll("默认(原字幕)", "中文", "英文");
@@ -114,16 +123,18 @@ public class Host_controller_subvideo
                 }
                 else if (newValue.equals("prevideo_done"))
                 {
-                    // 获取结果界面控制器
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("Host_interface_Video.fxml"));
-                    Host_controller_video control = (Host_controller_video) loader.getController();
-                    // 设置结果界面内容
-                    control.model.setpath_video(pre_save_path+"pre."+file_suffix);
-                    control.model.setpath_sub("");
-                    control.model.setback_type(1);
+//                    // 获取结果界面控制器
+//                    FXMLLoader loader = new FXMLLoader(getClass().getResource("Host_interface_Video.fxml"));
+//                    Host_controller_video control = (Host_controller_video) loader.getController();
+//                    // 设置结果界面内容
+//                    control.model.setpath_video(pre_save_path+"pre."+file_suffix);
+//                    control.model.setpath_sub("");
+//                    control.model.setback_type(1);
+//                    pre_video.setVisible(true);
+//                    video_content.setVisible(false);
+//                     pbr.setProgress(0);
+                    s_video(pre_save_path+"pre."+file_suffix);
                     pre_video.setVisible(true);
-                    video_content.setVisible(false);
-                     pbr.setProgress(0);
                 }
                 else
                 {
@@ -246,5 +257,61 @@ public class Host_controller_subvideo
             file_suffix="";
         }
         return false;
+    }
+
+    public void start_video(ActionEvent actionEvent)
+    {
+
+    }
+    public void s_video(String url)
+    {
+        System.out.println("start_video");
+        String path=pre_save_path+"pre."+file_suffix;
+        System.out.println("播放视频路径为："+path);
+        Media media = new Media(new File(path).toURI().toString());
+         mediaPlayer =new MediaPlayer(media) ;
+        //video.setMediaPlayer();
+        this.video.setMediaPlayer(mediaPlayer);
+        System.out.println(video.getMediaPlayer());
+        System.out.println(media.getWidth());
+        //调整视频以及字幕位置
+        get_vodeo();
+        mediaPlayer.setAutoPlay(true);
+    }
+
+    public void restart_video(ActionEvent actionEvent)
+    {
+        mediaPlayer.stop();
+        mediaPlayer.play();
+    }
+
+    public void back(ActionEvent actionEvent)
+    {
+        pre_video.setVisible(false);
+        video_content.setVisible(true);
+        mediaPlayer.stop();
+        System.out.println("关闭的"+mediaPlayer);
+        System.out.println("关闭的"+video);
+        System.out.println("取消状态！");
+    }
+    void get_vodeo()
+    {
+        File source = new File(pre_save_path+"pre."+file_suffix);
+
+        Encoder encoder = new Encoder();
+        MultimediaInfo m = null;
+        try {
+            m = encoder.getInfo(source);
+        } catch (EncoderException e) {
+            e.printStackTrace();
+        }
+        // 视频帧宽高
+        int hight=m.getVideo().getSize().getHeight();
+        int width=m.getVideo().getSize().getWidth();
+        Double real_h=560/(width/(double)hight);
+        System.out.println(hight*0.8+real_h);
+        real_h=(460-real_h)/2;
+        video.setY(real_h);
+        System.out.println("视频位置：x："+video.getX()+"y:"+video.getY());
     }
 }

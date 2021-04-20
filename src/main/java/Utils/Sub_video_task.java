@@ -53,12 +53,12 @@ public class Sub_video_task extends Service<Number> {
                     try {
                         //视频转音频
                         this.updateProgress(0.1, 1);
-                        //Video_Au(in_file_pat, pre_save_path + ".mp3");
+                        Video_Au(in_file_pat, pre_save_path + ".mp3");
                         this.updateProgress(0.3, 1);
                         //音频转写
                         //音频转讯飞结果
                         this.updateProgress(0.4, 1);
-                        //lfasrSDKDemo.businessExtraParams(pre_save_path + ".mp3", pre_save_path);
+                        lfasrSDKDemo.businessExtraParams(pre_save_path + ".mp3", pre_save_path);
                         this.updateProgress(0.6, 1);
                         //讯飞结果转arr数组
                         sub_list = XF_ARR(pre_save_path + "\\result.txt", 1);
@@ -77,7 +77,7 @@ public class Sub_video_task extends Service<Number> {
                 //预览视频线程
                 else
                 {
-                    for(int i=0;i<10;i++)
+                    for(int i=0;i<100;i++)
                     {
                         sub_list.add(new sub_base(i*1000,(i+1)*1000,"测试字幕1","测试字幕2"));
                     }
@@ -85,6 +85,8 @@ public class Sub_video_task extends Service<Number> {
                     Video_pre(in_file_pat,pre_save_path+"p."+file_suffix);
                     this.updateProgress(0.6, 1);
                     Draw_Sub(sub_list, pre_save_path+"p."+file_suffix, pre_save_path+"pre."+file_suffix, sub_font_size,sub_font_type);
+                    System.out.println("字体类型为");
+                    System.out.println(sub_font_size+sub_font_type);
                     this.updateProgress(1, 1);
                     this.updateMessage("prevideo_done");
                 }

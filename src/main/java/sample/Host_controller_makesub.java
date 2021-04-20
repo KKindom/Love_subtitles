@@ -59,6 +59,7 @@ public class Host_controller_makesub
     @FXML
     private void initialize()
     {
+        System.out.println("开始初始化生成字幕fxml");
         sub_orgin.getItems().addAll("默认(原字幕)","中文","英文");
         sub_need.getItems().addAll("默认(原字幕)","中文","英文","日文","韩文","俄语","法语","德语","藏语","西班牙语","葡萄牙语");
         sub_type.getItems().addAll("默认(SRT)","ASS");

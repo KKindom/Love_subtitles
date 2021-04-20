@@ -24,8 +24,8 @@
               <Label>字幕转译进度条</Label>
               <JFXProgressBar styleClass="custom-jfx-progress-bar-stroke" visible="true"  fx:id="pbr"/>
           </HBox>
-          <JFXButton buttonType="RAISED" layoutX="200.0" layoutY="350.0" onAction="#start_changesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #3CB371;" text="开始下载" />
-          <JFXButton buttonType="RAISED" layoutX="350.0" layoutY="350.0" onAction="#cancel_changesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #FF8C00;" text="停止下载" />
+          <JFXButton buttonType="RAISED" layoutX="200.0" layoutY="350.0" onAction="#start_changesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #3CB371;" text="开始转译" />
+          <JFXButton buttonType="RAISED" layoutX="350.0" layoutY="350.0" onAction="#cancel_changesub" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #FF8C00;" text="停止转译" />
       </children>
         
     </Pane>

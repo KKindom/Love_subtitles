@@ -134,7 +134,7 @@ public class Host_controller_subchange
     public void start_changesub(ActionEvent actionEvent)
     {
         //判断数据是否填写
-        if(in_savesubpath.equals("")|first.equals("auto")|second.equals("auto"))
+        if(in_savesubpath.equals("")|first.equals("auto"))
         {
             new DialogBuilder(file_in).setTitle("温馨提醒").setMessage("请注意未完成一下操作：\n 1.选择srt/ass字幕文件 \n 2.未选择第一转译语言").setNegativeBtn("了解", "#ff3333").create();
             return;

@@ -14,9 +14,9 @@
                   <JFXButton fx:id="video" layoutX="117.0" layoutY="15.0" mnemonicParsing="false" onAction="#test" text="联系我" />
                   <JFXButton fx:id="setting" layoutX="10.0" layoutY="15.0" onAction="#c_setting" prefWidth="100.0" text="设置" />
                </children></Pane>
-            <Pane fx:id="R_2" layoutY="60.0" prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #00BFFF;">
+            <Pane fx:id="R_2" layoutY="60.0" prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
                <children>
-                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="380.0" prefWidth="180.0" style="-fx-background-color: #FDF5E6; -fx-background-radius: 2;">
+                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="380.0" prefWidth="180.0" style="-fx-background-color: #fdfaf4; -fx-background-radius: 2;">
                      <children>
                         <JFXButton layoutX="25.0" layoutY="199.0" mnemonicParsing="false" onAction="#down_sub" prefWidth="130.0" text="搜索字幕" />
                         <JFXButton layoutX="25.0" layoutY="40.0" mnemonicParsing="false" onAction="#makesubvideo" prefWidth="130.0" text="合成字幕视频" />
@@ -25,7 +25,7 @@
 
                      </children></Pane>
                </children></Pane>
-            <Pane fx:id="R_3" layoutY="460.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #00FFFF;" >
+            <Pane fx:id="R_3" layoutY="460.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" >
                <children>
                   <Label layoutX="58.0" layoutY="10.0" text="version:1.0" textAlignment="CENTER" />
                </children></Pane>

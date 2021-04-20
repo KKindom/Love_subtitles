@@ -102,7 +102,7 @@ public class Sub_change_task extends Service<Number>
                         //开始转译
                         subBaseList = my_webITS.MT(subBaseList, orgin, first, 2);
                         //若开启双语转译
-                        if(!orgin.equals(second))
+                        if(!first.equals(second))
                             subBaseList = my_webITS.MT(subBaseList, orgin, second, 1);
                         this.updateProgress(0.5,1);
                         //生成srt文件
@@ -123,7 +123,7 @@ public class Sub_change_task extends Service<Number>
                         //开始转译
                         subBaseList =my_webITS.MT(subBaseList, orgin, first, 2);
                         //若开启双语转译
-                        if(!orgin.equals(second))
+                        if(!first.equals(second))
                             subBaseList = my_webITS.MT(subBaseList, orgin, second, 1);
                         this.updateProgress(0.5,1);
                         Requset_listToAss(save_prepath+"生成.ass", subBaseList,2);

@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXProgressBar?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Text?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="460.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_controller_subvideo">
-    <Pane layoutX="20.0" layoutY="20.0" prefHeight="460.0" prefWidth="560.0" style="-fx-border-width: 2px; -fx-border-color: #000000;" fx:id="video_content">
+<?import javafx.scene.media.MediaView?>
+<AnchorPane prefHeight="460.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Host_controller_subvideo">
+    <Pane fx:id="video_content" layoutX="20.0" layoutY="20.0" prefHeight="460.0" prefWidth="560.0" style="-fx-border-width: 2px; -fx-border-color: #000000;">
         <children>
             <Text layoutX="80.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择你的视频文件:" />
             <Text layoutX="80.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择原视频语言：" />
@@ -20,20 +17,33 @@
 
             <HBox alignment="CENTER_LEFT" layoutX="80.0" layoutY="300.0" spacing="80">
                 <Label>字幕下载进度条</Label>
-                <JFXProgressBar styleClass="custom-jfx-progress-bar-stroke" visible="true"  fx:id="pbr"/>
+                <JFXProgressBar fx:id="pbr" styleClass="custom-jfx-progress-bar-stroke" visible="true" />
             </HBox>
             <JFXButton buttonType="RAISED" layoutX="100.0" layoutY="350.0" onAction="#pre_downsubvideo" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #3CE371;" text="预览效果" />
-            <JFXButton buttonType="RAISED" layoutX="250.0" layoutY="350.0" onAction="#start_downsubvideo" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #3CB371;" text="开始下载" />
-            <JFXButton buttonType="RAISED" layoutX="400.0" layoutY="350.0" onAction="#cancel_downsubvideo" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #FF8C00;" text="停止下载" />
+            <JFXButton buttonType="RAISED" layoutX="250.0" layoutY="350.0" onAction="#start_downsubvideo" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #3CB371;" text="开始生成" />
+            <JFXButton buttonType="RAISED" layoutX="400.0" layoutY="350.0" onAction="#cancel_downsubvideo" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #FF8C00;" text="停止生成" />
          <Text layoutX="80.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择视频质量:" />
          <Text layoutX="80.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择字幕类型:" />
-         <JFXButton fx:id="file_in" layoutX="345.0" layoutY="61.0" mnemonicParsing="false" text="选择视频位置"  onAction="#chose_path"/>
-         <JFXComboBox fx:id="sub_first1" layoutX="294.0" layoutY="187.0" prefHeight="23.0" prefWidth="72.0" />
-         <JFXComboBox fx:id="sub_first2" layoutX="414.0" layoutY="187.0" prefHeight="23.0" prefWidth="72.0" />
-         <JFXComboBox fx:id="video_q" layoutX="361.0" layoutY="233.0" prefHeight="23.0" prefWidth="72.0" />
+         <JFXButton fx:id="file_in" layoutX="345.0" layoutY="61.0" mnemonicParsing="false" onAction="#chose_path" text="选择视频位置" />
+         <JFXComboBox fx:id="sub_first1" layoutX="271.0" layoutY="187.0" prefHeight="23.0" prefWidth="95.0" />
+         <JFXComboBox fx:id="sub_first2" layoutX="391.0" layoutY="187.0" prefHeight="23.0" prefWidth="95.0" />
+         <JFXComboBox fx:id="video_q" layoutX="322.0" layoutY="233.0" prefHeight="23.0" prefWidth="150.0" />
         </children>
     </Pane>
     <Pane fx:id="pre_video" visible="false">
-        <fx:include source="Host_interface_Video.fxml" visible="true"/>
+        <AnchorPane prefHeight="460.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+            <Pane layoutX="20.0" layoutY="20.0" prefHeight="460.0" prefWidth="560.0" style="-fx-background-color: #000000;">
+                <children>
+                    <MediaView fx:id="video" fitHeight="460.0" fitWidth="560.0" nodeOrientation="INHERIT" layoutX="0" visible="true">
+
+                    </MediaView>
+                    <JFXButton layoutX="418.0" layoutY="366.0" mnemonicParsing="false" onAction="#start_video" text="开始播放" textFill="WHITE" />
+                    <JFXButton layoutX="34.0" layoutY="366.0" mnemonicParsing="false" onAction="#restart_video" text="重新播放" textFill="WHITE" />
+                    <JFXButton layoutX="253.0" layoutY="406.0" mnemonicParsing="false" onAction="#back" text="返回" textFill="WHITE" />
+
+                </children>
+            </Pane>
+        </AnchorPane>
+
     </Pane>
 </AnchorPane>

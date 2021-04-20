@@ -6,8 +6,15 @@ import org.bytedeco.ffmpeg.avcodec.AVPacket;
 import org.bytedeco.ffmpeg.global.avcodec;
 import org.bytedeco.javacv.*;
 import org.bytedeco.javacv.FrameRecorder.Exception;
+
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * @program: untitled
  * @description: 处理视频任务
@@ -25,70 +32,68 @@ public class Video_task {
          * @param segmentTime 单个分片时长（单位：秒）
          */
         public static void Video_cut(String input, String output, Integer segmentTime, Integer frameRate) throws Exception, org.bytedeco.javacv.FrameGrabber.Exception {
-        //提取流
-        FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(input);
+            //提取流
+            FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(input);
 
-        grabber.start();
+            grabber.start();
 
 //        if (width == null || height == null) {
 //            width = grabber.getImageWidth();
 //            height = grabber.getImageHeight();
 //        }
-       int  width = grabber.getImageWidth();
-        int height = grabber.getImageHeight();
-        //配置录制器参数
-        FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(output, width, height, 1);
+            int  width = grabber.getImageWidth();
+            int height = grabber.getImageHeight();
+            //配置录制器参数
+            FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(output, width, height, 1);
 
-        recorder.setFormat("segment");
+            recorder.setFormat("segment");
 
-        if (segmentTime == null)
-        {
-            segmentTime = 300;//默认300秒生成一个文件
-        }
+            if (segmentTime == null)
+            {
+                segmentTime = 300;//默认300秒生成一个文件
+            }
 
-        recorder.setOption("segment_time", segmentTime.toString());
+            recorder.setOption("segment_time", segmentTime.toString());
 
-        //生成模式：live（实时生成）,cache（边缓存边生成，只支持m3u8清单文件缓存）
-        recorder.setOption("segment_list_flags", "live");
+            //生成模式：live（实时生成）,cache（边缓存边生成，只支持m3u8清单文件缓存）
+            recorder.setOption("segment_list_flags", "live");
 
 
-        if (frameRate == null) {
-            frameRate = 25;
-        }
-        recorder.setFrameRate(grabber.getFrameRate());//设置帧率
-        //因为我们是直播，如果需要保证最小延迟，gop最好设置成帧率相同或者帧率*2
-        //一个gop表示关键帧间隔，假设25帧/秒视频，gop是50，则每隔两秒有一个关键帧，播放器必须加载到关键帧才能够开始解码播放，也就是说这个直播流最多有2秒延迟
-        //recorder.setGopSize(grabber.getFrameRate());//设置gop
-        //recorder.setVideoQuality(1.0); //视频质量
-        recorder.setVideoBitrate(grabber.getVideoBitrate());//码率,10kb/s
+            if (frameRate == null) {
+                frameRate = 25;
+            }
+            recorder.setFrameRate(grabber.getFrameRate());//设置帧率
+            //因为我们是直播，如果需要保证最小延迟，gop最好设置成帧率相同或者帧率*2
+            //一个gop表示关键帧间隔，假设25帧/秒视频，gop是50，则每隔两秒有一个关键帧，播放器必须加载到关键帧才能够开始解码播放，也就是说这个直播流最多有2秒延迟
+            //recorder.setGopSize(grabber.getFrameRate());//设置gop
+            //recorder.setVideoQuality(1.0); //视频质量
+            recorder.setVideoBitrate(grabber.getVideoBitrate());//码率,10kb/s
 
 //		recorder.setVideoCodecName("h264");//设置视频编码
-        recorder.setVideoCodec(avcodec.AV_CODEC_ID_H264);//这种方式也可以
+            recorder.setVideoCodec(avcodec.AV_CODEC_ID_H264);//这种方式也可以
 //		recorder.setAudioCodecName("aac");//设置音频编码，这种方式设置音频编码也可以
-        recorder.setAudioCodec(avcodec.AV_CODEC_ID_AAC);//设置音频编码
+            recorder.setAudioCodec(avcodec.AV_CODEC_ID_AAC);//设置音频编码
 
-        recorder.start();
+            recorder.start();
 
 
-        Frame frame = null;
+            Frame frame = null;
 
-        // 只抓取图像画面
-        for (; (frame = grabber.grabFrame()) != null; ) {
-            try {
+            // 只抓取图像画面
+            for (; (frame = grabber.grabFrame()) != null; ) {
+                try {
 
-                //录制/推流
-                recorder.record(frame);
+                    //录制/推流
+                    recorder.record(frame);
 
-            } catch (org.bytedeco.javacv.FrameRecorder.Exception e) {
-                e.printStackTrace();
+                } catch (org.bytedeco.javacv.FrameRecorder.Exception e) {
+                    e.printStackTrace();
+                }
             }
+
+            recorder.close();//close包含stop和release方法。录制文件必须保证最后执行stop()方法，才能保证文件头写入完整，否则文件损坏。
+            grabber.close();//close包含stop和release方法
         }
-
-        recorder.close();//close包含stop和release方法。录制文件必须保证最后执行stop()方法，才能保证文件头写入完整，否则文件损坏。
-        grabber.close();//close包含stop和release方法
-    }
-
-
 
     /**
      * 获取前10秒的视频
@@ -107,33 +112,28 @@ public class Video_task {
         int  width = grabber.getImageWidth();
         int height = grabber.getImageHeight();
         //配置录制器参数
-        FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(output, width, height, 0);
+        FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(output, width, height);
         double rate=grabber.getFrameRate();
         recorder.setFrameRate(rate);//设置帧率
         rate=rate*10;
         recorder.setVideoBitrate(grabber.getVideoBitrate());//码率,10kb/s
 
-        recorder.setVideoCodec(avcodec.AV_CODEC_ID_H264);//这种方式也可以
-
+        recorder.setVideoCodec(grabber.getVideoCodec());//这种方式也可以
+        recorder.setVideoCodecName(grabber.getVideoCodecName());
+        recorder.setAudioChannels(1);
+        recorder.setAudioBitrate(grabber.getAudioBitrate());
+        recorder.setAudioCodec(grabber.getAudioCodec());
         recorder.start();
-
-
+        long old=System.currentTimeMillis();
+        long new_t=0;
         Frame frame = null;
-
         // 只抓取图像画面
-        for (; (frame = grabber.grabImage()) != null; ) {
+        for (; (frame = grabber.grab()) != null; ) {
             try {
-
-                //录制/推流
-                if(rate>0) {
                     recorder.record(frame);
-                    rate--;
-                }
-                else
-                {
+                new_t =System.currentTimeMillis();
+                if(new_t-old>5000)
                     break;
-                }
-
             } catch (org.bytedeco.javacv.FrameRecorder.Exception e) {
                 e.printStackTrace();
             }
@@ -145,7 +145,8 @@ public class Video_task {
     }
 
 
-        /**
+
+    /**
          * 视频转音频
          *
          * @param input       输入视频文件（mp4,flv,avi等等）
@@ -279,7 +280,7 @@ public class Video_task {
 //
         //Preparation_before_treatment("E:\\桌面\\tt.mp4");
         //System.out.println("预处理完成!");
-        //Video_cut("E:\\桌面\\tt.mp4","C:\\video_cut\\kkindom%03d.mp4",300,25);
+        //Video_cut("D:\\untitled\\src\\main\\resources\\video\\1.mp4","E:\\桌面\\kkindom%03d.mp4",10,25);
         //System.out.println("切片完成！");
 //        concatFromFileListTxt("concat:C:\\video_cut\\video_list.txt","E:\\桌面\\合并.mp4");
 //        System.out.println("合并完成！");
@@ -287,6 +288,7 @@ public class Video_task {
 //        long endTime=System.currentTimeMillis(); //获取结束时间
 //        System.out.println("程序运行时间： "+(endTime-startTime)+"ms");
        // Video_Au("E:\\桌面\\1.mp4", "E:\\桌面\\kkindom.mp3");
-            Video_pre("D:\\untitled\\src\\main\\resources\\video\\1.mp4","E:\\桌面\\kkindom.mp4");
+            //Video_pre("D:\\untitled\\src\\main\\resources\\video\\1.mp4","E:\\桌面\\kkindom.mp4");
+           Video_pre("D:\\untitled\\src\\main\\resources\\video\\1.mp4","E:\\桌面\\kkindom.mp4");
         }
 }
