@@ -29,7 +29,7 @@ public class down
 {
     public static void main(String[] args)
     {
-      String result=  downfile("http://zmk.pw/","小人物 Nobody",2);
+        String result=  downfile("http://zmk.pw/","小人物 Nobody",2);
         //System.out.println(result);
 
     }
@@ -98,7 +98,7 @@ public class down
                 }
                 //分析所有字幕中下载量最大的
                 else
-                    {
+                {
                     //拿到最匹配的首选项的字幕列表
                     HtmlElement More_link = (HtmlElement) page.getByXPath("/html/body/div[2]/div/div/div[2]/div[2]/div[2]/div/table/tbody/tr[6]/td/a").get(0);
                     page= More_link.click();
@@ -106,12 +106,12 @@ public class down
                     int num=num_index.size()-1;
                     List<HtmlElement> More_linklist=page.getByXPath("//*[@id=\"subtb\"]/tbody/tr/td["+num+"]");
                     //获取下载量最大的链接下标
-                   int index= Best_link_index(More_linklist,2);
-                        System.out.println(index);
-                        //获取下载量最大的链接
-                        //获取链接
-                        HtmlElement link = (HtmlElement) page.getByXPath("//*[@id=\"subtb\"]/tbody/tr["+index+"]/td[2]/a ").get(0);
-                        chose_link(page,link,data);
+                    int index= Best_link_index(More_linklist,2);
+                    System.out.println(index);
+                    //获取下载量最大的链接
+                    //获取链接
+                    HtmlElement link = (HtmlElement) page.getByXPath("//*[@id=\"subtb\"]/tbody/tr["+index+"]/td[1]/a ").get(0);
+                    chose_link(page,link,data);
                     System.out.println("尝试");
                 }
             }
