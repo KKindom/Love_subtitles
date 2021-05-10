@@ -43,18 +43,14 @@ public class SUB_Demo
         }
         //拿到字幕数组
         List<sub_base> arr=new ArrayList<>();
-//        try {
-//            arr= SRT_SUBBASE("C:\\au_result\\字幕2.srt");
-//        } catch (Throwable throwable) {
-//            throwable.printStackTrace();
-//        }
-        for(int i=0;i<1000;i++)
-        {
-            arr.add(new sub_base(i*1000,(i+1)*1000,"测试弹幕"+i,"测试弹幕"+i));
+        try {
+            arr=  XF_ARR("E:\\桌面\\马飞凡-功能演示视频\\result.txt",1);
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
         }
         System.out.println(arr);
         try {
-            Draw_Sub(arr,"E:\\桌面\\kkindom.mp4","E:\\桌面\\预览视频.mp4",25,"微软雅黑");
+            Draw_Sub(arr,"E:\\桌面\\马飞凡-功能演示视频.mp4","E:\\桌面\\cs.mp4",50,"Default");
         } catch (FrameGrabber.Exception e) {
             e.printStackTrace();
         } catch (FrameRecorder.Exception e) {
@@ -170,7 +166,7 @@ public class SUB_Demo
 
         //处理字幕数组
         //获得视频帧率
-        int fps=(int)grabber.getFrameRate()+1;
+        int fps=(int)grabber.getFrameRate();
         int kk=1000/fps;
         System.out.println(arr.size());
         for (int i=0;i<arr.size();i++)
@@ -207,9 +203,13 @@ public class SUB_Demo
                 i++;
                 if(i>=end)
                 {
-                    j++;
-                    end=arr.get(j).end_t;
-                    st=arr.get(j).start_t;
+                        if(j+1<arr.size())
+                        {
+                            j++;
+                            end = arr.get(j).end_t;
+                            st = arr.get(j).start_t;
+                        }
+
                 }
             }
 
@@ -251,14 +251,12 @@ public class SUB_Demo
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // 计算文字长度，计算居中的x点坐标
-        int textWidth = metrics.stringWidth(subTitleContent1);
-        int widthX = (bufImg.getWidth() - textWidth) / 2;
+        int widthX = (bufImg.getWidth() - metrics.stringWidth(subTitleContent1)) / 2;
+        int widthX2= (bufImg.getWidth() - metrics.stringWidth(subTitleContent2)) / 2;
         graphics.setColor(Color.white);
         graphics.setFont(font);
-        //graphics.setPaint(new Color(103, 101, 120));
-
-        graphics.drawString(subTitleContent1, widthX, bufImg.getHeight() - 50);
-        graphics.drawString(subTitleContent2, widthX, bufImg.getHeight() - size);
+        graphics.drawString(subTitleContent1, widthX, bufImg.getHeight() - size*2);
+        graphics.drawString(subTitleContent2, widthX2, bufImg.getHeight() - size);
         graphics.dispose();
         return bufImg;
     }

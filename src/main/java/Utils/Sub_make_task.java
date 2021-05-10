@@ -93,10 +93,10 @@ public class Sub_make_task  extends Service<Number> {
                        //否则输出ass字幕文件
                        else {
                            if (sub_main) {
-                               Requset_listToAss(save_prepath + ".ass", sub_list, 2);
+                               Requset_listToAss(save_prepath , sub_list, 2);
                                this.updateProgress(1, 1);
                            } else {
-                               Requset_listToAss(save_prepath + ".ass", sub_list, 1);
+                               Requset_listToAss(save_prepath , sub_list, 1);
                                this.updateProgress(1, 1);
                            }
                            this.updateMessage("true");
@@ -104,7 +104,8 @@ public class Sub_make_task  extends Service<Number> {
 
                }
                //异常处理
-                catch (Throwable throwable) {
+                catch (Throwable throwable)
+                {
                    throwable.printStackTrace();
                    this.updateMessage("false");
                    return null;

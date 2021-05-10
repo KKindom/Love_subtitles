@@ -20,8 +20,8 @@
             <JFXButton fx:id="file_in" layoutX="322.0" layoutY="76.0" prefWidth="150.0" style="  -fx-border-width: 1px;-fx-border-color: green" text="音频/视频文件" onAction="#chose_path"/>
 
             <JFXComboBox fx:id="sub_orgin" layoutX="322.0" layoutY="121.0" prefWidth="150.0" />
-            <JFXComboBox fx:id="sub_need" layoutX="322.0" layoutY="174.0" prefWidth="150.0" />
-            <JFXComboBox fx:id="sub_type" layoutX="322.0" layoutY="223.0" prefWidth="150.0" />
+            <JFXComboBox fx:id="sub_need" layoutX="322.0" layoutY="223.0" prefWidth="150.0" />
+            <JFXComboBox fx:id="sub_type" layoutX="322.0" layoutY="174.0" prefWidth="150.0" />
             <HBox alignment="CENTER_LEFT" layoutX="100.0" layoutY="300.0" spacing="80">
                 <Label>字幕生成进度条</Label>
                 <JFXProgressBar secondaryProgress="30.0" styleClass="custom-jfx-progress-bar-stroke" visible="true"  fx:id="pbr"/>

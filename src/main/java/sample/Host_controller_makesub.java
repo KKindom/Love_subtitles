@@ -59,6 +59,7 @@ public class Host_controller_makesub
     @FXML
     private void initialize()
     {
+        pbr.setProgress(0);
         System.out.println("开始初始化生成字幕fxml");
         sub_orgin.getItems().addAll("默认(原字幕)","中文","英文");
         sub_need.getItems().addAll("默认(原字幕)","中文","英文","日文","韩文","俄语","法语","德语","藏语","西班牙语","葡萄牙语");
@@ -101,7 +102,7 @@ public class Host_controller_makesub
                 //下载提示
                 if(newValue.equals("true"))
                 {
-                    new DialogBuilder(start_b).setTitle("温馨提醒").setMessage("生成字幕成功！\n ").setNegativeBtn("了解","#ff3333").create();
+                    new DialogBuilder(start_b).setTitle("温馨提醒").setMessage("生成字幕成功！\n 文件位置为： "+in_savesubpath+".ass/.srt").setNegativeBtn("了解","#ff3333").create();
                 }
                 else
                 {
@@ -110,7 +111,15 @@ public class Host_controller_makesub
                 }
             }
         });
+        //设置下载线程监听
+        sub_make_task.progressProperty().addListener(new ChangeListener<Number>() {
+            //newValue 为 workDone/max
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                System.out.println(newValue);
+                pbr.setProgress(newValue.doubleValue());
 
+            }
+        });
         //消息监听
         //返回监听配合关闭相关界面
         sub_make_msg.backProperty().addListener(new ChangeListener<Boolean>() {

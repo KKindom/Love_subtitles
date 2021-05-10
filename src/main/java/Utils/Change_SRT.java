@@ -136,7 +136,6 @@ public class Change_SRT {
             String msg = object.getString("onebest");
             //写入字幕数组
             arr.add(new sub_base(bg,ed,msg));
-
         }
         System.out.println(arr.toString());
         //返回字幕数组

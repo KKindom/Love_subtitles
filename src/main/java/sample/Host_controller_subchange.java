@@ -114,7 +114,17 @@ public class Host_controller_subchange
                 }
             }
         });
+        //设置下载线程监听
+        sub_change_task.progressProperty().addListener(new ChangeListener<Number>() {
+            //newValue 为 workDone/max
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                System.out.println(newValue);
+                pbr.setProgress(newValue.doubleValue());
+
+            }
+        });
     }
+
     //取消字幕转译
     public void cancel_changesub(ActionEvent actionEvent)
     {

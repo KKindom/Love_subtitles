@@ -47,7 +47,7 @@ public class Host_controller_subvideo
     Sub_video_task sub_video_task=new Sub_video_task();
 
     @FXML
-    JFXButton file_in;
+    JFXButton file_in,st_pre,re_pre,bk_pre;
     @FXML
     JFXComboBox sub_first1,sub_first2,video_q,sub_orgin,sub_first;
     @FXML
@@ -65,8 +65,8 @@ public class Host_controller_subvideo
         //初始化下拉框
         sub_orgin.getItems().addAll("默认(原字幕)", "中文", "英文");
         sub_first.getItems().addAll("默认(原字幕)","中文","英文","日文","韩文","俄语","法语","德语","藏语","西班牙语","葡萄牙语");
-        sub_first1.getItems().addAll("宋体", "行书", "楷书", "微软雅黑", "仿宋");
-        sub_first2.getItems().addAll("10px", "15px", "20px", "25px", "30px");
+        sub_first1.getItems().addAll("宋体", "Arial", "楷书", "微软雅黑", "仿宋");
+        sub_first2.getItems().addAll("30px", "35px", "40px", "45px", "50px");
         video_q.getItems().addAll("原画质", "高清", "标清");
         sub_orgin.getSelectionModel().selectFirst();
         sub_first.getSelectionModel().selectFirst();
@@ -99,7 +99,7 @@ public class Host_controller_subvideo
         });
         sub_first2.getSelectionModel().selectedIndexProperty().addListener((ov,oldv,newv)->
         {
-            sub_font_size=Integer.parseInt(newv.toString())*5+10;
+            sub_font_size=Integer.parseInt(newv.toString())*5+30;
             System.out.println(newv.toString());
             System.out.println("选择字幕大小："+sub_font_size);
 
@@ -135,6 +135,7 @@ public class Host_controller_subvideo
 //                     pbr.setProgress(0);
                     s_video(pre_save_path+"pre."+file_suffix);
                     pre_video.setVisible(true);
+                    pbr.setProgress(0);
                 }
                 else
                 {
@@ -144,7 +145,15 @@ public class Host_controller_subvideo
                 }
             }
         });
+        //设置下载线程监听
+        sub_video_task.progressProperty().addListener(new ChangeListener<Number>() {
+            //newValue 为 workDone/max
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                System.out.println(newValue);
+                pbr.setProgress(newValue.doubleValue());
 
+            }
+        });
         //消息监听
         //返回监听配合关闭相关界面
         sub_video_msg.backProperty().addListener(new ChangeListener<Boolean>() {
@@ -176,7 +185,34 @@ public class Host_controller_subvideo
             }
         }, "#ff3333").setNegativeBtn("我意已决","#ff4444").setTitle("温馨提醒").setMessage("当使用视频字幕功能时，完成速度取决于计算机运算能力，若非必要，优先级：字幕下载>仅生成字幕>生成字幕视频！").create();
        //是否返回
-        if(!flag) {
+        if(!flag)
+        {
+            sub_video_task.cancel();
+            sub_video_task=new Sub_video_task();
+            //添加任务结果消息监听
+            sub_video_task.messageProperty().addListener(new ChangeListener<String>()
+            {
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    //下载提示
+                    if(newValue.equals("video_done"))
+                    {
+                        new DialogBuilder(file_in).setTitle("温馨提醒").setMessage("下载成功！\n 文件保存路径为："+pre_save_path).setNegativeBtn("了解","#ff3333").create();
+                        pbr.setProgress(0);
+                    }
+                    else
+                    {
+                        pbr.setProgress(0);
+                        new DialogBuilder(file_in).setTitle("温馨提醒").setMessage("下载失败！请尝试其他方式:仅生成字幕").setNegativeBtn("了解", "#ff3333").create();
+                    }
+                }
+            });
+            //设置下载线程监听
+            sub_video_task.progressProperty().addListener(new ChangeListener<Number>() {
+                //newValue 为 workDone/max
+                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                    pbr.setProgress(newValue.doubleValue());
+                }
+            });
             sub_video_task.setTask(1);
             sub_video_task.setVideo_qu(video_qu);
             sub_video_task.setFirst(first);
@@ -237,9 +273,10 @@ public class Host_controller_subvideo
             return;
         }
         file_in.setText(in_file_pat);
+
         System.out.print(file.getPath());
     }
-    //检查后缀是否为srt/ass
+    //检查后缀是否为视频文件
     public Boolean check_file(String file_path)
     {
         String []pre_Filename_Extension=file_path.split("\\.");
@@ -261,7 +298,8 @@ public class Host_controller_subvideo
 
     public void start_video(ActionEvent actionEvent)
     {
-
+        mediaPlayer.stop();
+        mediaPlayer.play();
     }
     public void s_video(String url)
     {
@@ -313,5 +351,8 @@ public class Host_controller_subvideo
         real_h=(460-real_h)/2;
         video.setY(real_h);
         System.out.println("视频位置：x："+video.getX()+"y:"+video.getY());
+        st_pre.setLayoutY(460-real_h);
+        re_pre.setLayoutY(460-real_h);
+        bk_pre.setLayoutY(460-real_h);
     }
 }

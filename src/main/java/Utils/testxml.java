@@ -1,5 +1,6 @@
 package Utils;
 import java.io.File;
+import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -11,6 +12,7 @@ import javax.xml.transform.stream.StreamResult;
 import lombok.SneakyThrows;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 /**
  * @program: untitled
@@ -19,67 +21,68 @@ import org.w3c.dom.Node;
  * @create: 2021-04-10 10:28
  **/
 public class testxml {
+
     static String filePath = "D:\\untitled\\src\\main\\resources\\setting.xml";
-    static  Document document;
+    static Document document;
     static File file;
-    static boolean flag=false;
-    static  String set1[]={"APP_ID","SECRET_KEY"};
-    static String set2[]={"APP_ID","API_SECRET","API_KEY"};
-/**
- * 使用JAVA DOM PARSER：修改 XML 文件
- *
- * @author zfc
- * @date 2017年12月7日 下午8:31:55
- */
-    public static void main(String[] args)
-    {
+    static boolean flag = false;
+   final static String set1[] = {"APP_ID", "SECRET_KEY"};
+   final static String set2[] = {"APP_ID", "API_SECRET", "API_KEY"};
+
+    /**
+     * 使用JAVA DOM PARSER：修改 XML 文件
+     *
+     * @author zfc
+     * @date 2017年12月7日 下午8:31:55
+     */
+    public static void main(String[] args) {
         //getSet(2);
-        try {
-
-            // 1、创建 File 对象，映射 XML 文件
-            File file = new File(filePath);
-            // 2、创建 DocumentBuilderFactory 对象，用来创建 DocumentBuilder 对象
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            // 3、创建 DocumentBuilder 对象，用来将 XML 文件 转化为 Document 对象
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            // 4、创建 Document 对象，解析 XML 文件
-            Document document = documentBuilder.parse(file);
-            // 修改第一个 student
-            // 5、获取第一个 student 结点
-            Node student = document.getElementsByTagName("setting2").item(2);
-            Element studentElement = (Element) student;
-            // 7、获取结点 student 的直接子结点 name、sex
-            Node APP_ID = studentElement.getElementsByTagName("APP_ID").item(0);
-            Node API_SECRET = studentElement.getElementsByTagName("API_SECRET").item(0);
-            Node API_KEY = studentElement.getElementsByTagName("API_KEY").item(0);
-
-            Element APP_IDElement = (Element) APP_ID;
-            Element API_SECRETElement = (Element) API_SECRET;
-            Element API_KEYElement=(Element) API_KEY;
-            //System.out.println(APP_IDElement.getTextContent());
-            //System.out.println(API_SECRETElement.getTextContent());
-            // 8、给节点进行设置值
-            APP_IDElement.setTextContent("TomTom");
-            API_SECRETElement.setTextContent("FemaleFemale");
-            API_KEYElement.setTextContent("cs");
-            // 9、创建 TransformerFactory 对象
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            // 10、创建 Transformer 对象
-            Transformer transformer = transformerFactory.newTransformer();
-            // 11、创建 DOMSource 对象
-            DOMSource domSource = new DOMSource(document);
-            // 12、创建 StreamResult 对象
-            StreamResult reStreamResult = new StreamResult(file);
-            transformer.transform(domSource, reStreamResult);
-
-            // 输出测试结果
-            StreamResult consoleResult = new StreamResult(System.out);
-            transformer.transform(domSource, consoleResult);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//        try {
+//
+//            // 1、创建 File 对象，映射 XML 文件
+//            File file = new File("D:\\untitled\\src\\main\\resources\\setting.xml");
+//            // 2、创建 DocumentBuilderFactory 对象，用来创建 DocumentBuilder 对象
+//            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+//            // 3、创建 DocumentBuilder 对象，用来将 XML 文件 转化为 Document 对象
+//            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+//            // 4、创建 Document 对象，解析 XML 文件
+//            Document document = documentBuilder.parse(file);
+//            // 修改第一个 student
+//            // 5、获取第一个 student 结点
+//            Node student = document.getElementsByTagName("Settings").item(0);
+//            Element studentElement = (Element) student;
+//            // 7、获取结点 student 的直接子结点 name、sex
+//            Node APP_ID = studentElement.getElementsByTagName("APP_ID").item(0);
+//            Node API_SECRET = studentElement.getElementsByTagName("API_SECRET").item(0);
+//            Node API_KEY = studentElement.getElementsByTagName("API_KEY").item(0);
+//
+//            Element APP_IDElement = (Element) APP_ID;
+//            Element API_SECRETElement = (Element) API_SECRET;
+//            Element API_KEYElement=(Element) API_KEY;
+//            //System.out.println(APP_IDElement.getTextContent());
+//            //System.out.println(API_SECRETElement.getTextContent());
+//            // 8、给节点进行设置值
+//            APP_IDElement.setTextContent("TomTom");
+//            API_SECRETElement.setTextContent("FemaleFemale");
+//            API_KEYElement.setTextContent("cs");
+//            // 9、创建 TransformerFactory 对象
+//            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+//            // 10、创建 Transformer 对象
+//            Transformer transformer = transformerFactory.newTransformer();
+//            // 11、创建 DOMSource 对象
+//            DOMSource domSource = new DOMSource(document);
+//            // 12、创建 StreamResult 对象
+//            StreamResult reStreamResult = new StreamResult(file);
+//            transformer.transform(domSource, reStreamResult);
+//
+//            // 输出测试结果
+//            StreamResult consoleResult = new StreamResult(System.out);
+//            transformer.transform(domSource, consoleResult);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+}
     /**
      * 修改 XML 文件函数
      * @param data 需要修改的内容

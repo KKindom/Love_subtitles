@@ -24,7 +24,7 @@
             <JFXButton buttonType="RAISED" layoutX="400.0" layoutY="350.0" onAction="#cancel_downsubvideo" prefHeight="30" prefWidth="80" style="-fx-font-size: 12px; -fx-background-color: #FF8C00;" text="停止生成" />
          <Text layoutX="80.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择视频质量:" />
          <Text layoutX="80.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="请选择字幕类型:" />
-         <JFXButton fx:id="file_in" layoutX="345.0" layoutY="61.0" mnemonicParsing="false" onAction="#chose_path" text="选择视频位置" />
+         <JFXButton fx:id="file_in" layoutX="345.0" layoutY="61.0" mnemonicParsing="false" onAction="#chose_path" text="选择视频位置" prefWidth="150" />
          <JFXComboBox fx:id="sub_first1" layoutX="271.0" layoutY="187.0" prefHeight="23.0" prefWidth="95.0" />
          <JFXComboBox fx:id="sub_first2" layoutX="391.0" layoutY="187.0" prefHeight="23.0" prefWidth="95.0" />
          <JFXComboBox fx:id="video_q" layoutX="322.0" layoutY="233.0" prefHeight="23.0" prefWidth="150.0" />
@@ -37,9 +37,9 @@
                     <MediaView fx:id="video" fitHeight="460.0" fitWidth="560.0" nodeOrientation="INHERIT" layoutX="0" visible="true">
 
                     </MediaView>
-                    <JFXButton layoutX="418.0" layoutY="366.0" mnemonicParsing="false" onAction="#start_video" text="开始播放" textFill="WHITE" />
-                    <JFXButton layoutX="34.0" layoutY="366.0" mnemonicParsing="false" onAction="#restart_video" text="重新播放" textFill="WHITE" />
-                    <JFXButton layoutX="253.0" layoutY="406.0" mnemonicParsing="false" onAction="#back" text="返回" textFill="WHITE" />
+                    <JFXButton layoutX="418.0" layoutY="366.0" mnemonicParsing="false" onAction="#start_video" text="开始播放" textFill="WHITE" fx:id="st_pre" />
+                    <JFXButton layoutX="34.0" layoutY="366.0" mnemonicParsing="false" onAction="#restart_video" text="重新播放" textFill="WHITE"  fx:id="re_pre"/>
+                    <JFXButton layoutX="253.0" layoutY="406.0" mnemonicParsing="false" onAction="#back" text="返回" textFill="WHITE" fx:id="bk_pre"/>
 
                 </children>
             </Pane>

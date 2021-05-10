@@ -1,5 +1,8 @@
 package Utils;
 
+import it.sauronsoftware.jave.Encoder;
+import it.sauronsoftware.jave.EncoderException;
+import it.sauronsoftware.jave.MultimediaInfo;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -7,6 +10,7 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import lombok.Data;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +70,7 @@ public class Sub_video_task extends Service<Number> {
                         if (!orgin.equals(first))
                             sub_list = my_webITS.MT(sub_list, orgin, first, 2);
                         //画视频字幕文件
-                        Draw_Sub(sub_list, in_file_pat, pre_save_path + "."+file_suffix, sub_font_size,sub_font_type);
+                        Draw_Sub(sub_list, in_file_pat, pre_save_path + "结果."+file_suffix, sub_font_size,sub_font_type);
                         this.updateProgress(1, 1);
                         this.updateMessage("video_done");
                     } catch (Throwable throwable) {
@@ -77,9 +81,20 @@ public class Sub_video_task extends Service<Number> {
                 //预览视频线程
                 else
                 {
+                    File source = new File(in_file_pat);
+
+                    Encoder encoder = new Encoder();
+                    MultimediaInfo m = null;
+                    try {
+                        m = encoder.getInfo(source);
+                    } catch (EncoderException e) {
+                        e.printStackTrace();
+                    }
+
+                    sub_font_size=(int)(m.getVideo().getSize().getHeight()*0.05);
                     for(int i=0;i<100;i++)
                     {
-                        sub_list.add(new sub_base(i*1000,(i+1)*1000,"测试字幕1","测试字幕2"));
+                        sub_list.add(new sub_base(i*1000,(i+1)*1000,"测试字幕测试字幕测试祖母"+i,"测试字幕测试字幕测"+i));
                     }
                     this.updateProgress(0.2, 1);
                     Video_pre(in_file_pat,pre_save_path+"p."+file_suffix);
@@ -110,7 +125,7 @@ public class Sub_video_task extends Service<Number> {
     @Override
     protected void ready() {
         super.ready();
-        System.out.println("ready"+ Platform.isFxApplicationThread());
+        System.out.println("ready "+ Platform.isFxApplicationThread());
     }
 
     @Override

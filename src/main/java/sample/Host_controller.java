@@ -3,6 +3,8 @@ package sample;
 import java.awt.*;
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,14 +106,18 @@ public class Host_controller
     }
 
     public void test(ActionEvent actionEvent)
-    {   h_subchange.setVisible(false);
-        h_sub.setVisible(false);
-        h_setting.setVisible(false);
-        h_makesub.setVisible(false);
-        h_subvideo.setVisible(false);
+    {
+        try {
+            Desktop.getDesktop().browse(new URI("https://github.com/KKindom/Love_subtitles/issues"));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (URISyntaxException e1) {
+            e1.printStackTrace();
+        }
+    }
     }
 
-}
+
 
 
 

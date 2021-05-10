@@ -119,6 +119,7 @@ public class Sub_change_task extends Service<Number>
                     {
                         this.updateProgress(0.1,1);
                         subBaseList=ASSTo_ARR(in_savesubpath, 2);
+                        System.out.println("转换完成arr");
                         this.updateProgress(0.2,1);
                         //开始转译
                         subBaseList =my_webITS.MT(subBaseList, orgin, first, 2);

@@ -14,7 +14,6 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.net.URL;
 
-import static Utils.testxml.inint;
 
 /**
  * @program: untitled
@@ -50,13 +49,13 @@ public class Host_Interface_Setting
 
     public void default1(ActionEvent actionEvent)
     {
-        String data[]=myfile.getSet(1,1);
+        String data[]=myfile.getSet(1,0);
             set_1_1.setText(data[0]);
             set_1_2.setText(data[1]);
     }
     public void default2(ActionEvent actionEvent)
     {
-        String data[]=myfile.getSet(2,1);
+        String data[]=myfile.getSet(2,0);
         set_2_1.setText(data[0]);
         set_2_2.setText(data[1]);
         set_2_3.setText(data[2]);

@@ -11,7 +11,7 @@ public class Change_ASS {
     public static void main(String[] args) {
 
 
-        ASSTo_ARR("E:\\桌面\\The.Hunt.2020.1080p.BluRay.H264.AAC-RARBG.ChsEngA.ass",1);
+        ASSTo_ARR("E:\\桌面\\测试视频\\测试双语字幕.ass",1);
 //        List<sub_base> data=new ArrayList<sub_base>();
 //        try {
 //            data=XF_ARR("C:\\\\au_result\\\\au_result.txt",1);
@@ -158,6 +158,7 @@ public class Change_ASS {
                     break;
                 }
             }
+            System.out.println("头部完成！");
             //获取内容
             while (readline.indexOf("Dialogue: 0") >= 0)
             {
@@ -166,6 +167,7 @@ public class Change_ASS {
                     if((readline = br.readLine())==null)
                     break;
             }
+            System.out.println("转换完成！");
             br.close();
         } catch (IOException e) {
             System.out.println("对不起没有字幕");
@@ -202,16 +204,12 @@ public class Change_ASS {
         if (line.indexOf("Dialogue: 0") >= 0)
         {
             String[] tmp = line.split(",");
-
             String t0 = conv(tmp[1]);
             String t1 = conv(tmp[2]);
             String []txt=tmp[9].split("\\\\N");
             String result=null;
             try {
-//                System.out.println(txt[1]);
                 result= txt[1].replaceAll("\\{.*\\}", "");
-//                System.out.println(result);
-//                System.out.println("成功！");
             }
            catch (Exception e)
            {
