@@ -149,7 +149,8 @@ Application class：**sample.Host_interface**
 
 ![](./image/4.jpg)
 
-可仅保留该文件，其余文件夹均删除即可
+可仅保留该untitled文件夹，其余文件夹均删除即可。
+**但是最好先运行jar包看下有没有报错日志。**
 
 **最后双击exe即可**
 
@@ -157,6 +158,5 @@ Application class：**sample.Host_interface**
 
 ## 温馨提示
 
-- 可先利用Jar包运行，查看错误信息，根据错误信息增删Jar包
 - 仅供学习
 
