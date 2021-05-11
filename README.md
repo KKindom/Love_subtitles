@@ -68,7 +68,7 @@ Application class：**sample.Host_interface**
 
 ![1.PNG](D:\pro\Love_subtitles\image\1.PNG.jpg)
 
-![image-20210511145737252](C:\Users\feifan\AppData\Roaming\Typora\typora-user-images\image-20210511145737252.png)
+![2](D:\pro\Love_subtitles\image\2.jpg)
 
 导入jar包：
 
