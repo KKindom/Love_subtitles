@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Settings>
     <setting1 name="默认语言转写">
-        <APP_ID>6037361c</APP_ID>
-        <SECRET_KEY>c715236ba3bd1cdf36383aa5382b7776</SECRET_KEY>
+        <APP_ID>c</APP_ID>
+        <SECRET_KEY></SECRET_KEY>
     </setting1>
 
     <setting2 name="默认机器翻译">
-        <APP_ID>6037361c</APP_ID>
-        <API_SECRET>910a44eed39146657abb5d834ba22a4a</API_SECRET>
-        <API_KEY>d3ab512f0fb25448608af0a2d6ba7ff1</API_KEY>
+        <APP_ID></APP_ID>
+        <API_SECRET></API_SECRET>
+        <API_KEY></API_KEY>
     </setting2>
     <setting2 name="修改机器翻译">
         <APP_ID>null</APP_ID>
