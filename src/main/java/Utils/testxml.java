@@ -1,19 +1,24 @@
 package Utils;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import lombok.SneakyThrows;
+import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+
 /**
  * @program: untitled
  * @description: 测试修改xml文件
@@ -22,7 +27,8 @@ import org.w3c.dom.Node;
  **/
 public class testxml {
 
-    static String filePath = "D:\\untitled\\src\\main\\resources\\setting.xml";
+   public static   String filePath = "C:\\setting.xml";
+
     static Document document;
     static File file;
     static boolean flag = false;
@@ -82,7 +88,21 @@ public class testxml {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-}
+//        testxml a=new testxml();
+//        Class bClass = a.getClass();
+//        InputStream in = bClass.getResourceAsStream("/setting.xml");
+//        String aa= String.valueOf(testxml.class.getResource("/setting.xml"));
+//      aa=  aa.split("file:/")[1];
+//        System.out.println(aa);
+//        String s = null;
+//        try {
+//            s = IOUtils.toString(in);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println(s);
+    }
+
     /**
      * 修改 XML 文件函数
      * @param data 需要修改的内容
@@ -121,7 +141,7 @@ public class testxml {
     }
     /*初始化xml文件*/
     @SneakyThrows
-    public static void inint()
+    public void inint()
     {
         // 1、创建 File 对象，映射 XML 文件
          file = new File(filePath);

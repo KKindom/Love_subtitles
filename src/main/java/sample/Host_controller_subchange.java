@@ -1,7 +1,6 @@
 package sample;
 
 import Utils.*;
-import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXProgressBar;
@@ -15,14 +14,8 @@ import lombok.SneakyThrows;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import static Utils.Change_ASS.ASSTo_ARR;
-import static Utils.Change_ASS.Requset_listToAss;
-import static Utils.Change_SRT.SRT_SUBBASE;
-import static Utils.Change_SRT.XF_SRT;
-import static Utils.WebITS.MT;
 
 /**
  * @program: untitled

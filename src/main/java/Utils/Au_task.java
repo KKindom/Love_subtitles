@@ -1,11 +1,7 @@
 package Utils;
 
-import org.bytedeco.ffmpeg.global.avcodec;
 import org.bytedeco.javacv.*;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.SourceDataLine;
 
 /**
  * @program: untitled

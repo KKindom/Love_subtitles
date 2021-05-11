@@ -1,19 +1,9 @@
 package sample;
 
-import Utils.AppModel;
 import Utils.testxml;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.Pagination;
-import javafx.util.Callback;
-import java.io.IOException;
-import java.net.URL;
-
 
 /**
  * @program: untitled

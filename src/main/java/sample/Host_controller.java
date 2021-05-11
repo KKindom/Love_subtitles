@@ -2,26 +2,13 @@ package sample;
 
 import java.awt.*;
 import java.io.*;
-import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executors;
-
-import Utils.AppModel;
-import com.jfoenix.controls.JFXComboBox;
-import it.sauronsoftware.jave.EncoderException;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-import javafx.fxml.FXMLLoader;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.scene.control.Control;
 import javafx.scene.layout.Pane;
 
 /**

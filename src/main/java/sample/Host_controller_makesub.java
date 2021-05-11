@@ -2,14 +2,11 @@ package sample;
 
 import Utils.AppModel;
 import Utils.DialogBuilder;
-import Utils.Sub_change_task;
 import Utils.Sub_make_task;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXRadioButton;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;

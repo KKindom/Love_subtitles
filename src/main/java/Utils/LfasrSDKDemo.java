@@ -23,10 +23,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Data
 public class LfasrSDKDemo {
-    public static  String APP_ID = "6037361c";
-    public static  String SECRET_KEY = "c715236ba3bd1cdf36383aa5382b7776";
-
-
+    public static  String APP_ID ;
+    public static  String SECRET_KEY ;
     //音频文件路径
     //1、绝对路径：D:\......\demo-3.0\src\main\resources\audio\lfasr.wav
     //2、相对路径：./resources/audio/lfasr.wav

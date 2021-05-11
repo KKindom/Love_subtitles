@@ -1,22 +1,14 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.FFmpegFrameRecorder;
 import org.bytedeco.javacv.FrameRecorder;
 
-import javafx.stage.FileChooser;
-
-import java.io.File;
-import java.net.URL;
 
 
 /**
@@ -31,8 +23,8 @@ public class Host_interface extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
         Parent root = FXMLLoader.load(getClass().getResource("/Host_interface.fxml"));
-        //Parent root = FXMLLoader.load(getClass().getResource("/自适应布局.fxml"));
         primaryStage.setTitle("i字幕");
         primaryStage.setScene(new Scene(root, 800, 500));
         //加入css库

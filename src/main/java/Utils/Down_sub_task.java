@@ -1,5 +1,6 @@
 package Utils;
 
+import cn.hutool.core.codec.Base64;
 import cn.hutool.core.io.FileTypeUtil;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -15,7 +16,6 @@ import lombok.Data;
 import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
@@ -183,43 +183,44 @@ public class Down_sub_task extends Service<Number> {
 
 
     //保存文件
-    public static Boolean saveFile(Page pages, String data,String houzhui) throws Exception
+    public  Boolean saveFile(Page pages, String data,String houzhui) throws Exception
     {
 
         InputStream is = pages.getWebResponse().getContentAsStream();
-        String type= FileTypeUtil.getType(is);
-        if (type==null)
-            type=houzhui;
-        FileOutputStream output = new FileOutputStream("E:\\桌面\\"+data+"."+type);
+        FileOutputStream output = new FileOutputStream(savepath+"\\"+houzhui);
         IOUtils.copy(is, output);
-
         output.close();
         return true;
     }
 
     //进入详情下载页面
     @SneakyThrows
-    public static Boolean chose_link(HtmlPage page, HtmlElement link,String data)
+    public Boolean chose_link(HtmlPage page, HtmlElement link, String data)
     {
         //点击进入链接
         page = link.click();
-      //  System.out.println(page.asXml());
-        //获取文件后缀
-        HtmlElement houzhui=(HtmlElement)page.getByXPath("/html/body/div[2]/div/div[1]/div/div[1]/h1").get(0);
-        //注意逗号要转义字符
-        String []pre_Filename_Extension=houzhui.getTextContent().split("\\.");
-        String Filename_Extension=pre_Filename_Extension[pre_Filename_Extension.length-1];
-        System.out.println(Filename_Extension);
+        System.out.println(page.asXml());
+
         //进入最终下载界面
         link = (HtmlElement) page.getElementById("down1");
         page = link.click();
-      //  System.out.println(page.asXml());
+        System.out.println(page.asXml());
         System.out.println("进行这步");
         //使用备用下载链接
         link = (HtmlElement) page.getByXPath("/html/body/main/div/div/div/table/tbody/tr/td[1]/div/ul/li[1]/a").get(0);
 
         Page page1 = link.click();
-      //  System.out.println(page.asXml());
+
+        //获取后缀
+        String a= String.valueOf(page1.getUrl());
+        String b[]=a.split("/");
+        a=b[b.length-1];
+        String decodeStr = Base64.decodeStr(a);
+        decodeStr.replaceAll(" ","");
+        b=decodeStr.split("\\|");
+        String  Filename_Extension=b[1];
+
+        System.out.println(page.asXml());
         System.out.println("进行最后一步");
         if (page1.getWebResponse().getContentAsStream() == null) {
             System.out.println("测试");
