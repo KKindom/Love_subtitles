@@ -66,13 +66,13 @@ Application class：**sample.Host_interface**
 
 **导入resourse文件夹**
 
-![1.PNG](D:\pro\Love_subtitles\image\1.PNG.jpg)
+![1.PNG](./image/1.jpg)
 
-![2](D:\pro\Love_subtitles\image\2.jpg)
+![2](./image/2.jpg)
 
 导入jar包：
 
-![3](D:\pro\Love_subtitles\image\3.jpg)
+![3](./image/3.jpg)
 
 包括以下jar包：
 
@@ -147,7 +147,7 @@ Application class：**sample.Host_interface**
 
 按照教程后 你会得到一个很大的文件夹
 
-![4](D:\pro\Love_subtitles\image\4.jpg)
+![4](./image/4.jpg)
 
 可仅保留该文件，其余文件夹均删除即可
 
